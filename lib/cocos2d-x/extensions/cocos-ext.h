@@ -77,6 +77,8 @@
 
 #include "CocoStudio/Action/ActionManager.h"
 #include "CocoStudio/Action/CCActionNode.h"
+#include "updater/Updater.h"
+
 #endif // CC_CCSTUDIO_ENABLED
 
 #endif /* __COCOS2D_EXT_H__ */

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Oct 22 01:02:42 2014.
+** Generated automatically by tolua++-1.0.92 on Mon Mar  9 17:05:17 2015.
 */
 
 /****************************************************************************
@@ -74,6 +74,13 @@ static int tolua_collect_CCAtlasNode (lua_State* tolua_S)
 static int tolua_collect_CCParticleSystemQuad (lua_State* tolua_S)
 {
  CCParticleSystemQuad* self = (CCParticleSystemQuad*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_Updater (lua_State* tolua_S)
+{
+ Updater* self = (Updater*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -586,6 +593,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBezierTo)), "CCBezierTo");
  tolua_usertype(tolua_S,"CCDeccelAmplitude");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDeccelAmplitude)), "CCDeccelAmplitude");
+ tolua_usertype(tolua_S,"CCScaleTo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScaleTo)), "CCScaleTo");
  tolua_usertype(tolua_S,"CCTableView");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTableView)), "CCTableView");
  tolua_usertype(tolua_S,"CCTableViewCell");
@@ -665,8 +674,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCallFunc)), "CCCallFunc");
  tolua_usertype(tolua_S,"CCLabelBMFont");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLabelBMFont)), "CCLabelBMFont");
- tolua_usertype(tolua_S,"CCScaleTo");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScaleTo)), "CCScaleTo");
+ tolua_usertype(tolua_S,"Updater");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Updater)), "Updater");
  tolua_usertype(tolua_S,"CCEaseBounceIn");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseBounceIn)), "CCEaseBounceIn");
  tolua_usertype(tolua_S,"CCComponent");
@@ -56839,6 +56848,482 @@ static int tolua_Cocos2d_CCTableView_unregisterAllScriptHandler00(lua_State* tol
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: new of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_new00
+static int tolua_Cocos2d_Updater_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   Updater* tolua_ret = (Updater*)  Mtolua_new((Updater)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Updater");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_new00_local
+static int tolua_Cocos2d_Updater_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   Updater* tolua_ret = (Updater*)  Mtolua_new((Updater)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Updater");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: delete of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_delete00
+static int tolua_Cocos2d_Updater_delete00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
+#endif
+  Mtolua_delete(self);
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update00
+static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* zipUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* zipFile = ((const char*)  tolua_tostring(tolua_S,3,0));
+  const char* unzipTmpDir = ((const char*)  tolua_tostring(tolua_S,4,0));
+  bool resetBeforeUnZIP = ((bool)  tolua_toboolean(tolua_S,5,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(zipUrl,zipFile,unzipTmpDir,resetBeforeUnZIP);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'update'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update01
+static int tolua_Cocos2d_Updater_update01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  CCArray* list = ((CCArray*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(list);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_Updater_update00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update02
+static int tolua_Cocos2d_Updater_update02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* fileUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* filePath = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(fileUrl,filePath);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_Updater_update01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update03
+static int tolua_Cocos2d_Updater_update03(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* fileUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(fileUrl);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_Updater_update02(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: registerScriptHandler of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_registerScriptHandler00
+static int tolua_Cocos2d_Updater_registerScriptHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+//  int handler = ((int)  tolua_tonumber(tolua_S,2,0));
+  LUA_FUNCTION handler = (toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptHandler'", NULL);
+#endif
+  {
+   self->registerScriptHandler(handler);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'registerScriptHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: unregisterScriptHandler of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_unregisterScriptHandler00
+static int tolua_Cocos2d_Updater_unregisterScriptHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterScriptHandler'", NULL);
+#endif
+  {
+   self->unregisterScriptHandler();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'unregisterScriptHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setConnectionTimeout of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_setConnectionTimeout00
+static int tolua_Cocos2d_Updater_setConnectionTimeout00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int timeout = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setConnectionTimeout'", NULL);
+#endif
+  {
+   self->setConnectionTimeout(timeout);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setConnectionTimeout'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getConnectionTimeout of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getConnectionTimeout00
+static int tolua_Cocos2d_Updater_getConnectionTimeout00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getConnectionTimeout'", NULL);
+#endif
+  {
+   unsigned int tolua_ret = (unsigned int)  self->getConnectionTimeout();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getConnectionTimeout'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createDirectory of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_createDirectory00
+static int tolua_Cocos2d_Updater_createDirectory00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createDirectory'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->createDirectory(path);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeDirectory of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_removeDirectory00
+static int tolua_Cocos2d_Updater_removeDirectory00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeDirectory'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->removeDirectory(path);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeFileWithName of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_removeFileWithName00
+static int tolua_Cocos2d_Updater_removeFileWithName00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeFileWithName'", NULL);
+#endif
+  {
+   self->removeFileWithName(name);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeFileWithName'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getUpdateInfo of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getUpdateInfo00
+static int tolua_Cocos2d_Updater_getUpdateInfo00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getUpdateInfo'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->getUpdateInfo(url);
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getUpdateInfo'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
 {
@@ -59620,6 +60105,28 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_constant(tolua_S,"kTableCellSizeAtIndex",CCTableView::kTableCellSizeAtIndex);
    tolua_constant(tolua_S,"kNumberOfCellsInTableView",CCTableView::kNumberOfCellsInTableView);
    tolua_function(tolua_S,"unregisterAllScriptHandler",tolua_Cocos2d_CCTableView_unregisterAllScriptHandler00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"Updater","Updater","",tolua_collect_Updater);
+  #else
+  tolua_cclass(tolua_S,"Updater","Updater","",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"Updater");
+   tolua_function(tolua_S,"new",tolua_Cocos2d_Updater_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_Updater_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_Updater_new00_local);
+   tolua_function(tolua_S,"delete",tolua_Cocos2d_Updater_delete00);
+   tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update00);
+   tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update01);
+   
+   tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_Updater_registerScriptHandler00);
+   tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_Updater_unregisterScriptHandler00);
+   tolua_function(tolua_S,"setConnectionTimeout",tolua_Cocos2d_Updater_setConnectionTimeout00);
+   tolua_function(tolua_S,"getConnectionTimeout",tolua_Cocos2d_Updater_getConnectionTimeout00);
+   tolua_function(tolua_S,"createDirectory",tolua_Cocos2d_Updater_createDirectory00);
+   tolua_function(tolua_S,"removeDirectory",tolua_Cocos2d_Updater_removeDirectory00);
+   tolua_function(tolua_S,"removeFileWithName",tolua_Cocos2d_Updater_removeFileWithName00);
+   tolua_function(tolua_S,"getUpdateInfo",tolua_Cocos2d_Updater_getUpdateInfo00);
   tolua_endmodule(tolua_S);
 
   { /* begin embedded lua code */

@@ -68,6 +68,8 @@ extern "C" {
 #include "lua_cocos2dx_cocostudio_manual.h"
 #endif
 
+#include "CCShake_luabing.h"
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     #include "cocos2dx_httprequest_luabinding.h"
 #else
@@ -154,6 +156,7 @@ bool CCLuaStack::init(void)
 #endif
 
     register_all_cocos2dx_manual(m_state);
+    luaopen_CCShake_luabing(m_state);
 #if CC_CCSTUDIO_ENABLED > 0
     // Cocos Studio
     tolua_CocoStudio_open(m_state);
