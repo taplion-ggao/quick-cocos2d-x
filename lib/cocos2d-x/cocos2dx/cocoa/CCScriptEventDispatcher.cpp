@@ -133,4 +133,9 @@ void CCScriptEventDispatcher::removeAllScriptEventListeners()
     }
 }
 
+bool CCScriptEventDispatcher::hasScriptEventListener(int event)
+{
+    return true;
+}
+
 NS_CC_END

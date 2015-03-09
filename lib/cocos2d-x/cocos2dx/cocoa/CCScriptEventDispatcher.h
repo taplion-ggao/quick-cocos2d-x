@@ -79,7 +79,7 @@ public:
     void removeScriptEventListenersByEvent(int event);
     void removeScriptEventListenersByTag(int tag);
     void removeAllScriptEventListeners();
-
+    bool hasScriptEventListener(int event);
     CCArray *getAllScriptEventListeners()
     {
         return m_scriptEventListeners;
