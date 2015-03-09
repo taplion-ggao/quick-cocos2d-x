@@ -132,7 +132,12 @@ ccLanguageType CCApplication::getCurrentLanguage()
 
 TargetPlatform CCApplication::getTargetPlatform()
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) // idiom for iOS <= 3.2, otherwise: [UIDevice userInterfaceIdiom] is faster.
+	NSString *model = [[UIDevice currentDevice] model];
+	if([model isEqualToString:@"iPhone Simulator"]){
+		return kTargetIPhoneSimulator;
+	}
+	int platform = UI_USER_INTERFACE_IDIOM();
+    if (platform == UIUserInterfaceIdiomPad) // idiom for iOS <= 3.2, otherwise: [UIDevice userInterfaceIdiom] is faster.
     {
         return kTargetIpad;
     }
@@ -140,6 +145,9 @@ TargetPlatform CCApplication::getTargetPlatform()
     {
         return kTargetIphone;
     }
+}
+void CCApplication::onStartGameAfterAnimation(){
+    CCLOG("aaaaasdfasdfasdfasdfasdfasdasdfasdfasdfasdf");
 }
 
 NS_CC_END
