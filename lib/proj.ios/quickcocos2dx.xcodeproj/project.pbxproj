@@ -25,6 +25,9 @@
 		2EBAD93B1918BBDC00FF9BD6 /* CCTestFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EBAD9071918BBDC00FF9BD6 /* CCTestFilter.cpp */; };
 		2EBAD93C1918BBDC00FF9BD6 /* CCFilteredSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EBAD90A1918BBDC00FF9BD6 /* CCFilteredSprite.cpp */; };
 		2EBAD93D1918BBDC00FF9BD6 /* ccFilterShaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EBAD92A1918BBDC00FF9BD6 /* ccFilterShaders.cpp */; };
+		327734991AAD98DB008B644A /* CCShake_luabing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 327734951AAD98DB008B644A /* CCShake_luabing.cpp */; };
+		3277349A1AAD98DB008B644A /* CCShake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 327734971AAD98DB008B644A /* CCShake.cpp */; };
+		3277349E1AAD9C08008B644A /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3277349C1AAD9C08008B644A /* Updater.cpp */; };
 		49832215187FE2C000733BFB /* CZHelperFunc_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */; };
 		49832219187FE2DF00733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832217187FE2DF00733BFB /* HelperFunc.cpp */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
@@ -546,6 +549,12 @@
 		2EBAD9291918BBDC00FF9BD6 /* ccFilterShader_zoom_blur_frag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccFilterShader_zoom_blur_frag.h; sourceTree = "<group>"; };
 		2EBAD92A1918BBDC00FF9BD6 /* ccFilterShaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ccFilterShaders.cpp; sourceTree = "<group>"; };
 		2EBAD92B1918BBDC00FF9BD6 /* ccFilterShaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccFilterShaders.h; sourceTree = "<group>"; };
+		327734951AAD98DB008B644A /* CCShake_luabing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCShake_luabing.cpp; sourceTree = "<group>"; };
+		327734961AAD98DB008B644A /* CCShake_luabing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCShake_luabing.h; sourceTree = "<group>"; };
+		327734971AAD98DB008B644A /* CCShake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCShake.cpp; sourceTree = "<group>"; };
+		327734981AAD98DB008B644A /* CCShake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCShake.h; sourceTree = "<group>"; };
+		3277349C1AAD9C08008B644A /* Updater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Updater.cpp; sourceTree = "<group>"; };
+		3277349D1AAD9C08008B644A /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
 		49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CZHelperFunc_luabinding.cpp; sourceTree = "<group>"; };
 		49832214187FE2C000733BFB /* CZHelperFunc_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHelperFunc_luabinding.h; sourceTree = "<group>"; };
 		49832217187FE2DF00733BFB /* HelperFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelperFunc.cpp; sourceTree = "<group>"; };
@@ -1650,6 +1659,15 @@
 			path = shaders;
 			sourceTree = "<group>";
 		};
+		3277349B1AAD9C08008B644A /* updater */ = {
+			isa = PBXGroup;
+			children = (
+				3277349C1AAD9C08008B644A /* Updater.cpp */,
+				3277349D1AAD9C08008B644A /* Updater.h */,
+			);
+			path = updater;
+			sourceTree = "<group>";
+		};
 		49832216187FE2DF00733BFB /* apptools */ = {
 			isa = PBXGroup;
 			children = (
@@ -2479,6 +2497,10 @@
 		F45A2DA1166B16B100760194 /* cocos2dx_support */ = {
 			isa = PBXGroup;
 			children = (
+				327734951AAD98DB008B644A /* CCShake_luabing.cpp */,
+				327734961AAD98DB008B644A /* CCShake_luabing.h */,
+				327734971AAD98DB008B644A /* CCShake.cpp */,
+				327734981AAD98DB008B644A /* CCShake.h */,
 				F40118BB180C9E57002A74D5 /* CCBProxy.cpp */,
 				F40118BC180C9E57002A74D5 /* CCBProxy.h */,
 				F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */,
@@ -2538,6 +2560,7 @@
 		F45A2E11166B16DC00760194 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3277349B1AAD9C08008B644A /* updater */,
 				E5C462EC1987A24F001192EA /* DragonBones */,
 				F42825BB17575DD7001479DC /* AssetsManager */,
 				F4E883441770162500577406 /* CCBReader */,
@@ -3896,6 +3919,7 @@
 				F459EB14180D04E1006CBDF1 /* cpSpaceStep.c in Sources */,
 				F45A2DEA166B16B100760194 /* Cocos2dxLuaLoader.cpp in Sources */,
 				E5C4635A1987A250001192EA /* CCDBTextureAtlas.cpp in Sources */,
+				3277349A1AAD98DB008B644A /* CCShake.cpp in Sources */,
 				F45A2DEB166B16B100760194 /* LuaCocos2d.cpp in Sources */,
 				F4FDD0871A1DF75200DD4C0B /* loadlib.c in Sources */,
 				F4ABAE96191A8DC300FEA3CD /* lua_cocos2dx_cocostudio_manual.cpp in Sources */,
@@ -4036,6 +4060,7 @@
 				F459EB0A180D04E1006CBDF1 /* cpBBTree.c in Sources */,
 				F4E882C5177015C400577406 /* CCGrabber.cpp in Sources */,
 				F4E882C6177015C400577406 /* CCGrid.cpp in Sources */,
+				327734991AAD98DB008B644A /* CCShake_luabing.cpp in Sources */,
 				F4E882C7177015C400577406 /* aabb.c in Sources */,
 				F4D26E99196321AE0087295D /* CCArmatureDefine.cpp in Sources */,
 				F4E882C8177015C400577406 /* mat4stack.c in Sources */,
@@ -4143,6 +4168,7 @@
 				F4ABAE97191A8DC300FEA3CD /* lua_cocos2dx_manual.cpp in Sources */,
 				F4E882FD177015C400577406 /* ccCArray.cpp in Sources */,
 				F459EB82180D0513006CBDF1 /* luasocket.c in Sources */,
+				3277349E1AAD9C08008B644A /* Updater.cpp in Sources */,
 				F4D26E8C196321AE0087295D /* CCArmatureAnimation.cpp in Sources */,
 				B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */,
 				F4D26EB1196321AE0087295D /* UILabel.cpp in Sources */,
