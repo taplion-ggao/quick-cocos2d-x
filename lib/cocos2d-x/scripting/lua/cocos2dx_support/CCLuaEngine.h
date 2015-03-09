@@ -126,7 +126,7 @@ public:
     virtual int executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue);
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL);
 
-    int executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue = NULL, CCArray* pResultArray = NULL);
+    int executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue = NULL, CCArray* pResultArray = NULL,CCTouch* touch = NULL);
 
     virtual int executeEventWithArgs(int nHandler, CCArray* pArgs);
 

@@ -482,7 +482,7 @@ int CCLuaEngine::reallocateScriptHandler(int nHandler)
     return nRet;
 }
 
-int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue, CCArray* pResultArray)
+int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue, CCArray* pResultArray,CCTouch* touch )
 {
     if (NULL == pTableView)
         return 0;
@@ -507,8 +507,20 @@ int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTabl
         case cocos2d::extension::CCTableView::kTableCellWillRecycle:
         {
             m_stack->pushCCObject(pTableView, "CCTableView");
-            m_stack->pushCCObject(static_cast<cocos2d::extension::CCTableViewCell*>(pValue), "CCTableViewCell");
-            nRet = m_stack->executeFunctionByHandler(nHanlder, 2);
+
+            if (pValue) {
+                m_stack->pushCCObject(static_cast<cocos2d::extension::CCTableViewCell*>(pValue), "CCTableViewCell");
+            }else{
+                m_stack->pushNil();
+            }
+            
+            if(touch){
+                m_stack->pushCCObject(static_cast<cocos2d::CCTouch*>(touch), "CCTouch");
+                nRet = m_stack->executeFunctionByHandler(nHanlder, 3);
+            }else{
+                nRet = m_stack->executeFunctionByHandler(nHanlder, 2);
+            }
+            
         }
             break;
         case cocos2d::extension::CCTableView::kTableCellSizeForIndex:
