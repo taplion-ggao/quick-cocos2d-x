@@ -139,8 +139,8 @@ CCTableViewCell *CCTableView::cellAtIndex(unsigned int idx)
 
     if (m_pIndices->find(idx) != m_pIndices->end())
     {
-        found = (CCTableViewCell *)m_pCellsUsed->objectWithObjectID(idx);
     }
+     found = (CCTableViewCell *)m_pCellsUsed->objectWithObjectID(idx);
 
     return found;
 }
@@ -234,7 +234,9 @@ void CCTableView::removeCellAtIndex(unsigned int idx)
     m_pIndices->erase(idx);
     this->_updateCellPositions();
 //    [m_pIndices shiftIndexesStartingAtIndex:idx+1 by:-1];
-    for (unsigned int i=m_pCellsUsed->count()-1; i > newIdx; i--)
+	int count = m_pCellsUsed->count();
+	count = count - 1;
+    for (int i=count; i >newIdx ; i--)
     {
         cell = (CCTableViewCell*)m_pCellsUsed->objectAtIndex(i);
         this->_setIndexForCell(cell->getIdx()-1, cell);
@@ -566,21 +568,27 @@ void CCTableView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
     if (!this->isVisible()) {
         return;
     }
-
+   
     if (m_pTouchedCell){
 		CCRect bb = this->boundingBox();
 		bb.origin = m_pParent->convertToWorldSpace(bb.origin);
-
+        if(m_pTableViewDelegate != NULL) {
+            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell,pTouch);
+        }
 		if (bb.containsPoint(pTouch->getLocation()) && m_pTableViewDelegate != NULL)
         {
-            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell);
-            m_pTableViewDelegate->tableCellTouched(this, m_pTouchedCell);
+            m_pTableViewDelegate->tableCellTouched(this, m_pTouchedCell,pTouch);
         }
 
         m_pTouchedCell = NULL;
     }
-
+    
     CCScrollView::ccTouchEnded(pTouch, pEvent);
+    if (m_scriptEventListeners)
+    {
+        executeScriptTouchHandler(CCTOUCHENDED, pTouch);
+    }
+
 }
 
 bool CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
@@ -608,16 +616,22 @@ bool CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 		}
 
         if (m_pTouchedCell && m_pTableViewDelegate != NULL) {
-            m_pTableViewDelegate->tableCellHighlight(this, m_pTouchedCell);
+            m_pTableViewDelegate->tableCellHighlight(this, m_pTouchedCell,pTouch);
         }
     }
     else if(m_pTouchedCell) {
         if(m_pTableViewDelegate != NULL) {
-            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell);
+            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell,pTouch);
         }
 
         m_pTouchedCell = NULL;
     }
+    if (m_scriptEventListeners)
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouch);
+    }
+
+
 
     return touchResult;
 }
@@ -625,10 +639,18 @@ bool CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 void CCTableView::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCScrollView::ccTouchMoved(pTouch, pEvent);
+//    lhou
+    
+    if (m_scriptEventListeners)
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouch);
+    }
+
 
     if (m_pTouchedCell && isTouchMoved()) {
         if(m_pTableViewDelegate != NULL) {
-            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell);
+            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell,pTouch);
+
         }
 
         m_pTouchedCell = NULL;
@@ -639,9 +661,14 @@ void CCTableView::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCScrollView::ccTouchCancelled(pTouch, pEvent);
 
+    if (m_scriptEventListeners)
+    {
+        executeScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
+    }
+
     if (m_pTouchedCell) {
         if(m_pTableViewDelegate != NULL) {
-            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell);
+            m_pTableViewDelegate->tableCellUnhighlight(this, m_pTouchedCell,pTouch);
         }
 
         m_pTouchedCell = NULL;

@@ -146,38 +146,38 @@ public:
         }
     }
     
-    virtual void tableCellTouched(CCTableView* table, CCTableViewCell* cell)
+    virtual void tableCellTouched(CCTableView* table, CCTableViewCell* cell,CCTouch* pTouch)
     {
         if (NULL != table && NULL != cell)
         {
             int nHandler = table->getScriptHandler(CCTableView::kTableCellTouched);
             if (0 != nHandler)
             {                
-                CCLuaEngine::defaultEngine()->executeTableViewEvent(CCTableView::kTableCellTouched, table,cell);
+                CCLuaEngine::defaultEngine()->executeTableViewEvent(CCTableView::kTableCellTouched, table,cell,NULL,pTouch);
             }
         }
     }
     
-    virtual void tableCellHighlight(CCTableView* table, CCTableViewCell* cell)
+    virtual void tableCellHighlight(CCTableView* table, CCTableViewCell* cell,CCTouch* pTouch)
     {
         if (NULL != table && NULL != cell)
         {
             int nHandler = table->getScriptHandler(CCTableView::kTableCellHighLight);
             if (0 != nHandler)
             {
-                CCLuaEngine::defaultEngine()->executeTableViewEvent(CCTableView::kTableCellHighLight, table,cell);
+                CCLuaEngine::defaultEngine()->executeTableViewEvent(CCTableView::kTableCellHighLight, table,cell,NULL,pTouch);
             }
         }
     }
     
-    virtual void tableCellUnhighlight(CCTableView* table, CCTableViewCell* cell)
+    virtual void tableCellUnhighlight(CCTableView* table, CCTableViewCell* cell,CCTouch* pTouch)
     {
-        if (NULL != table && NULL != cell)
+        if (NULL != table) //&& NULL != cell  lhou
         {
             int nHandler = table->getScriptHandler(CCTableView::kTableCellUnhighLight);
             if (0 != nHandler)
             {
-                CCLuaEngine::defaultEngine()->executeTableViewEvent(CCTableView::kTableCellUnhighLight, table,cell);
+                CCLuaEngine::defaultEngine()->executeTableViewEvent(CCTableView::kTableCellUnhighLight, table,cell,NULL,pTouch);
             }
         }
     }
