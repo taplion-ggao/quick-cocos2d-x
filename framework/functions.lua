@@ -773,6 +773,9 @@ function table.keys(hashtable)
     return keys
 end
 
+function table.find(hashtable,value)
+    return table.keyof(hashtable,value) ~= nil
+end
 --[[--
 
 返回指定表格中的所有值

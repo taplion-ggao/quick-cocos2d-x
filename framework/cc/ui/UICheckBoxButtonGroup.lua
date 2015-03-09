@@ -79,15 +79,22 @@ end
 function UICheckBoxButtonGroup:updateButtonState_(clickedButton)
 
     local currentSelectedIndex = 0
+    print("UICheckBoxButtonGroup:updateButtonState_")
     for index, button in ipairs(self.buttons_) do
+        print("button name is "..button.__cname)
         if button == clickedButton then
             currentSelectedIndex = index
-            if not button:isButtonSelected() then
-                button:setButtonSelected(true)
+            if button.isButtonSelected then
+                if not button:isButtonSelected() then
+                    button:setButtonSelected(true)
+                end
             end
+            
         else
-            if button:isButtonSelected() then
-                button:setButtonSelected(false)
+            if button.isButtonSelected then
+                if button:isButtonSelected() then
+                    button:setButtonSelected(false)
+                end
             end
         end
     end
@@ -95,7 +102,31 @@ function UICheckBoxButtonGroup:updateButtonState_(clickedButton)
         local last = self.currentSelectedIndex_
         self.currentSelectedIndex_ = currentSelectedIndex
         self:dispatchEvent({name = UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, selected = currentSelectedIndex, last = last})
+    else
+        self.currentSelectedIndex_ = currentSelectedIndex
+        self:dispatchEvent({name = UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, selected = currentSelectedIndex, last = last}) 
     end
 end
-
+function UICheckBoxButtonGroup:isIgnoreCurrentSelectIndex(ignore)
+    -- body
+    self.mIgnoreCurrentSelectIndex = true
+end
+function UICheckBoxButtonGroup:registerButtonEventListener()
+    if self.buttons_ ~= nil then
+        for index,button in pairs(self.buttons_) do
+            button:removeAllEventListeners()
+            button:onButtonClicked(handler(self, self.onButtonStateChanged_))
+            button:onButtonStateChanged(handler(self, self.onButtonStateChanged_))
+        end
+    end
+end
+function UICheckBoxButtonGroup:reset( ... )
+    for index, button in ipairs(self.buttons_) do
+        print(button.__cname)
+        if button.setButtonSelected then
+            button:setButtonSelected(false)
+        end
+    end
+    self.currentSelectedIndex_ = 0
+end
 return UICheckBoxButtonGroup

@@ -34,6 +34,7 @@ function UIButton:ctor(events, initialState, options)
     self.images_ = {}
     self.sprite_ = {}
     self.scale9_ = options and options.scale9
+    self.scale9Size_ = options.scale9Size
     self.flipX_ = options and options.flipX
     self.flipY_ = options and options.flipY
     self.scale9Size_ = nil
@@ -238,6 +239,7 @@ function UIButton:updateButtonImage_()
                             local size = self.sprite_[i]:getContentSize()
                             self.scale9Size_ = {size.width, size.height}
                         else
+                            dump(self.scale9Size_,"self.scale9Size_ is below")
                             self.sprite_[i]:setContentSize(cc.size(self.scale9Size_[1], self.scale9Size_[2]))
                         end
                     else
@@ -317,7 +319,10 @@ function UIButton:checkTouchInSprite_(x, y)
 end
 
 function UIButton:getContentSize()
-    return self.sprite_:getContentSize()
+    return self.sprite_[1]:getContentSize()
 end
 
+function UIButton:doActionOnTheList()
+    self:setTouchSwallowEnabled(false)
+end
 return UIButton

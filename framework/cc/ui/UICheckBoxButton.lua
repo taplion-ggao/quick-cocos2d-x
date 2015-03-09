@@ -121,4 +121,6 @@ function UICheckBoxButton:getDefaultState_()
     end
 end
 
+
+
 return UICheckBoxButton

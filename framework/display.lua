@@ -92,9 +92,8 @@ else
     CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
 end
 
-local scale, scaleX, scaleY
 
-if CONFIG_SCREEN_AUTOSCALE then
+if CONFIG_SCREEN_AUTOSCALE ~="SCREEN_SIZE_HEIGHT" then
     if type(CONFIG_SCREEN_AUTOSCALE_CALLBACK) == "function" then
         scaleX, scaleY = CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, device.model)
     end
@@ -113,8 +112,13 @@ if CONFIG_SCREEN_AUTOSCALE then
         scale = 1.0
         printError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
-
     glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
+else
+    scale = 1
+    -- scale = h / CONFIG_SCREEN_HEIGHT
+    -- CONFIG_SCREEN_WIDTH = w / scale
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionShowAll)
+
 end
 
 local winSize = sharedDirector:getWinSize()
@@ -519,7 +523,7 @@ function display.newSprite(filename, x, y, params)
         size = params.size
     end
     if not spriteClass then spriteClass = CCSprite end
-    print("display.newSprite filename is "..filename)
+    -- print("display.newSprite filename is "..filename)
     local t = type(filename)
     if t == "userdata" then t = tolua.type(filename) end
     local sprite
