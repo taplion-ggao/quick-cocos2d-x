@@ -7895,6 +7895,42 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00(l
 }
 #endif //#ifndef TOLUA_DISABLE
 
+
+/* method: hasScriptEventListener of class  CCScriptEventDispatcher */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCScriptEventDispatcher",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCScriptEventDispatcher* self = (CCScriptEventDispatcher*)  tolua_tousertype(tolua_S,1,0);
+  int event = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'hasScriptEventListener'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->hasScriptEventListener(event);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'hasNodeEventListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+
 /* function: CCLuaLog */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLuaLog00
 static int tolua_Cocos2d_CCLuaLog00(lua_State* tolua_S)
@@ -56973,37 +57009,10 @@ static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+
 /* method: update of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update01
 static int tolua_Cocos2d_Updater_update01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
-  CCArray* list = ((CCArray*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
-#endif
-  {
-   self->update(list);
-  }
- }
- return 0;
-tolua_lerror:
- return tolua_Cocos2d_Updater_update00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: update of class  Updater */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update02
-static int tolua_Cocos2d_Updater_update02(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -57031,33 +57040,6 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: update of class  Updater */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update03
-static int tolua_Cocos2d_Updater_update03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
-  const char* fileUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
-#endif
-  {
-   self->update(fileUrl);
-  }
- }
- return 0;
-tolua_lerror:
- return tolua_Cocos2d_Updater_update02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
 
 /* method: registerScriptHandler of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_registerScriptHandler00
@@ -57695,6 +57677,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"removeNodeEventListenersByEvent",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByEvent00);
    tolua_function(tolua_S,"removeNodeEventListenersByTag",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByTag00);
    tolua_function(tolua_S,"removeAllNodeEventListeners",tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00);
+   tolua_function(tolua_S,"hasNodeEventListener",tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00);
   tolua_endmodule(tolua_S);
   tolua_function(tolua_S,"CCLuaLog",tolua_Cocos2d_CCLuaLog00);
   tolua_function(tolua_S,"CCMessageBox",tolua_Cocos2d_CCMessageBox00);
