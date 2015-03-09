@@ -66,9 +66,13 @@ function UIPushButton:onTouch_(event)
             self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = touchInTarget})
         end
         if name == "ended" and touchInTarget then
+			if self.mSound and SOUND_ON then
+				audio.playSound(self.mSound)
+			end
             self:dispatchEvent({name = UIButton.CLICKED_EVENT, x = x, y = y, touchInTarget = true})
         end
     end
 end
+
 
 return UIPushButton

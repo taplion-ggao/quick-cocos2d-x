@@ -392,7 +392,7 @@ function ui.newTTFLabel(params)
     local size       = params.size or ui.DEFAULT_TTF_FONT_SIZE
     local color      = params.color or display.COLOR_WHITE
     local textAlign  = params.align or ui.TEXT_ALIGN_LEFT
-    local textValign = params.valign or ui.TEXT_VALIGN_CENTER
+    local textValign = params.valign or ui.TEXT_VALIGN_TOP
     local x, y       = params.x, params.y
     local dimensions = params.dimensions
 

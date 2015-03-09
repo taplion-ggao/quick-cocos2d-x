@@ -78,7 +78,9 @@ function UICheckBoxButton:setButtonSelected(selected)
 end
 
 function UICheckBoxButton:onTouch_(event)
+    print("UICheckBoxButton:onTouch_"..tostring(self:isTouchEnabled()))
     local name, x, y = event.name, event.x, event.y
+    print("UICheckBoxButton:onTouch_"..name)
     if name == "began" then
         if not self:checkTouchInSprite_(x, y) then return false end
         self.fsm_:doEvent("press")
@@ -101,6 +103,9 @@ function UICheckBoxButton:onTouch_(event)
             self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = touchInTarget})
         end
         if name == "ended" and touchInTarget then
+			if self.mSound and SOUND_ON then
+				audio.playSound(self.mSound)
+			end
             self:setButtonSelected(self.fsm_:canDoEvent("select"))
             self:dispatchEvent({name = UIButton.CLICKED_EVENT, x = x, y = y, touchInTarget = true})
         end

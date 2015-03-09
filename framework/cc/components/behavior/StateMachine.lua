@@ -153,22 +153,24 @@ function StateMachine:doEvent(name, ...)
                       "event " .. name .. " inappropriate because previous transition did not complete")
         return StateMachine.FAILURE
     end
-
+    
     if self:cannotDoEvent(name) then
         self:onError_(event,
                       StateMachine.INVALID_TRANSITION_ERROR,
                       "event " .. name .. " inappropriate in current state " .. self.current_)
         return StateMachine.FAILURE
     end
+    
+    if from == to then
+        self:afterEvent_(event)
+        return StateMachine.NOTRANSITION
+    end
 
     if self:beforeEvent_(event) == false then
         return StateMachine.CANCELLED
     end
 
-    if from == to then
-        self:afterEvent_(event)
-        return StateMachine.NOTRANSITION
-    end
+    
 
     event.transition = function()
         self.inTransition_  = false

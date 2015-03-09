@@ -519,7 +519,7 @@ function display.newSprite(filename, x, y, params)
         size = params.size
     end
     if not spriteClass then spriteClass = CCSprite end
-
+    print("display.newSprite filename is "..filename)
     local t = type(filename)
     if t == "userdata" then t = tolua.type(filename) end
     local sprite
@@ -718,7 +718,7 @@ Create a Filtered Sprite
 function display.newFilteredSprite(filename, filters, params)
 	local __one = {class=CCFilteredSpriteWithOne}
 	local __multi = {class=CCFilteredSpriteWithMulti}
-	if not filters then return display.newSprite(filtename, nil,nil , __one) end
+	if not filters then return display.newSprite(filename, nil,nil , __one) end
 	local __sp = nil
 	local __type = type(filters)
     if __type == "userdata" then __type = tolua.type(filters) end

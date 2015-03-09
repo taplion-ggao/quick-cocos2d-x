@@ -77,6 +77,7 @@ function UICheckBoxButtonGroup:onButtonStateChanged_(event)
 end
 
 function UICheckBoxButtonGroup:updateButtonState_(clickedButton)
+
     local currentSelectedIndex = 0
     for index, button in ipairs(self.buttons_) do
         if button == clickedButton then
@@ -90,7 +91,7 @@ function UICheckBoxButtonGroup:updateButtonState_(clickedButton)
             end
         end
     end
-    if self.currentSelectedIndex_ ~= currentSelectedIndex then
+    if self.mIgnoreCurrentSelectIndex == true then
         local last = self.currentSelectedIndex_
         self.currentSelectedIndex_ = currentSelectedIndex
         self:dispatchEvent({name = UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, selected = currentSelectedIndex, last = last})

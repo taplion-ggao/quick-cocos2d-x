@@ -32,8 +32,8 @@ function UIImage:setLayoutSize(width, height)
         local sx = width / (boundingSize.width / self:getScaleX())
         local sy = height / (boundingSize.height / self:getScaleY())
         if sx > 0 and sy > 0 then
-            self:setScaleX(sx)
-            self:setScaleY(sy)
+            -- self:setScaleX(sx)
+            -- self:setScaleY(sy)
         end
     end
 

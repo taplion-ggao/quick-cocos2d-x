@@ -70,14 +70,20 @@ elseif target == kTargetMacOS then
     device.platform = "mac"
 elseif target == kTargetAndroid then
     device.platform = "android"
-elseif target == kTargetIphone or target == kTargetIpad then
+elseif target == kTargetIphone or target == kTargetIpad or target == kTargetIPhoneSimulator then
     device.platform = "ios"
     if target == kTargetIphone then
         device.model = "iphone"
+	elseif target == kTargetIPhoneSimulator then
+       device.model = "iphone simulator"
     else
         device.model = "ipad"
     end
 end
+
+if device.model  == "iphone simulator" then
+	device.language = "zh"
+else
 
 local language_ = sharedApplication:getCurrentLanguage()
 if language_ == kLanguageChinese then
@@ -97,8 +103,9 @@ elseif language_ == kLanguageRussian then
 else
     language_ = "en"
 end
-
 device.language = language_
+end
+
 device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
 device.cachePath = CCFileUtils:sharedFileUtils():getCachePath()
 device.directorySeparator = "/"

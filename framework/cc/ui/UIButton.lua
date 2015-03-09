@@ -42,6 +42,7 @@ function UIButton:ctor(events, initialState, options)
     self.labelAlign_ = display.CENTER
     self.initialState_ = initialState
 
+	self.mSound = options.sound
     display.align(self, display.CENTER)
 
     if "boolean" ~= type(self.flipX_) then
@@ -148,6 +149,7 @@ function UIButton:setButtonSize(width, height)
 end
 
 function UIButton:setButtonEnabled(enabled)
+    print("UIButton:setButtonEnabled "..tostring(enabled))
     self:setTouchEnabled(enabled)
     if enabled and self.fsm_:canDoEvent("enable") then
         self.fsm_:doEventForce("enable")
@@ -312,6 +314,10 @@ function UIButton:checkTouchInSprite_(x, y)
     else
         return self:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     end
+end
+
+function UIButton:getContentSize()
+    return self.sprite_:getContentSize()
 end
 
 return UIButton
