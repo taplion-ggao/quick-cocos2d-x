@@ -1,0 +1,86 @@
+class Updater
+{
+public:
+    enum ErrorCode
+    {
+        // Error caused by creating a file to store downloaded data
+        kCreateFile,
+        /** Error caused by network
+         -- network unavaivable
+         -- timeout
+         -- ...
+         */
+        kNetwork,
+        /** Error caused in uncompressing stage
+         -- can not open zip file
+         -- can not read file global information
+         -- can not read file information
+         -- can not create a directory
+         -- ...
+         */
+        kUncompress,
+    };
+    
+    enum StateCode
+    {
+        kDownStart,
+        kDownDone,
+        kUncompressStart,
+        kUncompressDone,
+    };
+    
+    enum TypeCode
+    {
+        kUpdateUndefined,
+        kUpdateZIP,
+        kUpdateFiles,
+        kUpdateFile,
+        kUpdateFileAsync,
+    };
+    
+    /* @brief Creates a Updater.
+     */
+    Updater();
+    
+    virtual ~Updater();
+    
+    /* @brief Download new package zip file, and uncompress downloaded zip file.
+     */
+    void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZIP=true);
+    
+    /** @brief Download some files.
+     */
+    void update(CCArray* list);
+    
+    /** @brief Download a file and save to filePath.
+     */
+    void update(const char* fileUrl, const char* filePath);
+
+    /** @brief Download a file in async.
+     */
+    void update(const char* fileUrl);
+    
+    /** @brief Sets delegate, the delegate will receive messages
+     */
+    
+    /** @brief Register script handler, the hander will receive messages
+     */
+    void registerScriptHandler(int handler);
+    void unregisterScriptHandler(void);
+
+    /** @brief Sets connection time out in seconds
+     */
+    void setConnectionTimeout(unsigned int timeout);
+    
+    /** @brief Gets connection time out in secondes
+     */
+    unsigned int getConnectionTimeout();
+    bool createDirectory(const char *path);
+    bool removeDirectory(const char* path);
+    void removeFileWithName(const char* name);
+    const char* getUpdateInfo(const char* url);
+    
+    
+    
+};
+
