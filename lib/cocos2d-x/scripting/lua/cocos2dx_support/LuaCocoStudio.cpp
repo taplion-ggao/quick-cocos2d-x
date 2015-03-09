@@ -438,6 +438,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTween)), "CCTween");
  tolua_usertype(tolua_S,"CCBaseData");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBaseData)), "CCBaseData");
+ tolua_usertype(tolua_S,"CCFrameData"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCFrameData)), "CCFrameData");
  tolua_usertype(tolua_S,"Timeline");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Timeline)), "Timeline");
  tolua_usertype(tolua_S,"CCArmatureDataManager");
@@ -5466,6 +5467,69 @@ static int tolua_CocoStudio_CCBaseData_create00(lua_State* tolua_S)
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
+
+
+
+/* get function: x of class  CCBaseData */
+#ifndef TOLUA_DISABLE_tolua_get_CCBaseData_x
+static int tolua_get_CCBaseData_x(lua_State* tolua_S)
+{
+  CCBaseData* self = (CCBaseData*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->x);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: x of class  CCBaseData */
+#ifndef TOLUA_DISABLE_tolua_set_CCBaseData_x
+static int tolua_set_CCBaseData_x(lua_State* tolua_S)
+{
+  CCBaseData* self = (CCBaseData*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->x = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: y of class  CCBaseData */
+#ifndef TOLUA_DISABLE_tolua_get_CCBaseData_y
+static int tolua_get_CCBaseData_y(lua_State* tolua_S)
+{
+  CCBaseData* self = (CCBaseData*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->y);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: y of class  CCBaseData */
+#ifndef TOLUA_DISABLE_tolua_set_CCBaseData_y
+static int tolua_set_CCBaseData_y(lua_State* tolua_S)
+{
+  CCBaseData* self = (CCBaseData*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->y = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
 
 /* method: new of class  CCBaseData */
 #ifndef TOLUA_DISABLE_tolua_CocoStudio_CCBaseData_new00
@@ -28803,12 +28867,22 @@ TOLUA_API int tolua_CocoStudio_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"CCBaseData");
    tolua_function(tolua_S,"create",tolua_CocoStudio_CCBaseData_create00);
    tolua_function(tolua_S,"new",tolua_CocoStudio_CCBaseData_new00);
+   tolua_variable(tolua_S,"x",tolua_get_CCBaseData_x,tolua_set_CCBaseData_x);
+   tolua_variable(tolua_S,"y",tolua_get_CCBaseData_y,tolua_set_CCBaseData_y);
    tolua_function(tolua_S,"new_local",tolua_CocoStudio_CCBaseData_new00_local);
    tolua_function(tolua_S,".call",tolua_CocoStudio_CCBaseData_new00_local);
    tolua_function(tolua_S,"setColor",tolua_CocoStudio_CCBaseData_setColor00);
    tolua_function(tolua_S,"getColor",tolua_CocoStudio_CCBaseData_getColor00);
   tolua_endmodule(tolua_S);
+  
   #ifdef __cplusplus
+  tolua_cclass(tolua_S,"CCFrameData","CCFrameData","CCBaseData",tolua_collect_CCBaseData);
+  #else
+  tolua_cclass(tolua_S,"CCFrameData","CCFrameData","CCBaseData",NULL);
+  #endif
+
+  #ifdef __cplusplus
+
   tolua_cclass(tolua_S,"CCDisplayManager","CCDisplayManager","CCObject",tolua_collect_CCDisplayManager);
   #else
   tolua_cclass(tolua_S,"CCDisplayManager","CCDisplayManager","CCObject",NULL);

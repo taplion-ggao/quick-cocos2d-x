@@ -135,7 +135,20 @@ void CCScriptEventDispatcher::removeAllScriptEventListeners()
 
 bool CCScriptEventDispatcher::hasScriptEventListener(int event)
 {
-    return true;
+    if (!m_scriptEventListeners) return false;
+
+    CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
+    unsigned int c = m_scriptEventListeners->count();
+    CCScriptHandlePair *p;
+    for (unsigned int i = 0; i < c; ++i)
+    {
+        p = dynamic_cast<CCScriptHandlePair*>(m_scriptEventListeners->objectAtIndex(i));
+        if (p->event == event)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 NS_CC_END

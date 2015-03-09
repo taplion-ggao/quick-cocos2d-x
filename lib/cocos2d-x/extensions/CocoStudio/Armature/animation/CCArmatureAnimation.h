@@ -44,7 +44,7 @@ class CCArmature;
 class CCBone;
 
 typedef void (CCObject::*SEL_MovementEventCallFunc)(CCArmature *, MovementEventType, const char *);
-typedef void (CCObject::*SEL_FrameEventCallFunc)(CCBone *, const char *, int, int);
+typedef void (CCObject::*SEL_FrameEventCallFunc)(CCBone *,CCFrameData *, const char *, int, int);
 
 #define movementEvent_selector(_SELECTOR) (SEL_MovementEventCallFunc)(&_SELECTOR)
 #define frameEvent_selector(_SELECTOR) (SEL_FrameEventCallFunc)(&_SELECTOR)
@@ -52,6 +52,7 @@ typedef void (CCObject::*SEL_FrameEventCallFunc)(CCBone *, const char *, int, in
 struct CC_EX_DLL CCFrameEvent
 {
     CCBone *bone;
+    CCFrameData *frameData;
     const char *frameEventName;
     int originFrameIndex;
     int currentFrameIndex;
@@ -271,7 +272,7 @@ protected:
      * Emit a frame event
      * @js NA
      */
-    void frameEvent(CCBone *bone, const char *frameEventName, int originFrameIndex, int currentFrameIndex);
+    void frameEvent(CCBone *bone, CCFrameData* frameData,const char *frameEventName, int originFrameIndex, int currentFrameIndex);
 
     /**
      * Emit a movement event

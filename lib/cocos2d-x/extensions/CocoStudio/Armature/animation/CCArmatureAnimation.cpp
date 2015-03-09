@@ -380,7 +380,8 @@ void CCArmatureAnimation::update(float dt)
         m_sFrameEventQueue.pop();
 
         m_bIgnoreFrameEvent = true;
-        (m_sFrameEventTarget->*m_sFrameEventCallFunc)(event->bone, event->frameEventName, event->originFrameIndex, event->currentFrameIndex);
+        CCLOG("event->frameEventName is %s",event->frameEventName);
+        (m_sFrameEventTarget->*m_sFrameEventCallFunc)(event->bone,event->frameData, event->frameEventName, event->originFrameIndex, event->currentFrameIndex);
         m_bIgnoreFrameEvent = false;
 
         CC_SAFE_DELETE(event);
@@ -502,12 +503,13 @@ CCObject* CCArmatureAnimation::getUserObject()
     return m_pUserObject;
 }
 
-void CCArmatureAnimation::frameEvent(CCBone *bone, const char *frameEventName, int originFrameIndex, int currentFrameIndex)
+void CCArmatureAnimation::frameEvent(CCBone *bone, CCFrameData *frameData,const char *frameEventName, int originFrameIndex, int currentFrameIndex)
 {
     if (m_sFrameEventTarget && m_sFrameEventCallFunc)
     {
         CCFrameEvent *frameEvent = new CCFrameEvent();
         frameEvent->bone = bone;
+        frameEvent->frameData = frameData;
         frameEvent->frameEventName = frameEventName;
         frameEvent->originFrameIndex = originFrameIndex;
         frameEvent->currentFrameIndex = currentFrameIndex;

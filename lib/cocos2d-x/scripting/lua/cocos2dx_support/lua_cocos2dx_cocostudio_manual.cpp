@@ -581,7 +581,7 @@ public:
     virtual ~LuaArmatureWrapper();
     
     virtual void movementEventCallback(CCArmature* armature, MovementEventType type,const char* movementID);
-    virtual void frameEventCallback(CCBone* bone, const char* frameEventName, int orginFrameIndex, int currentFrameIndex);
+    virtual void frameEventCallback(CCBone* bone,CCFrameData *frameData, const char* frameEventName, int orginFrameIndex, int currentFrameIndex);
     virtual void addArmatureFileInfoAsyncCallback(float percent);
     
     void setHandler(int handler){ m_lHandler = handler; }
@@ -615,7 +615,7 @@ void LuaArmatureWrapper::movementEventCallback(CCArmature* armature, MovementEve
     }
 }
 
-void LuaArmatureWrapper::frameEventCallback(CCBone* bone, const char* frameEventName, int orginFrameIndex, int currentFrameIndex)
+void LuaArmatureWrapper::frameEventCallback(CCBone* bone,CCFrameData* frameData,  const char* frameEventName, int orginFrameIndex, int currentFrameIndex)
 {
     if (0 != m_lHandler)
     {
@@ -623,10 +623,11 @@ void LuaArmatureWrapper::frameEventCallback(CCBone* bone, const char* frameEvent
         CCLuaStack* pStack = pEngine->getLuaStack();
         
         pStack->pushCCObject(bone, "CCBone");
+        pStack->pushCCObject(frameData, "CCFrameData");
         pStack->pushString(frameEventName);
         pStack->pushInt(orginFrameIndex);
         pStack->pushInt(currentFrameIndex);
-        pStack->executeFunctionByHandler(m_lHandler, 4);
+        pStack->executeFunctionByHandler(m_lHandler, 5);
         pStack->clean();
     }
 }

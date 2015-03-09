@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "../utils/CCUtilMath.h"
 #include "../utils/CCTweenFunction.h"
 #include "../utils/CCTransformHelp.h"
-
+#include "SimpleAudioEngine.h"
 
 NS_CC_EXT_BEGIN
 
@@ -453,8 +453,18 @@ float CCTween::updateFrameData(float currentPercent)
             //! Guaranteed to trigger frame event
             if(from->strEvent.length() != 0 && !m_pAnimation->isIgnoreFrameEvent())
             {
-                m_pAnimation->frameEvent(m_pBone, from->strEvent.c_str(), from->frameID, playedTime);
+                CCLOG("from->strEvent.c_str() is %s,x is %f",from->strEvent.c_str(),from->x);
+
+                m_pAnimation->frameEvent(m_pBone,from, from->strEvent.c_str(), from->frameID, playedTime);
             }
+            if(from->strSound.length() != 0)
+            {
+                string soundPath = "";
+                soundPath = "music/" + from->strSound;
+                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(soundPath.c_str());
+                
+            }
+
 
             if (playedTime == from->frameID || (m_bPassLastFrame && m_iFromIndex == length-1))
             {
