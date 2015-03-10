@@ -75,35 +75,34 @@ elseif target == kTargetIphone or target == kTargetIpad or target == kTargetIPho
     if target == kTargetIphone then
         device.model = "iphone"
 	elseif target == kTargetIPhoneSimulator then
-       device.model = "iphone simulator"
+       device.model = "iPhone Simulator"
     else
         device.model = "ipad"
     end
 end
 
-if device.model  == "iphone simulator" then
+if device.model  == "iPhone Simulator" then
 	device.language = "zh"
 else
-
-local language_ = sharedApplication:getCurrentLanguage()
-if language_ == kLanguageChinese then
-    language_ = "cn"
-elseif language_ == kLanguageChineseTW then
-    language_ = "tw"
-elseif language_ == kLanguageFrench then
-    language_ = "fr"
-elseif language_ == kLanguageItalian then
-    language_ = "it"
-elseif language_ == kLanguageGerman then
-    language_ = "gr"
-elseif language_ == kLanguageSpanish then
-    language_ = "sp"
-elseif language_ == kLanguageRussian then
-    language_ = "ru"
-else
-    language_ = "en"
-end
-device.language = language_
+    local language_ = sharedApplication:getCurrentLanguage()
+    if language_ == kLanguageChinese then
+        language_ = "cn"
+    elseif language_ == kLanguageChineseTW then
+        language_ = "tw"
+    elseif language_ == kLanguageFrench then
+        language_ = "fr"
+    elseif language_ == kLanguageItalian then
+        language_ = "it"
+    elseif language_ == kLanguageGerman then
+        language_ = "gr"
+    elseif language_ == kLanguageSpanish then
+        language_ = "sp"
+    elseif language_ == kLanguageRussian then
+        language_ = "ru"
+    else
+        language_ = "en"
+    end
+    device.language = language_
 end
 
 device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()

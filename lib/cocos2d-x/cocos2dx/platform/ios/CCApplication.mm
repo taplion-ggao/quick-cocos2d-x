@@ -133,6 +133,7 @@ ccLanguageType CCApplication::getCurrentLanguage()
 TargetPlatform CCApplication::getTargetPlatform()
 {
 	NSString *model = [[UIDevice currentDevice] model];
+    NSLog(@"model is %@",model);
 	if([model isEqualToString:@"iPhone Simulator"]){
 		return kTargetIPhoneSimulator;
 	}
