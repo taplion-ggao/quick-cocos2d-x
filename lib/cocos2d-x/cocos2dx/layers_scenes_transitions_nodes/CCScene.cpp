@@ -233,14 +233,14 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
         if (ret)
         {
+//            pTouches->removeObject(pt)
             m_touchingTargets->addObject(touchTarget);
 //            CCLOG("ADD TOUCH TARGET [%p]", touchTarget);
-        }
-
-        if (node->isTouchSwallowEnabled())
-        {
-            // target swallow touch event, stop dispatching
-            break;
+            if (node->isTouchSwallowEnabled())
+            {
+                // target swallow touch event, stop dispatching
+                break;
+            }
         }
         
         // continue dispatching, try to next

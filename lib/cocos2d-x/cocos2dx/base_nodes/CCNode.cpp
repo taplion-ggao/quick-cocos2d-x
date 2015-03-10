@@ -1727,7 +1727,7 @@ bool CCNode::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     CC_UNUSED_PARAM(pEvent);
     if (m_scriptEventListeners)
     {
-        executeScriptTouchHandler(CCTOUCHBEGAN, pTouch);
+       return executeScriptTouchHandler(CCTOUCHBEGAN, pTouch);
     }
     return true;
 }
