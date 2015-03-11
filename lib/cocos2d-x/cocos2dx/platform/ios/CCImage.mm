@@ -440,6 +440,87 @@ CCImage::~CCImage()
     CC_SAFE_DELETE_ARRAY(m_pData);
 }
 
+/// 获取每一行的高度通过字体和字体大小
+
+float CCImage::getMerHeightByFontAndName(const char * pFontName, int nSize)
+{
+     NSString * str          = [NSString stringWithUTF8String:"a"];
+     NSString * fntName      = [NSString stringWithUTF8String:pFontName];
+     fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
+     id font = [UIFont fontWithName:fntName size:nSize];
+     CGSize textRect = CGSizeZero;
+     textRect.width = 0x7fffffff;
+     textRect.height = 0x7fffffff;
+    
+     CGSize tmp = [str sizeWithFont:font constrainedToSize:textRect];
+     return tmp.height;
+}
+float CCImage::getStringWithByFontAndSize(const char *pText, const char * pFontName, int nSize)
+{
+    NSString * str          = [NSString stringWithUTF8String:pText];
+    NSString * fntName      = [NSString stringWithUTF8String:pFontName];
+    fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
+    id font = [UIFont fontWithName:fntName size:nSize];
+    CGSize textRect = CGSizeZero;
+    textRect.width = 0x7fffffff;
+    textRect.height = 0x7fffffff;
+    
+    NSArray *listItems = [str componentsSeparatedByString: @"\n"];
+    NSString * lastStr = [listItems objectAtIndex:listItems.count -1];
+    CGSize tmp = [lastStr sizeWithFont:font constrainedToSize:textRect];
+    return tmp.width;
+}
+/// ydzheng
+float CCImage::getLastWordPositionX(const char *pText, const char * pFontName, int nSize, int maxWidth,int maxHeight,float *outHeight, float * outWidth)
+{
+    NSString * str          = [NSString stringWithUTF8String:pText];
+    NSString * fntName      = [NSString stringWithUTF8String:pFontName];
+    
+    CGSize dim, constrainSize;
+    
+    constrainSize.width     = maxWidth;
+    constrainSize.height    = maxHeight;
+    
+    // On iOS custom fonts must be listed beforehand in the App info.plist (in order to be usable) and referenced only the by the font family name itself when
+    // calling [UIFont fontWithName]. Therefore even if the developer adds 'SomeFont.ttf' or 'fonts/SomeFont.ttf' to the App .plist, the font must
+    // be referenced as 'SomeFont' when calling [UIFont fontWithName]. Hence we strip out the folder path components and the extension here in order to get just
+    // the font family name itself. This stripping step is required especially for references to user fonts stored in CCB files; CCB files appear to store
+    // the '.ttf' extensions when referring to custom fonts.
+    fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
+    id font = [UIFont fontWithName:fntName size:nSize];
+    NSArray *listItems = [str componentsSeparatedByString: @"\n"];
+    
+    unichar lastChar = [str characterAtIndex:str.length-1];
+    dim = CGSizeZero;
+    CGSize textRect = CGSizeZero;
+    textRect.width = 0x7fffffff;
+    textRect.height = 0x7fffffff;
+    
+    float lastRowHeight = 0;
+    for (NSString *s in listItems)
+    {
+        CGSize tmp = [s sizeWithFont:font constrainedToSize:textRect];
+        
+        if (tmp.width > dim.width)
+        {
+            dim.width = tmp.width;
+        }
+        lastRowHeight = tmp.height;
+        dim.width = constrainSize.width > tmp.width ? tmp.width : (tmp.width - floor(tmp.width / constrainSize.width) *constrainSize.width);
+        printf("constrainSize tmp %f ,constrainSize %f, dim.width %f \n",tmp.width,constrainSize.width,dim.width);
+        printf("constrainSize tmpheightheight %f  \n",tmp.height);
+        dim.height = (tmp.height * ceil(tmp.width / constrainSize.width));
+    }
+//    if (lastChar == "\n")
+    if (lastChar == '\n')
+    {
+        dim.height = lastRowHeight;
+    }
+    *outHeight = dim.height;
+    *outWidth = dim.width;
+    
+    return lastRowHeight;
+}
 bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
 {
 	bool bRet = false;
