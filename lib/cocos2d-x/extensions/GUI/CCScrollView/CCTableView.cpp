@@ -628,7 +628,7 @@ bool CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     }
     if (m_scriptEventListeners)
     {
-        executeScriptTouchHandler(CCTOUCHMOVED, pTouch);
+        executeScriptTouchHandler(CCTOUCHBEGAN, pTouch);
     }
 
 
