@@ -40,7 +40,15 @@ void CCLabelTTFLoader::onHandlePropTypeBlendFunc(CCNode * pNode, CCNode * pParen
 
 void CCLabelTTFLoader::onHandlePropTypeFontTTF(CCNode * pNode, CCNode * pParent, const char * pPropertyName, const char * pFontTTF, CCBReader * pCCBReader) {
     if(strcmp(pPropertyName, PROPERTY_FONTNAME) == 0) {
-        ((CCLabelTTF *)pNode)->setFontName(pFontTTF);
+        
+        TargetPlatform target = CCApplication::sharedApplication()->getTargetPlatform();
+        if ( target != kTargetAndroid ){
+            ((CCLabelTTF *)pNode)->enableStroke(ccc3(0,0,0),0.3,false);
+            ((CCLabelTTF *)pNode)->setFontName(pFontTTF);
+        }else{
+            ((CCLabelTTF *)pNode)->enableStroke(ccc3(0,0,0),0.3,false);
+            ((CCLabelTTF *)pNode)->setFontName("assets/font/FZZhengHeiS-M-GB2.ttf");
+        }
     } else {
         CCNodeLoader::onHandlePropTypeFontTTF(pNode, pParent, pPropertyName, pFontTTF, pCCBReader);
     }
