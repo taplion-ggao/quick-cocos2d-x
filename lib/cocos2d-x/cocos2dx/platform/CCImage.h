@@ -199,7 +199,10 @@ public:
     CC_SYNTHESIZE_READONLY(unsigned short,   m_nWidth,       Width);
     CC_SYNTHESIZE_READONLY(unsigned short,   m_nHeight,      Height);
     CC_SYNTHESIZE_READONLY(int,     m_nBitsPerComponent,   BitsPerComponent);
-
+    static float getLastWordPositionX(const char *pText, const char * pFontName, int nSize, int maxWidth,int maxHeight,float *outHeigh    t, float * outWidth);
+    static float getMerHeightByFontAndName(const char * pFontName, int nSize);
+    static float getStringWithByFontAndSize(const char *pText, const char * pFontName, int nSize);
+    
 protected:
 #if CC_JPEG_ENABLED > 0
     bool _initWithJpgData(void *pData, int nDatalen);
