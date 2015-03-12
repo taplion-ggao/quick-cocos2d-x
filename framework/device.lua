@@ -86,7 +86,7 @@ if device.model  == "iPhone Simulator" then
 else
     local language_ = sharedApplication:getCurrentLanguage()
     if language_ == kLanguageChinese then
-        language_ = "cn"
+        language_ = "zh"
     elseif language_ == kLanguageChineseTW then
         language_ = "tw"
     elseif language_ == kLanguageFrench then
