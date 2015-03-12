@@ -188,6 +188,7 @@ static CGSize _calculateStringSize(NSString *str, id font, CGSize *constrainSize
         {
            dim.width = tmp.width; 
         }
+         printf("_calculateStringSize_calculateStringSize tmp %f ,constrainSize %f, dim.width %f \n",tmp.width,constrainSize->width,tmp.height);
         
         dim.height += tmp.height;
     }
@@ -448,6 +449,11 @@ float CCImage::getMerHeightByFontAndName(const char * pFontName, int nSize)
      NSString * fntName      = [NSString stringWithUTF8String:pFontName];
      fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
      id font = [UIFont fontWithName:fntName size:nSize];
+    if (!font)
+    {
+        font = [UIFont systemFontOfSize:nSize];
+    }
+
      CGSize textRect = CGSizeZero;
      textRect.width = 0x7fffffff;
      textRect.height = 0x7fffffff;
@@ -461,6 +467,10 @@ float CCImage::getStringWithByFontAndSize(const char *pText, const char * pFontN
     NSString * fntName      = [NSString stringWithUTF8String:pFontName];
     fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
     id font = [UIFont fontWithName:fntName size:nSize];
+    if (!font)
+    {
+        font = [UIFont systemFontOfSize:nSize];
+    }
     CGSize textRect = CGSizeZero;
     textRect.width = 0x7fffffff;
     textRect.height = 0x7fffffff;
@@ -488,6 +498,10 @@ float CCImage::getLastWordPositionX(const char *pText, const char * pFontName, i
     // the '.ttf' extensions when referring to custom fonts.
     fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
     id font = [UIFont fontWithName:fntName size:nSize];
+    if (!font)
+    {
+        font = [UIFont systemFontOfSize:nSize];
+    }
     NSArray *listItems = [str componentsSeparatedByString: @"\n"];
     
     unichar lastChar = [str characterAtIndex:str.length-1];
@@ -500,21 +514,21 @@ float CCImage::getLastWordPositionX(const char *pText, const char * pFontName, i
     for (NSString *s in listItems)
     {
         CGSize tmp = [s sizeWithFont:font constrainedToSize:textRect];
-        
+//        printf("constrainSize tmp %f ,constrainSize %f, dim.width %f  pFontName %s\n",tmp.width,constrainSize.width,tmp.height,pFontName);
+//        NSLog(s);
         if (tmp.width > dim.width)
         {
             dim.width = tmp.width;
         }
         lastRowHeight = tmp.height;
         dim.width = constrainSize.width > tmp.width ? tmp.width : (tmp.width - floor(tmp.width / constrainSize.width) *constrainSize.width);
-        printf("constrainSize tmp %f ,constrainSize %f, dim.width %f \n",tmp.width,constrainSize.width,dim.width);
-        printf("constrainSize tmpheightheight %f  \n",tmp.height);
-        dim.height = (tmp.height * ceil(tmp.width / constrainSize.width));
+//        printf("constrainSize tmp %f ,constrainSize %f, dim.width %f \n",tmp.width,constrainSize.width,dim.width);
+//        printf("constrainSize tmpheightheight %f  \n",tmp.height);
+        dim.height += (tmp.height * ceil(tmp.width / constrainSize.width));
     }
-//    if (lastChar == "\n")
     if (lastChar == '\n')
     {
-        dim.height = lastRowHeight;
+        dim.height += lastRowHeight;
     }
     *outHeight = dim.height;
     *outWidth = dim.width;
