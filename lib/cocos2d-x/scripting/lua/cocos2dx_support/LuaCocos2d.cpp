@@ -58621,6 +58621,8 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"kTargetBlackBerry",kTargetBlackBerry);
   tolua_constant(tolua_S,"kTargetNaCl",kTargetNaCl);
   tolua_constant(tolua_S,"kTargetEmscripten",kTargetEmscripten);
+  tolua_constant(tolua_S,"kTargetIPhoneSimulator",kTargetIPhoneSimulator);
+  
   tolua_constant(tolua_S,"kTargetTizen",kTargetTizen);
   tolua_cclass(tolua_S,"CCApplication","CCApplication","",NULL);
   tolua_beginmodule(tolua_S,"CCApplication");

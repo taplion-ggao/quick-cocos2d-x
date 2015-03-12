@@ -135,6 +135,7 @@ TargetPlatform CCApplication::getTargetPlatform()
 	NSString *model = [[UIDevice currentDevice] model];
     NSLog(@"model is %@",model);
 	if([model isEqualToString:@"iPhone Simulator"]){
+        NSLog(@"model is xxxxxxxxxxxxxx %@",model);
 		return kTargetIPhoneSimulator;
 	}
 	int platform = UI_USER_INTERFACE_IDIOM();
