@@ -53,7 +53,7 @@ private:
     CCSize m_designedSize;
     
     void updateCursorPosition();
-    string textWidthFormat(const char *text);
+    std::string textWidthFormat(const char *text);
     
 public:
     CCCursorMultiTextFieldTTF();

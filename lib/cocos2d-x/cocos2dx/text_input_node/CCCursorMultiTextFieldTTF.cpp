@@ -211,7 +211,7 @@ bool CCCursorMultiTextFieldTTF::onTextFieldInsertText(cocos2d::CCTextFieldTTF *p
     return true;
 }
 
-string CCCursorMultiTextFieldTTF::textWidthFormat(const char *text)
+std::string CCCursorMultiTextFieldTTF::textWidthFormat(const char *text)
 {
     std::string sourceStr = m_pInputText->substr();
     std::string targetStr = "";
@@ -246,7 +246,7 @@ void CCCursorMultiTextFieldTTF::updateCursorPosition()
     float height = 0;
     float width = 0;
     float merHeight = CCImage::getMerHeightByFontAndName(getFontName(),getFontSize());
-std:string inputText = textWidthFormat(m_pInputText->c_str());
+    std::string inputText = textWidthFormat(m_pInputText->c_str());
     CCImage::getLastWordPositionX(inputText.c_str(),getFontName(),getFontSize(),getDimensions().width,getDimensions().height,&height,&width);
     CCLOG("CCCursorMultiTextFieldTTF height %f,width %f ,%s",height, width,m_pInputText->c_str());
     int row = ceil(height/merHeight);

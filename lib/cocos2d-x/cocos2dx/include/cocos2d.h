@@ -272,6 +272,7 @@ THE SOFTWARE.
 #include "text_input_node/CCIMEDelegate.h"
 #include "text_input_node/CCIMEDispatcher.h"
 #include "text_input_node/CCTextFieldTTF.h"
+#include "text_input_node/CCCursorMultiTextFieldTTF.h"
 
 // textures
 #include "textures/CCTexture2D.h"

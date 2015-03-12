@@ -37,4 +37,5 @@ class CCScriptEventDispatcher : public CCObject
     void removeScriptEventListenersByEvent @ removeNodeEventListenersByEvent(int event);
     void removeScriptEventListenersByTag @ removeNodeEventListenersByTag(int tag);
     void removeAllScriptEventListeners @ removeAllNodeEventListeners();
+    bool hasScriptEventListener @ hasNodeEventListener(int event);
 };

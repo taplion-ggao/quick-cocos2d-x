@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Mon Mar  9 17:05:17 2015.
+** Generated automatically by tolua++-1.0.92 on Wed Mar 11 17:38:52 2015.
 */
 
 /****************************************************************************
@@ -71,13 +71,6 @@ static int tolua_collect_CCAtlasNode (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCParticleSystemQuad (lua_State* tolua_S)
-{
- CCParticleSystemQuad* self = (CCParticleSystemQuad*) tolua_tousertype(tolua_S,1,0);
-    Mtolua_delete(self);
-    return 0;
-}
-
 static int tolua_collect_Updater (lua_State* tolua_S)
 {
  Updater* self = (Updater*) tolua_tousertype(tolua_S,1,0);
@@ -85,9 +78,23 @@ static int tolua_collect_Updater (lua_State* tolua_S)
     return 0;
 }
 
+static int tolua_collect_CCParticleSystemQuad (lua_State* tolua_S)
+{
+ CCParticleSystemQuad* self = (CCParticleSystemQuad*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
 static int tolua_collect_CCTableView (lua_State* tolua_S)
 {
  CCTableView* self = (CCTableView*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_CCScrollView (lua_State* tolua_S)
+{
+ CCScrollView* self = (CCScrollView*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -134,9 +141,9 @@ static int tolua_collect_ccColor4B (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCScrollView (lua_State* tolua_S)
+static int tolua_collect_CCCamera (lua_State* tolua_S)
 {
- CCScrollView* self = (CCScrollView*) tolua_tousertype(tolua_S,1,0);
+ CCCamera* self = (CCCamera*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -148,9 +155,9 @@ static int tolua_collect_CCTMXTilesetInfo (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCCamera (lua_State* tolua_S)
+static int tolua_collect_ccTexParams (lua_State* tolua_S)
 {
- CCCamera* self = (CCCamera*) tolua_tousertype(tolua_S,1,0);
+ ccTexParams* self = (ccTexParams*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -218,9 +225,9 @@ static int tolua_collect_HSV (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_ccTexParams (lua_State* tolua_S)
+static int tolua_collect_CCCursorMultiTextFieldTTF (lua_State* tolua_S)
 {
- ccTexParams* self = (ccTexParams*) tolua_tousertype(tolua_S,1,0);
+ CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -589,18 +596,18 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCShakyTiles3D)), "CCShakyTiles3D");
  tolua_usertype(tolua_S,"CCNode");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCNode)), "CCNode");
+ tolua_usertype(tolua_S,"CCEaseBounceIn");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseBounceIn)), "CCEaseBounceIn");
  tolua_usertype(tolua_S,"CCBezierTo");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBezierTo)), "CCBezierTo");
  tolua_usertype(tolua_S,"CCDeccelAmplitude");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDeccelAmplitude)), "CCDeccelAmplitude");
- tolua_usertype(tolua_S,"CCScaleTo");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScaleTo)), "CCScaleTo");
  tolua_usertype(tolua_S,"CCTableView");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTableView)), "CCTableView");
  tolua_usertype(tolua_S,"CCTableViewCell");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTableViewCell)), "CCTableViewCell");
- tolua_usertype(tolua_S,"CCTransitionProgress");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgress)), "CCTransitionProgress");
+ tolua_usertype(tolua_S,"CCTransitionFlipY");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionFlipY)), "CCTransitionFlipY");
  tolua_usertype(tolua_S,"CCEditBox");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEditBox)), "CCEditBox");
  tolua_usertype(tolua_S,"HSV");
@@ -611,20 +618,23 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCControlStepper)), "CCControlStepper");
  tolua_usertype(tolua_S,"CCControlSlider");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCControlSlider)), "CCControlSlider");
- tolua_usertype(tolua_S,"CCMoveBy");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMoveBy)), "CCMoveBy");
+ tolua_usertype(tolua_S,"CCSplitCols");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSplitCols)), "CCSplitCols");
  tolua_usertype(tolua_S,"CCParticleGalaxy");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleGalaxy)), "CCParticleGalaxy");
+ tolua_usertype(tolua_S,"CCMoveBy");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMoveBy)), "CCMoveBy");
+ tolua_usertype(tolua_S,"CCTileMapAtlas");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTileMapAtlas)), "CCTileMapAtlas");
  tolua_usertype(tolua_S,"CCCamera");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCamera)), "CCCamera");
  tolua_usertype(tolua_S,"CCSequence");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSequence)), "CCSequence");
- tolua_usertype(tolua_S,"CCTileMapAtlas");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTileMapAtlas)), "CCTileMapAtlas");
+ tolua_usertype(tolua_S,"CCMenuItemAtlasFont");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMenuItemAtlasFont)), "CCMenuItemAtlasFont");
  tolua_usertype(tolua_S,"CCCatmullRomBy");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCatmullRomBy)), "CCCatmullRomBy");
- tolua_usertype(tolua_S,"CCParticleExplosion");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleExplosion)), "CCParticleExplosion");
+ tolua_usertype(tolua_S,"SEL_MenuHandler");
  tolua_usertype(tolua_S,"CCHide");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCHide)), "CCHide");
  tolua_usertype(tolua_S,"CCControlButton");
@@ -649,59 +659,60 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEGLView)), "CCEGLView");
  tolua_usertype(tolua_S,"CCTouchDispatcher");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTouchDispatcher)), "CCTouchDispatcher");
- tolua_usertype(tolua_S,"CCMenuItemAtlasFont");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMenuItemAtlasFont)), "CCMenuItemAtlasFont");
- tolua_usertype(tolua_S,"SEL_MenuHandler");
- tolua_usertype(tolua_S,"CCParticleBatchNode");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleBatchNode)), "CCParticleBatchNode");
+ tolua_usertype(tolua_S,"CCGraySprite");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCGraySprite)), "CCGraySprite");
+ tolua_usertype(tolua_S,"CCMenu");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMenu)), "CCMenu");
+ tolua_usertype(tolua_S,"CCIMEKeyboardNotificationInfo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCIMEKeyboardNotificationInfo)), "CCIMEKeyboardNotificationInfo");
  tolua_usertype(tolua_S,"CCAffineTransform");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAffineTransform)), "CCAffineTransform");
  tolua_usertype(tolua_S,"CCParticleSystem");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleSystem)), "CCParticleSystem");
- tolua_usertype(tolua_S,"CCMenu");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMenu)), "CCMenu");
- tolua_usertype(tolua_S,"CCJumpTo");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCJumpTo)), "CCJumpTo");
  tolua_usertype(tolua_S,"ccColor4F");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccColor4F)), "ccColor4F");
- tolua_usertype(tolua_S,"CCScriptEventDispatcher");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScriptEventDispatcher)), "CCScriptEventDispatcher");
+ tolua_usertype(tolua_S,"CCJumpTo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCJumpTo)), "CCJumpTo");
  tolua_usertype(tolua_S,"CCLabelAtlas");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLabelAtlas)), "CCLabelAtlas");
+ tolua_usertype(tolua_S,"CCScriptEventDispatcher");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScriptEventDispatcher)), "CCScriptEventDispatcher");
+ tolua_usertype(tolua_S,"CCLabelBMFont");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLabelBMFont)), "CCLabelBMFont");
  tolua_usertype(tolua_S,"CCSet");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSet)), "CCSet");
  tolua_usertype(tolua_S,"CCCallFunc");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCallFunc)), "CCCallFunc");
- tolua_usertype(tolua_S,"CCLabelBMFont");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLabelBMFont)), "CCLabelBMFont");
+ tolua_usertype(tolua_S,"CCScaleTo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScaleTo)), "CCScaleTo");
  tolua_usertype(tolua_S,"Updater");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Updater)), "Updater");
- tolua_usertype(tolua_S,"CCEaseBounceIn");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseBounceIn)), "CCEaseBounceIn");
  tolua_usertype(tolua_S,"CCComponent");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComponent)), "CCComponent");
  tolua_usertype(tolua_S,"CCSprite");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSprite)), "CCSprite");
+ tolua_usertype(tolua_S,"CCTransitionSplitCols");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionSplitCols)), "CCTransitionSplitCols");
  tolua_usertype(tolua_S,"CCFileUtils");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCFileUtils)), "CCFileUtils");
  tolua_usertype(tolua_S,"CCLayer");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLayer)), "CCLayer");
- tolua_usertype(tolua_S,"CCTransitionSplitCols");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionSplitCols)), "CCTransitionSplitCols");
- tolua_usertype(tolua_S,"CCPageTurn3D");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPageTurn3D)), "CCPageTurn3D");
  tolua_usertype(tolua_S,"CCEaseIn");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseIn)), "CCEaseIn");
+ tolua_usertype(tolua_S,"CCPageTurn3D");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPageTurn3D)), "CCPageTurn3D");
  tolua_usertype(tolua_S,"CCTransitionProgressRadialCW");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgressRadialCW)), "CCTransitionProgressRadialCW");
- tolua_usertype(tolua_S,"CCEaseElastic");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseElastic)), "CCEaseElastic");
  tolua_usertype(tolua_S,"CCTransitionProgressRadialCCW");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgressRadialCCW)), "CCTransitionProgressRadialCCW");
- tolua_usertype(tolua_S,"CCEaseOut");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseOut)), "CCEaseOut");
+ tolua_usertype(tolua_S,"CCEaseElastic");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseElastic)), "CCEaseElastic");
  tolua_usertype(tolua_S,"CCBezierBy");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBezierBy)), "CCBezierBy");
+ tolua_usertype(tolua_S,"CCEaseOut");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseOut)), "CCEaseOut");
+ tolua_usertype(tolua_S,"CCTransitionProgress");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgress)), "CCTransitionProgress");
  tolua_usertype(tolua_S,"CCScrollView");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCScrollView)), "CCScrollView");
  tolua_usertype(tolua_S,"CCUserDefault");
@@ -710,35 +721,33 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCProgressTimer)), "CCProgressTimer");
  tolua_usertype(tolua_S,"CCDictionary");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDictionary)), "CCDictionary");
- tolua_usertype(tolua_S,"CCTransitionFlipY");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionFlipY)), "CCTransitionFlipY");
  tolua_usertype(tolua_S,"CCTransitionFadeBL");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionFadeBL)), "CCTransitionFadeBL");
- tolua_usertype(tolua_S,"CCTMXLayerInfo");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTMXLayerInfo)), "CCTMXLayerInfo");
  tolua_usertype(tolua_S,"CCShuffleTiles");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCShuffleTiles)), "CCShuffleTiles");
+ tolua_usertype(tolua_S,"CCTMXLayerInfo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTMXLayerInfo)), "CCTMXLayerInfo");
  tolua_usertype(tolua_S,"CCClippingNode");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCClippingNode)), "CCClippingNode");
+ tolua_usertype(tolua_S,"CCParticleSpiral");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleSpiral)), "CCParticleSpiral");
  tolua_usertype(tolua_S,"CCTransitionSlideInL");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionSlideInL)), "CCTransitionSlideInL");
  tolua_usertype(tolua_S,"CCRipple3D");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCRipple3D)), "CCRipple3D");
  tolua_usertype(tolua_S,"CCRepeat");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCRepeat)), "CCRepeat");
- tolua_usertype(tolua_S,"CCParticleSpiral");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleSpiral)), "CCParticleSpiral");
- tolua_usertype(tolua_S,"CCTransitionProgressInOut");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgressInOut)), "CCTransitionProgressInOut");
  tolua_usertype(tolua_S,"CCTransitionZoomFlipY");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionZoomFlipY)), "CCTransitionZoomFlipY");
+ tolua_usertype(tolua_S,"CCTransitionProgressInOut");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgressInOut)), "CCTransitionProgressInOut");
  tolua_usertype(tolua_S,"CCTransitionZoomFlipX");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionZoomFlipX)), "CCTransitionZoomFlipX");
+ tolua_usertype(tolua_S,"CCTransitionFlipX");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionFlipX)), "CCTransitionFlipX");
  tolua_usertype(tolua_S,"CCEaseBounceInOut");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEaseBounceInOut)), "CCEaseBounceInOut");
  
- tolua_usertype(tolua_S,"CCTransitionFlipX");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionFlipX)), "CCTransitionFlipX");
  tolua_usertype(tolua_S,"CCRotateBy");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCRotateBy)), "CCRotateBy");
  tolua_usertype(tolua_S,"CCTransitionRotoZoom");
@@ -749,52 +758,54 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLens3D)), "CCLens3D");
  tolua_usertype(tolua_S,"CCPointShape");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPointShape)), "CCPointShape");
- tolua_usertype(tolua_S,"CCAccelAmplitude");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAccelAmplitude)), "CCAccelAmplitude");
  tolua_usertype(tolua_S,"CCParticleSmoke");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleSmoke)), "CCParticleSmoke");
+ tolua_usertype(tolua_S,"CCAccelAmplitude");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAccelAmplitude)), "CCAccelAmplitude");
  tolua_usertype(tolua_S,"tCCParticle");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(tCCParticle)), "tCCParticle");
+ tolua_usertype(tolua_S,"CCParticleExplosion");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleExplosion)), "CCParticleExplosion");
  tolua_usertype(tolua_S,"CCFadeOut");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCFadeOut)), "CCFadeOut");
  tolua_usertype(tolua_S,"CCLayerMultiplex");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLayerMultiplex)), "CCLayerMultiplex");
  tolua_usertype(tolua_S,"CCControlPotentiometer");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCControlPotentiometer)), "CCControlPotentiometer");
- tolua_usertype(tolua_S,"CCSplitCols");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSplitCols)), "CCSplitCols");
  tolua_usertype(tolua_S,"CCFlipX3D");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCFlipX3D)), "CCFlipX3D");
+ tolua_usertype(tolua_S,"CCParticleBatchNode");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCParticleBatchNode)), "CCParticleBatchNode");
  tolua_usertype(tolua_S,"CCMenuItem");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMenuItem)), "CCMenuItem");
  tolua_usertype(tolua_S,"ccColor4B");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccColor4B)), "ccColor4B");
- tolua_usertype(tolua_S,"CCGraySprite");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCGraySprite)), "CCGraySprite");
+ tolua_usertype(tolua_S,"CCAnimation");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAnimation)), "CCAnimation");
  tolua_usertype(tolua_S,"CCSplitRows");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSplitRows)), "CCSplitRows");
  tolua_usertype(tolua_S,"CCArray");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArray)), "CCArray");
- tolua_usertype(tolua_S,"CCAnimation");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAnimation)), "CCAnimation");
- tolua_usertype(tolua_S,"CCSkewTo");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSkewTo)), "CCSkewTo");
  tolua_usertype(tolua_S,"CCAction");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAction)), "CCAction");
+ tolua_usertype(tolua_S,"CCSkewTo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSkewTo)), "CCSkewTo");
  tolua_usertype(tolua_S,"CCTextureAtlas");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTextureAtlas)), "CCTextureAtlas");
  tolua_usertype(tolua_S,"CCReverseTime");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCReverseTime)), "CCReverseTime");
+ tolua_usertype(tolua_S,"CCGLProgram");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCGLProgram)), "CCGLProgram");
  tolua_usertype(tolua_S,"CCRepeatForever");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCRepeatForever)), "CCRepeatForever");
  tolua_usertype(tolua_S,"CCTime");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTime)), "CCTime");
- tolua_usertype(tolua_S,"CCGLProgram");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCGLProgram)), "CCGLProgram");
- tolua_usertype(tolua_S,"CCTextFieldTTF");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTextFieldTTF)), "CCTextFieldTTF");
  tolua_usertype(tolua_S,"CCPoint");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPoint)), "CCPoint");
+ tolua_usertype(tolua_S,"CCTextFieldTTF");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTextFieldTTF)), "CCTextFieldTTF");
+ tolua_usertype(tolua_S,"CCCursorMultiTextFieldTTF");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCursorMultiTextFieldTTF)), "CCCursorMultiTextFieldTTF");
  tolua_usertype(tolua_S,"CCShatteredTiles3D");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCShatteredTiles3D)), "CCShatteredTiles3D");
  tolua_usertype(tolua_S,"CCEaseElasticInOut");
@@ -7895,7 +7906,6 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00(l
 }
 #endif //#ifndef TOLUA_DISABLE
 
-
 /* method: hasScriptEventListener of class  CCScriptEventDispatcher */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00
 static int tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00(lua_State* tolua_S)
@@ -7929,7 +7939,6 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00(lua_Stat
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
-
 
 /* function: CCLuaLog */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLuaLog00
@@ -44268,6 +44277,840 @@ static int tolua_Cocos2d_CCTextFieldTTF_isSecureTextEntry00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: new of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCCursorMultiTextFieldTTF* tolua_ret = (CCCursorMultiTextFieldTTF*)  Mtolua_new((CCCursorMultiTextFieldTTF)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCCursorMultiTextFieldTTF");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCCursorMultiTextFieldTTF* tolua_ret = (CCCursorMultiTextFieldTTF*)  Mtolua_new((CCCursorMultiTextFieldTTF)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCCursorMultiTextFieldTTF");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: delete of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_delete00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_delete00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
+#endif
+  Mtolua_delete(self);
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: textFieldWithPlaceHolder of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_textFieldWithPlaceHolder00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_textFieldWithPlaceHolder00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* placeholder = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* fontName = ((const char*)  tolua_tostring(tolua_S,3,0));
+  float fontSize = ((float)  tolua_tonumber(tolua_S,4,0));
+  {
+   CCCursorMultiTextFieldTTF* tolua_ret = (CCCursorMultiTextFieldTTF*)  CCCursorMultiTextFieldTTF::textFieldWithPlaceHolder(placeholder,fontName,fontSize);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCCursorMultiTextFieldTTF");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'textFieldWithPlaceHolder'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onEnter of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_onEnter00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_onEnter00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onEnter'", NULL);
+#endif
+  {
+   self->onEnter();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onEnter'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onExit of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_onExit00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_onExit00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onExit'", NULL);
+#endif
+  {
+   self->onExit();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onExit'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: initCursorSprite of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_initCursorSprite00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_initCursorSprite00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  int nHeight = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'initCursorSprite'", NULL);
+#endif
+  {
+   self->initCursorSprite(nHeight);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'initCursorSprite'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setColor of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_setColor00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_setColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const ccColor3B",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  const ccColor3B* color3 = ((const ccColor3B*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
+#endif
+  {
+   self->setColor(*color3);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTextFieldAttachWithIME of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldAttachWithIME00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldAttachWithIME00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCTextFieldTTF* pSender = ((CCTextFieldTTF*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTextFieldAttachWithIME'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTextFieldAttachWithIME(pSender);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onTextFieldAttachWithIME'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTextFieldDetachWithIME of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDetachWithIME00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDetachWithIME00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCTextFieldTTF* pSender = ((CCTextFieldTTF*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTextFieldDetachWithIME'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTextFieldDetachWithIME(pSender);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onTextFieldDetachWithIME'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTextFieldInsertText of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldInsertText00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldInsertText00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCTextFieldTTF",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCTextFieldTTF* pSender = ((CCTextFieldTTF*)  tolua_tousertype(tolua_S,2,0));
+  const char* text = ((const char*)  tolua_tostring(tolua_S,3,0));
+  int nLen = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTextFieldInsertText'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTextFieldInsertText(pSender,text,nLen);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onTextFieldInsertText'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: onTextFieldDeleteBackward of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDeleteBackward00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDeleteBackward00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCTextFieldTTF",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCTextFieldTTF* pSender = ((CCTextFieldTTF*)  tolua_tousertype(tolua_S,2,0));
+  const char* delText = ((const char*)  tolua_tostring(tolua_S,3,0));
+  int nLen = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onTextFieldDeleteBackward'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->onTextFieldDeleteBackward(pSender,delText,nLen);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'onTextFieldDeleteBackward'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: keyboardWillHide of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardWillHide00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardWillHide00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCIMEKeyboardNotificationInfo",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCIMEKeyboardNotificationInfo* info = ((CCIMEKeyboardNotificationInfo*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'keyboardWillHide'", NULL);
+#endif
+  {
+   self->keyboardWillHide(*info);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'keyboardWillHide'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: keyboardDidHide of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardDidHide00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardDidHide00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCIMEKeyboardNotificationInfo",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCIMEKeyboardNotificationInfo* info = ((CCIMEKeyboardNotificationInfo*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'keyboardDidHide'", NULL);
+#endif
+  {
+   self->keyboardDidHide(*info);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'keyboardDidHide'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isInTextField of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_isInTextField00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_isInTextField00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCTouch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCTouch* pTouch = ((CCTouch*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isInTextField'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isInTextField(pTouch);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isInTextField'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getRect of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_getRect00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_getRect00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRect'", NULL);
+#endif
+  {
+   CCRect tolua_ret = (CCRect)  self->getRect();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((CCRect)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"CCRect");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(CCRect));
+     tolua_pushusertype(tolua_S,tolua_obj,"CCRect");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRect'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: openIME of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_openIME00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_openIME00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'openIME'", NULL);
+#endif
+  {
+   self->openIME();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'openIME'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: closeIME of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_closeIME00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_closeIME00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'closeIME'", NULL);
+#endif
+  {
+   self->closeIME();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'closeIME'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getIsPsw of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_getIsPsw00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_getIsPsw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getIsPsw'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->getIsPsw();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getIsPsw'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setIsPsw of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_setIsPsw00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_setIsPsw00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  bool bFlag = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setIsPsw'", NULL);
+#endif
+  {
+   self->setIsPsw(bFlag);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setIsPsw'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLimitNum of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_setLimitNum00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_setLimitNum00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  int limitNum = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLimitNum'", NULL);
+#endif
+  {
+   self->setLimitNum(limitNum);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLimitNum'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLimitNum of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_getLimitNum00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_getLimitNum00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLimitNum'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getLimitNum();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLimitNum'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setString of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_setString00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_setString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  const char* inputTx = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
+#endif
+  {
+   self->setString(inputTx);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setDesignedSize of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_setDesignedSize00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_setDesignedSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCSize",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+  CCSize size = *((CCSize*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDesignedSize'", NULL);
+#endif
+  {
+   self->setDesignedSize(size);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setDesignedSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDesignedSize of class  CCCursorMultiTextFieldTTF */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCursorMultiTextFieldTTF_getDesignedSize00
+static int tolua_Cocos2d_CCCursorMultiTextFieldTTF_getDesignedSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCursorMultiTextFieldTTF",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCursorMultiTextFieldTTF* self = (CCCursorMultiTextFieldTTF*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDesignedSize'", NULL);
+#endif
+  {
+   CCSize tolua_ret = (CCSize)  self->getDesignedSize();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((CCSize)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"CCSize");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(CCSize));
+     tolua_pushusertype(tolua_S,tolua_obj,"CCSize");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDesignedSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: create of class  CCMenu */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCMenu_create00
 static int tolua_Cocos2d_CCMenu_create00(lua_State* tolua_S)
@@ -57009,10 +57852,37 @@ static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-
 /* method: update of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update01
 static int tolua_Cocos2d_Updater_update01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  CCArray* list = ((CCArray*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(list);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_Updater_update00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update02
+static int tolua_Cocos2d_Updater_update02(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -57040,6 +57910,33 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update03
+static int tolua_Cocos2d_Updater_update03(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* fileUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(fileUrl);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_Updater_update02(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
 
 /* method: registerScriptHandler of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_registerScriptHandler00
@@ -57049,7 +57946,7 @@ static int tolua_Cocos2d_Updater_registerScriptHandler00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -57057,8 +57954,7 @@ static int tolua_Cocos2d_Updater_registerScriptHandler00(lua_State* tolua_S)
 #endif
  {
   Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
-//  int handler = ((int)  tolua_tonumber(tolua_S,2,0));
-  LUA_FUNCTION handler = (toluafix_ref_function(tolua_S,2,0));
+  int handler = ((int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptHandler'", NULL);
 #endif
@@ -57726,8 +58622,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"kTargetNaCl",kTargetNaCl);
   tolua_constant(tolua_S,"kTargetEmscripten",kTargetEmscripten);
   tolua_constant(tolua_S,"kTargetTizen",kTargetTizen);
-  tolua_constant(tolua_S,"kTargetIPhoneSimulator",kTargetIPhoneSimulator);
-  
   tolua_cclass(tolua_S,"CCApplication","CCApplication","",NULL);
   tolua_beginmodule(tolua_S,"CCApplication");
    tolua_function(tolua_S,"sharedApplication",tolua_Cocos2d_CCApplication_sharedApplication00);
@@ -59555,6 +60449,39 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setSecureTextEntry",tolua_Cocos2d_CCTextFieldTTF_setSecureTextEntry00);
    tolua_function(tolua_S,"isSecureTextEntry",tolua_Cocos2d_CCTextFieldTTF_isSecureTextEntry00);
   tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"CCCursorMultiTextFieldTTF","CCCursorMultiTextFieldTTF","CCTextFieldTTF",tolua_collect_CCCursorMultiTextFieldTTF);
+  #else
+  tolua_cclass(tolua_S,"CCCursorMultiTextFieldTTF","CCCursorMultiTextFieldTTF","CCTextFieldTTF",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"CCCursorMultiTextFieldTTF");
+   tolua_function(tolua_S,"new",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local);
+   tolua_function(tolua_S,"delete",tolua_Cocos2d_CCCursorMultiTextFieldTTF_delete00);
+   tolua_function(tolua_S,"textFieldWithPlaceHolder",tolua_Cocos2d_CCCursorMultiTextFieldTTF_textFieldWithPlaceHolder00);
+   tolua_function(tolua_S,"onEnter",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onEnter00);
+   tolua_function(tolua_S,"onExit",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onExit00);
+   tolua_function(tolua_S,"initCursorSprite",tolua_Cocos2d_CCCursorMultiTextFieldTTF_initCursorSprite00);
+   tolua_function(tolua_S,"setColor",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setColor00);
+   tolua_function(tolua_S,"onTextFieldAttachWithIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldAttachWithIME00);
+   tolua_function(tolua_S,"onTextFieldDetachWithIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDetachWithIME00);
+   tolua_function(tolua_S,"onTextFieldInsertText",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldInsertText00);
+   tolua_function(tolua_S,"onTextFieldDeleteBackward",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDeleteBackward00);
+   tolua_function(tolua_S,"keyboardWillHide",tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardWillHide00);
+   tolua_function(tolua_S,"keyboardDidHide",tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardDidHide00);
+   tolua_function(tolua_S,"isInTextField",tolua_Cocos2d_CCCursorMultiTextFieldTTF_isInTextField00);
+   tolua_function(tolua_S,"getRect",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getRect00);
+   tolua_function(tolua_S,"openIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_openIME00);
+   tolua_function(tolua_S,"closeIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_closeIME00);
+   tolua_function(tolua_S,"getIsPsw",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getIsPsw00);
+   tolua_function(tolua_S,"setIsPsw",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setIsPsw00);
+   tolua_function(tolua_S,"setLimitNum",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setLimitNum00);
+   tolua_function(tolua_S,"getLimitNum",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getLimitNum00);
+   tolua_function(tolua_S,"setString",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setString00);
+   tolua_function(tolua_S,"setDesignedSize",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setDesignedSize00);
+   tolua_function(tolua_S,"getDesignedSize",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getDesignedSize00);
+  tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCMenu","CCMenu","CCLayer",NULL);
   tolua_beginmodule(tolua_S,"CCMenu");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCMenu_create00);
@@ -60097,13 +61024,26 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"Updater","Updater","",NULL);
   #endif
   tolua_beginmodule(tolua_S,"Updater");
+   tolua_constant(tolua_S,"kCreateFile",Updater::kCreateFile);
+   tolua_constant(tolua_S,"kNetwork",Updater::kNetwork);
+   tolua_constant(tolua_S,"kUncompress",Updater::kUncompress);
+   tolua_constant(tolua_S,"kDownStart",Updater::kDownStart);
+   tolua_constant(tolua_S,"kDownDone",Updater::kDownDone);
+   tolua_constant(tolua_S,"kUncompressStart",Updater::kUncompressStart);
+   tolua_constant(tolua_S,"kUncompressDone",Updater::kUncompressDone);
+   tolua_constant(tolua_S,"kUpdateUndefined",Updater::kUpdateUndefined);
+   tolua_constant(tolua_S,"kUpdateZIP",Updater::kUpdateZIP);
+   tolua_constant(tolua_S,"kUpdateFiles",Updater::kUpdateFiles);
+   tolua_constant(tolua_S,"kUpdateFile",Updater::kUpdateFile);
+   tolua_constant(tolua_S,"kUpdateFileAsync",Updater::kUpdateFileAsync);
    tolua_function(tolua_S,"new",tolua_Cocos2d_Updater_new00);
    tolua_function(tolua_S,"new_local",tolua_Cocos2d_Updater_new00_local);
    tolua_function(tolua_S,".call",tolua_Cocos2d_Updater_new00_local);
    tolua_function(tolua_S,"delete",tolua_Cocos2d_Updater_delete00);
    tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update00);
    tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update01);
-   
+   tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update02);
+   tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update03);
    tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_Updater_registerScriptHandler00);
    tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_Updater_unregisterScriptHandler00);
    tolua_function(tolua_S,"setConnectionTimeout",tolua_Cocos2d_Updater_setConnectionTimeout00);

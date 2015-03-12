@@ -93,6 +93,7 @@ $pfile "cocos2dx/label_nodes/CCLabelAtlas.tolua"
 $pfile "cocos2dx/label_nodes/CCLabelBMFont.tolua"
 $pfile "cocos2dx/label_nodes/CCLabelTTF.tolua"
 $pfile "cocos2dx/text_input_node/CCTextFieldTTF.tolua"
+$pfile "cocos2dx/text_input_node/CCCursorMultiTextFieldTTF.tolua"
 
 $pfile "cocos2dx/menu_nodes/CCMenu.tolua"
 $pfile "cocos2dx/menu_nodes/CCMenuItem.tolua"
