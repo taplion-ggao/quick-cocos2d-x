@@ -31,7 +31,7 @@ function EventProtocol.extend(object)
         local eventName = event.name
         if object.listeners_[eventName] == nil then return end
         event.target = object
-        dump(object.listeners_,"object:dispatchEvent",10)
+        
         for handle, listener in pairs(object.listeners_[eventName]) do
             local ret = listener(event, a)
             if ret == false then
