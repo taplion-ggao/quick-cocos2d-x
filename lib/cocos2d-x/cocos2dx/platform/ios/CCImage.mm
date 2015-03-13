@@ -188,7 +188,7 @@ static CGSize _calculateStringSize(NSString *str, id font, CGSize *constrainSize
         {
            dim.width = tmp.width; 
         }
-         printf("_calculateStringSize_calculateStringSize tmp %f ,constrainSize %f, dim.width %f \n",tmp.width,constrainSize->width,tmp.height);
+//         printf("_calculateStringSize_calculateStringSize tmp %f ,constrainSize %f, dim.width %f \n",tmp.width,constrainSize->width,tmp.height);
         
         dim.height += tmp.height;
     }

@@ -86,7 +86,7 @@ void CCCursorMultiTextFieldTTF::initCursorSprite(int nHeight)
     
     m_pCursorSprite = CCSprite::createWithTexture(texture);
     CCSize winSize = getContentSize();
-    CCLOG(" winSizewinSizewinSize is %f,%f",winSize.width,winSize.height);
+//    CCLOG(" winSizewinSizewinSize is %f,%f",winSize.width,winSize.height);
     m_cursorPos = CCPoint(0, 0);
     m_pCursorSprite->setPosition(m_cursorPos);
     this->addChild(m_pCursorSprite);
@@ -117,7 +117,7 @@ CCRect CCCursorMultiTextFieldTTF::getRect()
     }
    
     CCRect rect = CCRectMake(0 - size.width * getAnchorPoint().x, 0 - size.height * getAnchorPoint().y, size.width, size.height);
-    CCLOG("pToushPospToushPos %f,%f,%f,%f",0 - size.width * getAnchorPoint().x,0 - size.height * getAnchorPoint().y,size.width,size.height);
+//    CCLOG("pToushPospToushPos %f,%f,%f,%f",0 - size.width * getAnchorPoint().x,0 - size.height * getAnchorPoint().y,size.width,size.height);
     return  rect;
 }
 //设置触摸弹出输入法的区域大小
@@ -134,9 +134,9 @@ CCSize CCCursorMultiTextFieldTTF::getDesignedSize()
 bool CCCursorMultiTextFieldTTF::isInTextField(cocos2d::CCTouch *pTouch)
 {   
     CCPoint pToushPos = convertTouchToNodeSpaceAR(pTouch);
-    CCLOG("pToushPospToushPos %f,%f",pToushPos.x,pToushPos.y);
+//    CCLOG("pToushPospToushPos %f,%f",pToushPos.x,pToushPos.y);
     bool inPoint = getRect().containsPoint(pToushPos);
-    CCLOG("containsPointcontainsPoint is %s",inPoint);
+//    CCLOG("containsPointcontainsPoint is %s",inPoint);
     return true;
     //return CCRect::CCRectContainsPoint(getRect(), pToushPos);
 }
@@ -176,21 +176,21 @@ bool CCCursorMultiTextFieldTTF::onTextFieldAttachWithIME(cocos2d::CCTextFieldTTF
 }
 void CCCursorMultiTextFieldTTF::keyboardWillHide(CCIMEKeyboardNotificationInfo& info)
 {
-     CCLOG("CCCursorMultiTextFieldTTF::keyboardWillHide");
+//     CCLOG("CCCursorMultiTextFieldTTF::keyboardWillHide");
     m_pCursorSprite->setVisible(false);
 
 }
 
 void CCCursorMultiTextFieldTTF::keyboardDidHide(CCIMEKeyboardNotificationInfo& info)
 {
-    CCLOG("CCCursorMultiTextFieldTTF::keyboardDidHide");
+//    CCLOG("CCCursorMultiTextFieldTTF::keyboardDidHide");
 
 }
 bool CCCursorMultiTextFieldTTF::onTextFieldInsertText(cocos2d::CCTextFieldTTF *pSender, const char *text, int nLen)
 {
-    CCLOG("Width: %f", pSender->getContentSize().width);
-    CCLOG("Text: %s", text);
-    CCLOG("Length: %d", nLen);
+//    CCLOG("Width: %f", pSender->getContentSize().width);
+//    CCLOG("Text: %s", text);
+//    CCLOG("Length: %d", nLen);
     std::string tempStr = m_pInputText->substr();
     tempStr.append(text);
     if (tempStr.length() > m_limitNum) {
@@ -200,7 +200,7 @@ bool CCCursorMultiTextFieldTTF::onTextFieldInsertText(cocos2d::CCTextFieldTTF *p
 //    
     m_pInputText->append(text);
 //   textWidthFormat(text);
-    CCLOG("m_pInputTextm_p_pInputText %s",m_pInputText->c_str());
+//    CCLOG("m_pInputTextm_p_pInputText %s",m_pInputText->c_str());
     
     std::string sText(*m_pInputText);
 //  sText.append(sInsert);
@@ -242,13 +242,13 @@ std::string CCCursorMultiTextFieldTTF::textWidthFormat(const char *text)
 void CCCursorMultiTextFieldTTF::updateCursorPosition()
 {
     CCSize textSize = getTexture()->getContentSizeInPixels();
-    CCLOG("CCCursorMultiTextFieldTTF textSize %f,%f ",textSize.width, textSize.height);
+//    CCLOG("CCCursorMultiTextFieldTTF textSize %f,%f ",textSize.width, textSize.height);
     float height = 0;
     float width = 0;
     float merHeight = CCImage::getMerHeightByFontAndName(getFontName(),getFontSize());
     std::string inputText = textWidthFormat(m_pInputText->c_str());
     CCImage::getLastWordPositionX(inputText.c_str(),getFontName(),getFontSize(),getDimensions().width,getDimensions().height,&height,&width);
-    CCLOG("CCCursorMultiTextFieldTTF height %f,width %f ,%s",height, width,m_pInputText->c_str());
+//    CCLOG("CCCursorMultiTextFieldTTF height %f,width %f ,%s",height, width,m_pInputText->c_str());
     int row = ceil(height/merHeight);
     height = merHeight * row;
     m_cursorPos = CCPoint(width,getDimensions().height - abs(height - merHeight/2));
