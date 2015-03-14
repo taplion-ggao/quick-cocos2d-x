@@ -74,6 +74,7 @@ void CCScriptEventDispatcher::removeScriptEventListener(unsigned int handle)
         {
             p->removed = true;
             engine->removeScriptHandler(p->listener);
+            m_scriptEventListeners->removeObjectAtIndex(i);
             break;
         }
     }
@@ -93,6 +94,9 @@ void CCScriptEventDispatcher::removeScriptEventListenersByEvent(int event)
         {
             p->removed = true;
             engine->removeScriptHandler(p->listener);
+            m_scriptEventListeners->removeObjectAtIndex(i);
+            break;
+            
         }
     }
 }
@@ -111,6 +115,8 @@ void CCScriptEventDispatcher::removeScriptEventListenersByTag(int tag)
         {
             p->removed = true;
             engine->removeScriptHandler(p->listener);
+            m_scriptEventListeners->removeObjectAtIndex(i);
+            break;
         }
     }
 }
@@ -131,6 +137,7 @@ void CCScriptEventDispatcher::removeAllScriptEventListeners()
             engine->removeScriptHandler(p->listener);
         }
     }
+    m_scriptEventListeners->removeAllObjects();
 }
 
 bool CCScriptEventDispatcher::hasScriptEventListener(int event)
