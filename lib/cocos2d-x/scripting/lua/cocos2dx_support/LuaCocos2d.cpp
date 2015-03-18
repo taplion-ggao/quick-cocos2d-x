@@ -57946,7 +57946,7 @@ static int tolua_Cocos2d_Updater_registerScriptHandler00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -57954,7 +57954,9 @@ static int tolua_Cocos2d_Updater_registerScriptHandler00(lua_State* tolua_S)
 #endif
  {
   Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
-  int handler = ((int)  tolua_tonumber(tolua_S,2,0));
+//  int handler = ((int)  tolua_tonumber(tolua_S,2,0));
+  // int event = ((int)  tolua_tonumber(tolua_S,2,0));
+   LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptHandler'", NULL);
 #endif
