@@ -189,7 +189,7 @@ function UIButton:onButtonPressed(callback)
 end
 
 function UIButton:addButtonReleaseEventListener(callback)
-    return self:addEventListener(UIButton.RELEASE_EVENT, callback)
+    return self:addEventListener(UIButton.CLICKED_EVENT, callback)
 end
 
 function UIButton:onButtonRelease(callback)
