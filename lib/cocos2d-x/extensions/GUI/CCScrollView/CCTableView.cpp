@@ -213,7 +213,7 @@ void CCTableView::removeCellAtIndex(unsigned int idx)
     }
 
     unsigned int uCountOfItems = m_pDataSource->numberOfCellsInTableView(this);
-    if (0 == uCountOfItems || idx > uCountOfItems-1)
+    if (0 == uCountOfItems || idx > uCountOfItems)
     {
         return;
     }
@@ -226,21 +226,54 @@ void CCTableView::removeCellAtIndex(unsigned int idx)
         return;
     }
 
+    int usedCount = m_pCellsUsed->count();
     newIdx = m_pCellsUsed->indexOfSortedObject(cell);
-
     //remove first
     this->_moveCellOutOfSight(cell);
-
-    m_pIndices->erase(idx);
+    
     this->_updateCellPositions();
-//    [m_pIndices shiftIndexesStartingAtIndex:idx+1 by:-1];
-	int count = m_pCellsUsed->count();
-	count = count - 1;
-    for (int i=count; i >newIdx ; i--)
+    this->_updateContentSize();
+    m_pIndices->clear();
+   
+    int lastIndex = -1;
+    
+    CCLOG("removeCellAtIndex newIdx is %d",newIdx);
+    if (newIdx == 0 ){
+//        return;
+    }
+    for (int i = 0; i < (int)newIdx; i++)
     {
         cell = (CCTableViewCell*)m_pCellsUsed->objectAtIndex(i);
-        this->_setIndexForCell(cell->getIdx()-1, cell);
+        int index = cell->getIdx() ;
+        m_pIndices->insert(index);
+        CCPoint pos = this->_offsetFromIndex(index);
+        CCLOG("索引的index 是 %d,y的位置是%f",i,pos.y);
+        cell->setPosition(this->_offsetFromIndex(index));
     }
+
+    for (int i=(int)m_pCellsUsed->count()-1; i >= (int)newIdx; --i)
+    {
+        cell = (CCTableViewCell*)m_pCellsUsed->objectAtIndex(i);
+        int index = cell->getIdx()-1;
+        this->_setIndexForCell(index, cell);
+        CCPoint pos = this->_offsetFromIndex(index);
+        m_pIndices->insert(index);
+    }
+    
+    int nowUsedCount = m_pCellsUsed->count();
+    cell = (CCTableViewCell*)m_pCellsUsed->objectAtIndex(nowUsedCount-1);
+    lastIndex = cell->getIdx();
+    if (usedCount > nowUsedCount ){
+        int offset = usedCount - nowUsedCount;
+        int endIndex = (lastIndex + 1 ) + offset ;
+        for (int i = (lastIndex + 1) ;i < endIndex;i++){
+            CCLOG("自动更新第index个，%d",i);
+            if (i < uCountOfItems -1){
+                this->updateCellAtIndex(i);
+            }
+        }
+    }
+    
 }
 
 CCTableViewCell *CCTableView::dequeueCell()
