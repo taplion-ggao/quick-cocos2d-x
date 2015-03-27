@@ -117,7 +117,7 @@ CCImage::~CCImage()
 #endif
 }
 
-bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
+bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/,float shadowOffset)
 {
     bool bRet = false;
 
@@ -179,7 +179,8 @@ bool CCImage::initWithImageData(void * pData,
                                 EImageFormat eFmt/* = eSrcFmtPng*/, 
                                 int nWidth/* = 0*/,
                                 int nHeight/* = 0*/,
-                                int nBitsPerComponent/* = 8*/)
+                                int nBitsPerComponent/* = 8*/,
+                                float shadow /* =0 */)
 {
     bool bRet = false;
     do 

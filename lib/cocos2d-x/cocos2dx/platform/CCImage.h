@@ -81,7 +81,7 @@ public:
     @param imageType the type of image, currently only supporting two types.
     @return  true if loaded correctly.
     */
-    bool initWithImageFile(const char * strPath, EImageFormat imageType = kFmtPng);
+    bool initWithImageFile(const char * strPath, EImageFormat imageType = kFmtPng,float shadowOffset = 0);
 
     /*
      @brief The same result as with initWithImageFile, but thread safe. It is caused by
@@ -107,7 +107,7 @@ public:
                            EImageFormat eFmt = kFmtUnKnown,
                            int nWidth = 0,
                            int nHeight = 0,
-                           int nBitsPerComponent = 8);
+                           int nBitsPerComponent = 8,float shadow = 0);
 
     /**
     @brief    Create image with specified string.

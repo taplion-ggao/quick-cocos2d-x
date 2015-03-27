@@ -47,6 +47,9 @@ typedef struct
     float        strokeColorR;
     float        strokeColorG;
     float        strokeColorB;
+    float        shadowColorR;
+    float        shadowColorG;
+    float        shadowColorB;
     float        strokeSize;
     float        tintColorR;
     float        tintColorG;
@@ -56,7 +59,7 @@ typedef struct
     
 } tImageInfo;
 
-static bool _initWithImage(CGImageRef cgImage, tImageInfo *pImageinfo)
+static bool _initWithImage(CGImageRef cgImage, tImageInfo *pImageinfo,float shadow)
 {
     if(cgImage == NULL) 
     {
@@ -65,8 +68,14 @@ static bool _initWithImage(CGImageRef cgImage, tImageInfo *pImageinfo)
     
     // get image info
     
-    pImageinfo->width = CGImageGetWidth(cgImage);
-    pImageinfo->height = CGImageGetHeight(cgImage);
+    int xOffset = 0;
+    int yOffset = 0;
+    if (shadow > 0 ){
+        xOffset = 60;
+        yOffset = 60;
+    }
+    pImageinfo->width = CGImageGetWidth(cgImage) + xOffset;
+    pImageinfo->height = CGImageGetHeight(cgImage) + yOffset;
     
     CGImageAlphaInfo info = CGImageGetAlphaInfo(cgImage);
     pImageinfo->hasAlpha = (info == kCGImageAlphaPremultipliedLast) 
@@ -113,6 +122,13 @@ static bool _initWithImage(CGImageRef cgImage, tImageInfo *pImageinfo)
                                                  colorSpace, 
                                                  info | kCGBitmapByteOrder32Big);
     
+    if (shadow > 0 ){
+        CGSize glowOffset = CGSizeMake(0, 0);
+        CGFloat color[] = {1,0.97,0.8,1};
+        CGColorRef glowColorRef = CGColorCreate(colorSpace, color);
+        CGContextSetShadowWithColor(context, glowOffset, shadow, glowColorRef);
+        
+    }
     CGContextClearRect(context, CGRectMake(0, 0, pImageinfo->width, pImageinfo->height));
     //CGContextTranslateCTM(context, 0, 0);
     CGContextDrawImage(context, CGRectMake(0, 0, pImageinfo->width, pImageinfo->height), cgImage);
@@ -123,7 +139,7 @@ static bool _initWithImage(CGImageRef cgImage, tImageInfo *pImageinfo)
     return true;
 }
 
-static bool _initWithFile(const char* path, tImageInfo *pImageinfo)
+static bool _initWithFile(const char* path, tImageInfo *pImageinfo,float shadow)
 {
     CGImageRef                CGImage;    
     UIImage                    *jpg;
@@ -142,7 +158,7 @@ static bool _initWithFile(const char* path, tImageInfo *pImageinfo)
     png = [[UIImage alloc] initWithData:UIImagePNGRepresentation(jpg)];
     CGImage = png.CGImage;    
     
-    ret = _initWithImage(CGImage, pImageinfo);
+    ret = _initWithImage(CGImage, pImageinfo,shadow);
     
     [png release];
     [jpg release];
@@ -151,7 +167,7 @@ static bool _initWithFile(const char* path, tImageInfo *pImageinfo)
 }
 
 
-static bool _initWithData(void * pBuffer, int length, tImageInfo *pImageinfo)
+static bool _initWithData(void * pBuffer, int length, tImageInfo *pImageinfo,float shadow)
 {
     bool ret = false;
     
@@ -163,7 +179,7 @@ static bool _initWithData(void * pBuffer, int length, tImageInfo *pImageinfo)
         data = [NSData dataWithBytes:pBuffer length:length];
         CGImage = [[UIImage imageWithData:data] CGImage];
         
-        ret = _initWithImage(CGImage, pImageinfo);
+        ret = _initWithImage(CGImage, pImageinfo,shadow);
     }
     
     return ret;
@@ -198,16 +214,32 @@ static CGSize _calculateStringSize(NSString *str, id font, CGSize *constrainSize
     
     return dim;
 }
+static bool s_isIOS7OrHigher = false;
+
+static inline void lazyCheckIOS7()
+{
+    static bool isInited = false;
+    if (!isInited)
+    {
+        s_isIOS7OrHigher = [[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending;
+        isInited = true;
+    }
+}
+
 
 // refer CCImage::ETextAlign
 #define ALIGN_TOP    1
 #define ALIGN_CENTER 3
 #define ALIGN_BOTTOM 2
 
+
 static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAlign, const char * pFontName, int nSize, tImageInfo* pInfo)
 {
+    // lazy check whether it is iOS7 device
+    lazyCheckIOS7();
+    
     bool bRet = false;
-    do 
+    do
     {
         CC_BREAK_IF(! pText || ! pInfo);
         
@@ -226,7 +258,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         // the '.ttf' extensions when referring to custom fonts.
         fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
         
-        // create the font   
+        // create the font
         id font = [UIFont fontWithName:fntName size:nSize];
         
         if (font)
@@ -239,13 +271,13 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             {
                 font = [UIFont systemFontOfSize:nSize];
             }
-                
+            
             if (font)
             {
                 dim = _calculateStringSize(str, font, &constrainSize);
             }
         }
-
+        
         CC_BREAK_IF(! font);
         
         // compute start point
@@ -262,7 +294,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             {
                 startH = (constrainSize.height - dim.height) / 2;
             }
-            else 
+            else
             {
                 startH = constrainSize.height - dim.height;
             }
@@ -278,8 +310,6 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             dim.height = constrainSize.height;
         }
         
-        dim.width = (int)(dim.width / 2) * 2 + 2;
-        dim.height = (int)(dim.height / 2) * 2 + 2;
         
         // compute the padding needed by shadow and stroke
         float shadowStrokePaddingX = 0.0f;
@@ -293,13 +323,15 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         
         if ( pInfo->hasShadow )
         {
+//            CCLOG("pInfo->hasShadow is true!!!!!!!!,%d",shadowStrokePaddingX);
             shadowStrokePaddingX = std::max(shadowStrokePaddingX, (float)abs(pInfo->shadowOffset.width));
             shadowStrokePaddingY = std::max(shadowStrokePaddingY, (float)abs(pInfo->shadowOffset.height));
         }
         
         // add the padding (this could be 0 if no shadow and no stroke)
-        dim.width  += shadowStrokePaddingX;
-        dim.height += shadowStrokePaddingY;
+        dim.width  += shadowStrokePaddingX*2;
+        dim.height += shadowStrokePaddingY*2;
+        
         
         unsigned char* data = new unsigned char[(int)(dim.width * dim.height * 4)];
         memset(data, 0, (int)(dim.width * dim.height * 4));
@@ -321,7 +353,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             delete[] data;
             break;
         }
-
+        
         // text color
         CGContextSetRGBFillColor(context, pInfo->tintColorR, pInfo->tintColorG, pInfo->tintColorB, 1);
         // move Y rendering to the top of the image
@@ -333,82 +365,76 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         
         // measure text size with specified font and determine the rectangle to draw text in
         unsigned uHoriFlag = eAlign & 0x0f;
-        UITextAlignment align = (UITextAlignment)((2 == uHoriFlag) ? UITextAlignmentRight
-                                : (3 == uHoriFlag) ? UITextAlignmentCenter
-                                : UITextAlignmentLeft);
-
+        NSTextAlignment align = (NSTextAlignment)((2 == uHoriFlag) ? NSTextAlignmentLeft
+                                                  : (3 == uHoriFlag) ? NSTextAlignmentCenter
+                                                  : NSTextAlignmentLeft);
         
-        // take care of stroke if needed
-        if ( pInfo->hasStroke )
-        {
-            CGContextSetTextDrawingMode(context, kCGTextFillStroke);
-            CGContextSetRGBStrokeColor(context, pInfo->strokeColorR, pInfo->strokeColorG, pInfo->strokeColorB, 1);
-            CGContextSetLineWidth(context, pInfo->strokeSize);
-        }
-        
-        // take care of shadow if needed
-        if ( pInfo->hasShadow )
-        {
-            CGSize offset;
-            offset.height = pInfo->shadowOffset.height;
-            offset.width  = pInfo->shadowOffset.width;
-            CGContextSetShadow(context, offset, pInfo->shadowBlur);
-        }
-        
-        
-        
-        // normal fonts
-        //if( [font isKindOfClass:[UIFont class] ] )
-        //{
-        //    [str drawInRect:CGRectMake(0, startH, dim.width, dim.height) withFont:font lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap alignment:align];
-        //}
-        //else // ZFont class
-        //{
-        //    [FontLabelStringDrawingHelper drawInRect:str rect:CGRectMake(0, startH, dim.width, dim.height) withZFont:font lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap 
-        ////alignment:align];
-        //}
-    
-        
+        //------------------------------------------------------------------------------------
         
         // compute the rect used for rendering the text
         // based on wether shadows or stroke are enabled
         
-        float textOriginX  = 0.0;
-        float textOrigingY = 0.0;
+        float textOriginX  = 0;
+        float textOrigingY = startH;
         
-        float textWidth    = dim.width  - shadowStrokePaddingX;
-        float textHeight   = dim.height - shadowStrokePaddingY;
+        float textWidth    = dim.width;
+        float textHeight   = dim.height;
         
+        CGRect rect = CGRectMake(textOriginX, textOrigingY, textWidth, textHeight);
         
-        if ( pInfo->shadowOffset.width < 0 )
+        CGContextSetShouldSubpixelQuantizeFonts(context, false);
+        
+        CGContextBeginTransparencyLayerWithRect(context, rect, NULL);
+        
+        if ( pInfo->hasStroke )
         {
-            textOriginX = shadowStrokePaddingX;
-        }
-        else
-        {
-            textOriginX = 0.0;
+            CGContextSetTextDrawingMode(context, kCGTextStroke);
+            
+            if(s_isIOS7OrHigher)
+            {
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.alignment = align;
+                paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+                [str drawInRect:rect withAttributes:@{
+                                                      NSFontAttributeName: font,
+                                                      NSStrokeWidthAttributeName: [NSNumber numberWithFloat: pInfo->strokeSize / nSize * 100 ],
+                                                      NSForegroundColorAttributeName:[UIColor colorWithRed:pInfo->tintColorR
+                                                                                                     green:pInfo->tintColorG
+                                                                                                      blue:pInfo->tintColorB
+                                                                                                     alpha:1.0f],
+                                                      NSParagraphStyleAttributeName:paragraphStyle,
+                                                      NSStrokeColorAttributeName: [UIColor colorWithRed:pInfo->strokeColorR
+                                                                                                  green:pInfo->strokeColorG
+                                                                                                   blue:pInfo->strokeColorB
+                                                                                                  alpha:1.0f]
+                                                      }
+                 ];
+                
+                [paragraphStyle release];
+            }
+            else
+            {
+                CGContextSetRGBStrokeColor(context, pInfo->strokeColorR, pInfo->strokeColorG, pInfo->strokeColorB, 1);
+                CGContextSetLineWidth(context, pInfo->strokeSize);
+                
+                //original code that was not working in iOS 7
+                [str drawInRect: rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:align];
+            }
         }
         
-        if (pInfo->shadowOffset.height > 0)
-        {
-            textOrigingY = startH;
-        }
-        else
-        {
-            textOrigingY = startH - shadowStrokePaddingY;
-        }
-        
+        CGContextSetTextDrawingMode(context, kCGTextFill);
         
         // actually draw the text in the context
-		// XXX: ios7 casting
-        [str drawInRect:CGRectMake(textOriginX, textOrigingY, textWidth, textHeight) withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:(NSTextAlignment)align];
+        [str drawInRect: rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:align];
+        
+        CGContextEndTransparencyLayer(context);
         
         // pop the context
         UIGraphicsPopContext();
         
         // release the context
         CGContextRelease(context);
-               
+        
         // output params
         pInfo->data                 = data;
         pInfo->hasAlpha             = true;
@@ -419,7 +445,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         bRet                        = true;
         
     } while (0);
-
+    
     return bRet;
 }
 
@@ -535,7 +561,7 @@ float CCImage::getLastWordPositionX(const char *pText, const char * pFontName, i
     
     return lastRowHeight;
 }
-bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
+bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/,float shadow)
 {
 	bool bRet = false;
     unsigned long nSize = 0;
@@ -550,7 +576,7 @@ bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = e
 				
     if (pBuffer != NULL && nSize > 0)
     {
-        bRet = initWithImageData(pBuffer, nSize, eImgFmt);
+        bRet = initWithImageData(pBuffer, nSize, eImgFmt,0,0,0,shadow);
     }
     CC_SAFE_DELETE_ARRAY(pBuffer);
     return bRet;
@@ -578,7 +604,8 @@ bool CCImage::initWithImageData(void * pData,
                                 EImageFormat eFmt,
                                 int nWidth,
                                 int nHeight,
-                                int nBitsPerComponent)
+                                int nBitsPerComponent,
+                                float shadow)
 {
     bool bRet = false;
     tImageInfo info = {0};
@@ -599,7 +626,7 @@ bool CCImage::initWithImageData(void * pData,
         }
         else // init with png or jpg file data
         {
-            bRet = _initWithData(pData, nDataLen, &info);
+            bRet = _initWithData(pData, nDataLen, &info,shadow);
             if (bRet)
             {
                 m_nHeight = (short)info.height;
