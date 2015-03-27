@@ -56806,6 +56806,42 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+// tolua_Cocos2d_CCScrollView_setDraggingEnable00
+
+/* method: setTouchEnabled of class  CCScrollView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScrollView_setDraggingEnable00
+static int tolua_Cocos2d_CCScrollView_setDraggingEnable00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCScrollView",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCScrollView* self = (CCScrollView*)  tolua_tousertype(tolua_S,1,0);
+  bool e = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDraggingEnable'", NULL);
+#endif
+  {
+   self->setDraggingEnable(e);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setDraggingEnable'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+
 /* method: setTouchEnabled of class  CCScrollView */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScrollView_setTouchEnabled00
 static int tolua_Cocos2d_CCScrollView_setTouchEnabled00(lua_State* tolua_S)
@@ -60970,6 +61006,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"addChild",tolua_Cocos2d_CCScrollView_addChild01);
    tolua_function(tolua_S,"addChild",tolua_Cocos2d_CCScrollView_addChild02);
    tolua_function(tolua_S,"setTouchEnabled",tolua_Cocos2d_CCScrollView_setTouchEnabled00);
+   tolua_function(tolua_S,"setDraggingEnable",tolua_Cocos2d_CCScrollView_setDraggingEnable00);
    tolua_constant(tolua_S,"kScrollViewScroll",CCScrollView::kScrollViewScroll);
    tolua_constant(tolua_S,"kScrollViewZoom",CCScrollView::kScrollViewZoom);
    tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_CCScrollView_unregisterScriptHandler00);

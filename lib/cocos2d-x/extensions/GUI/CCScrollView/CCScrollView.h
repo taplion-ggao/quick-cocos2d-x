@@ -213,6 +213,7 @@ public:
     virtual void addChild(CCNode * child, int zOrder);
     virtual void addChild(CCNode * child);
     void setTouchEnabled(bool e);
+    void setDraggingEnable(bool e);
 private:
     /**
      * Relocates the container at the proper offset, in bounds of max/min offsets.
@@ -270,6 +271,10 @@ protected:
     CCScrollViewDelegate* m_pDelegate;
 
     CCScrollViewDirection m_eDirection;
+    /**
+     * If YES, the view is able to be dragged.
+     */
+    bool m_bDraggEnable;
     /**
      * If YES, the view is being dragged.
      */

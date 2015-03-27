@@ -46,6 +46,7 @@ CCScrollView::CCScrollView()
 , m_fMaxZoomScale(0.0f)
 , m_pDelegate(NULL)
 , m_eDirection(kCCScrollViewDirectionBoth)
+, m_bDraggEnable(true)
 , m_bDragging(false)
 , m_pContainer(NULL)
 , m_bTouchMoved(false)
@@ -174,7 +175,10 @@ void CCScrollView::resume(CCObject* sender)
 
     m_pContainer->resumeSchedulerAndActions();
 }
-
+void CCScrollView::setDraggingEnable(bool e)
+{
+    m_bDraggEnable = e;
+}
 void CCScrollView::setTouchEnabled(bool e)
 {
     CCLayer::setTouchEnabled(e);
@@ -625,7 +629,10 @@ bool CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
     { // scrolling
         m_tTouchPoint     = this->convertTouchToNodeSpace(touch);
         m_bTouchMoved     = false;
-        m_bDragging     = true; //dragging started
+        if (m_bDraggEnable == true ){
+            m_bDragging     = true; //dragging started
+        }
+
         m_tScrollDistance = ccp(0.0f, 0.0f);
         m_fTouchLength    = 0.0f;
     }
