@@ -194,7 +194,8 @@ LOCAL_SRC_FILES += \
     CocoStudio/Trigger/ObjectFactory.cpp \
     CocoStudio/Trigger/TriggerBase.cpp \
     CocoStudio/Trigger/TriggerMng.cpp \
-    CocoStudio/Trigger/TriggerObj.cpp
+    CocoStudio/Trigger/TriggerObj.cpp \
+    updater/Updater.cpp 
 endif
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
