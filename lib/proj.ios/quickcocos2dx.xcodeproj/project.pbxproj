@@ -30,6 +30,7 @@
 		3277349E1AAD9C08008B644A /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3277349C1AAD9C08008B644A /* Updater.cpp */; };
 		49832215187FE2C000733BFB /* CZHelperFunc_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */; };
 		49832219187FE2DF00733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832217187FE2DF00733BFB /* HelperFunc.cpp */; };
+		8D9FBDE91AD6AD4A001B2665 /* sqlite3secure.c in Sources */ = {isa = PBXBuildFile; fileRef = 8D9FBDDF1AD6AD4A001B2665 /* sqlite3secure.c */; };
 		8DB4A0C11AB0439400C28A7E /* CCCursorMultiTextFieldTTF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4A0BF1AB0439400C28A7E /* CCCursorMultiTextFieldTTF.cpp */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
@@ -560,6 +561,7 @@
 		49832214187FE2C000733BFB /* CZHelperFunc_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHelperFunc_luabinding.h; sourceTree = "<group>"; };
 		49832217187FE2DF00733BFB /* HelperFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelperFunc.cpp; sourceTree = "<group>"; };
 		49832218187FE2DF00733BFB /* HelperFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperFunc.h; sourceTree = "<group>"; };
+		8D9FBDDF1AD6AD4A001B2665 /* sqlite3secure.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3secure.c; sourceTree = "<group>"; };
 		8DB4A0BF1AB0439400C28A7E /* CCCursorMultiTextFieldTTF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursorMultiTextFieldTTF.cpp; sourceTree = "<group>"; };
 		8DB4A0C01AB0439400C28A7E /* CCCursorMultiTextFieldTTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursorMultiTextFieldTTF.h; sourceTree = "<group>"; };
 		B2DC798F181BA55A001341D6 /* lsqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsqlite3.c; sourceTree = "<group>"; };
@@ -1680,6 +1682,22 @@
 			path = apptools;
 			sourceTree = "<group>";
 		};
+		8D9FBDD11AD6AD4A001B2665 /* wxsqlite */ = {
+			isa = PBXGroup;
+			children = (
+				8D9FBDD21AD6AD4A001B2665 /* src */,
+			);
+			path = wxsqlite;
+			sourceTree = "<group>";
+		};
+		8D9FBDD21AD6AD4A001B2665 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8D9FBDDF1AD6AD4A001B2665 /* sqlite3secure.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		B2DC798E181BA55A001341D6 /* lsqlite3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2596,6 +2614,7 @@
 		F4A8F6B417F0B18000110198 /* external */ = {
 			isa = PBXGroup;
 			children = (
+				8D9FBDD11AD6AD4A001B2665 /* wxsqlite */,
 				F459EA8E180D04E1006CBDF1 /* chipmunk */,
 				F459E9F6180D04D8006CBDF1 /* extra */,
 				F4A8F6B517F0B19000110198 /* libwebsockets */,
@@ -4215,6 +4234,7 @@
 				F4E8830B177015C400577406 /* CCTextureCache.cpp in Sources */,
 				E5C463551987A250001192EA /* XMLDataParser.cpp in Sources */,
 				F459EAF6180D04E1006CBDF1 /* CCPhysicsDebugNode.cpp in Sources */,
+				8D9FBDE91AD6AD4A001B2665 /* sqlite3secure.c in Sources */,
 				F459EB13180D04E1006CBDF1 /* cpSpaceQuery.c in Sources */,
 				F4D26E9D196321AE0087295D /* CCTweenFunction.cpp in Sources */,
 				F4E8830C177015C400577406 /* CCTextureETC.cpp in Sources */,
@@ -4455,6 +4475,12 @@
 					"CC_CCB_ENABLED=1",
 					"CC_DRAGONBONES_ENABLED=1",
 					"CC_FILTERS_ENABLED=1",
+					"SQLITE_HAS_CODEC=1",
+					"CODEC_TYPE=CODEC_TYPE_AES128",
+					THREADSAFE,
+					SQLITE_SECURE_DELETE,
+					SQLITE_SOUNDEX,
+					SQLITE_ENABLE_COLUMN_METADATA,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
