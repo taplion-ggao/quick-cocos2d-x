@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-
+#include "lsqlite3.h"
 #define LUA_LIB
 #include "lua.h"
 #include "lauxlib.h"
@@ -1885,11 +1885,18 @@ static int lsqlite_temp_directory(lua_State *L) {
 }
 #endif
 
-static int lsqlite_do_open(lua_State *L, const char *filename) {
+//
+static int lsqlite_do_open(lua_State *L, const char *filename,const char*str,int len) {
     sdb *db = newdb(L); /* create and leave in stack */
-
+    
     if (sqlite3_open(filename, &db->db) == SQLITE_OK) {
-        /* database handle already in the stack - return it */
+         /*database handle already in the stack - return it */
+        if (str != NULL && len ){
+            if (sqlite3_key(db->db, str, len) != SQLITE_OK) {
+                 /*database handle already in the stack - return it*/
+                return 0;
+            }
+        }
         return 1;
     }
 
@@ -1907,11 +1914,15 @@ static int lsqlite_do_open(lua_State *L, const char *filename) {
 
 static int lsqlite_open(lua_State *L) {
     const char *filename = luaL_checkstring(L, 1);
-    return lsqlite_do_open(L, filename);
+    const char *str = luaL_checkstring(L, 2);
+    int len = luaL_checknumber(L, 3);
+    return lsqlite_do_open(L, filename,str,len);
+//    return lsqlite_do_open(L, filename);
 }
 
 static int lsqlite_open_memory(lua_State *L) {
-    return lsqlite_do_open(L, ":memory:");
+//
+    return lsqlite_do_open(L, ":memory:",NULL,NULL);
 }
 
 static int lsqlite_newindex(lua_State *L) {
