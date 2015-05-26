@@ -93,6 +93,7 @@ function UIListView:newItem(item)
 end
 
 function UIListView:itemSizeChangeListener(listItem, newSize, oldSize)
+	print("UIListView:itemSizeChangeListener ")
 	local pos = self:getItemPos(listItem)
 	if not pos then
 		return
@@ -259,6 +260,8 @@ function UIListView:layout_()
 
 			height = height + itemH
 		end
+
+		print("layout_ height is "..tostring(height))
 	else
 		height = self.viewRect_.height
 
@@ -277,8 +280,12 @@ function UIListView:layout_()
 	self.size.width = width
 	self.size.height = height
 
+	print("UIListView layout_ height is "..tostring(height))
+
 	local setPositionByAlignment = function(content, w, h, margin)
 		local size = content:getContentSize()
+		print("setPositionByAlignment size is "..size.width,size.height,w,h)
+		dump(margin)
 		if 0 == margin.left and 0 == margin.right and 0 == margin.top and 0 == margin.bottom then
 			if UIScrollView.DIRECTION_VERTICAL == self.direction then
 				if UIListView.ALIGNMENT_LEFT == self.alignment then
@@ -323,13 +330,12 @@ function UIListView:layout_()
 			itemW = itemW or 0
 			itemH = itemH or 0
 
-			tempHeight = tempHeight - itemH
+			tempHeight = tempHeight - itemH 
 			content = v:getContent()
-			content:setAnchorPoint(0.5, 0.5)
-			-- content:setPosition(itemW/2, itemH/2)
 			setPositionByAlignment(content, itemW, itemH, v:getMargin())
-			v:setPosition(self.viewRect_.x,
-				self.viewRect_.y + tempHeight)
+			local posY = self.viewRect_.y + tempHeight
+			print(self.viewRect_.y ..",垂直方向上第"..i ..'个的y位置是'..posY..',高度是'..itemH)
+			v:setPosition(self.viewRect_.x,posY)
 		end
 	else
 		itemW, itemH = 0, 0
@@ -342,14 +348,15 @@ function UIListView:layout_()
 
 			content = v:getContent()
 			content:setAnchorPoint(0.5, 0.5)
-			-- content:setPosition(itemW/2, itemH/2)
+			content:setPosition(itemW/2, itemH/2)
 			setPositionByAlignment(content, itemW, itemH, v:getMargin())
 			v:setPosition(self.viewRect_.x + tempWidth, self.viewRect_.y)
 			tempWidth = tempWidth + itemW
 		end
 	end
-
-	self.container:setPosition(0, self.viewRect_.height - self.size.height)
+	local containerY = self.viewRect_.height - self.size.height
+	print(self.viewRect_.height..","..self.size.height..",containerY is "..containerY)
+	self.container:setPosition(0, containerY)
 end
 
 function UIListView:reload()
