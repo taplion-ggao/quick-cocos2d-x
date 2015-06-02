@@ -70,9 +70,11 @@ function UICheckBoxButtonGroup:onButtonSelectChanged(callback)
 end
 
 function UICheckBoxButtonGroup:onButtonStateChanged_(event)
+
     if event.name == UICheckBoxButton.STATE_CHANGED_EVENT and event.target:isButtonSelected() == false then
         return
     end
+    print("UICheckBoxButtonGroup:onButtonStateChanged_")
     self:updateButtonState_(event.target)
 end
 
@@ -103,6 +105,9 @@ function UICheckBoxButtonGroup:updateButtonState_(clickedButton)
         self.currentSelectedIndex_ = currentSelectedIndex
         self:dispatchEvent({name = UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, selected = currentSelectedIndex, last = last})
     else
+        if self.currentSelectedIndex_ == currentSelectedIndex then
+            return 
+        end
         self.currentSelectedIndex_ = currentSelectedIndex
         self:dispatchEvent({name = UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, selected = currentSelectedIndex, last = last}) 
     end
@@ -128,5 +133,17 @@ function UICheckBoxButtonGroup:reset( ... )
         end
     end
     self.currentSelectedIndex_ = 0
+end
+
+function UICheckBoxButtonGroup:disableAllTouchDisable( ... )
+    for index, button in ipairs(self.buttons_) do
+        button:setTouchEnabled(false)
+    end
+end
+
+function UICheckBoxButtonGroup:enableAllTouchDisable( ... )
+    for index, button in ipairs(self.buttons_) do
+        button:setTouchEnabled(true)
+    end
 end
 return UICheckBoxButtonGroup

@@ -177,6 +177,17 @@ function UIListView:addItem(listItem, pos)
 	return self
 end
 
+function UIListView:getItemCount( ... )
+	if self.items_ then
+		return table.nums(self.items_)
+	end
+end
+
+function UIListView:removeItemAtIndex(index)
+	local listItem = self.items_[index]
+	self:removeItem(listItem)
+end
+
 function UIListView:removeItem(listItem, bAni)
 	local itemW, itemH = listItem:getItemSize()
 	self.container:removeChild(listItem)
@@ -332,7 +343,7 @@ function UIListView:layout_()
 
 			tempHeight = tempHeight - itemH 
 			content = v:getContent()
-			setPositionByAlignment(content, itemW, itemH, v:getMargin())
+			-- setPositionByAlignment(content, itemW, itemH, v:getMargin())
 			local posY = self.viewRect_.y + tempHeight
 			print(self.viewRect_.y ..",垂直方向上第"..i ..'个的y位置是'..posY..',高度是'..itemH)
 			v:setPosition(self.viewRect_.x,posY)
@@ -356,6 +367,9 @@ function UIListView:layout_()
 	end
 	local containerY = self.viewRect_.height - self.size.height
 	print(self.viewRect_.height..","..self.size.height..",containerY is "..containerY)
+	if containerY < 0 then
+		containerY = 0
+	end
 	self.container:setPosition(0, containerY)
 end
 

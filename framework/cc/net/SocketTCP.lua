@@ -17,7 +17,7 @@ local STATUS_ALREADY_IN_PROGRESS = "Operation already in progress"
 local STATUS_TIMEOUT = "timeout"
 
 local scheduler = require("framework.scheduler")
-local socket = require "socket"
+local socket = require "socket.core"
 
 local SocketTCP = class("SocketTCP")
 
