@@ -2,9 +2,11 @@
 **
 */
 
-#ifndef __LUA_SQLITE3_H_
-#define __LUA_SQLITE3_H_
+#ifndef __LSQLITE3_H__
+#define __LSQLITE3_H__
 
-int luaopen_lsqlite3(lua_State *L);
+#include "lauxlib.h"
+
+LUALIB_API int luaopen_lsqlite3(lua_State *L);
 
 #endif

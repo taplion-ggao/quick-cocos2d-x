@@ -34,7 +34,7 @@ function UIButton:ctor(events, initialState, options)
     self.images_ = {}
     self.sprite_ = {}
     self.scale9_ = options and options.scale9
-    self.scale9Size_ = options.scale9Size
+    self.scale9Size_ = options and options.scale9Size
     self.flipX_ = options and options.flipX
     self.flipY_ = options and options.flipY
     self.scale9Size_ = nil
@@ -43,7 +43,7 @@ function UIButton:ctor(events, initialState, options)
     self.labelAlign_ = display.CENTER
     self.initialState_ = initialState
 
-	self.mSound = options.sound
+	self.mSound = options and options.sound
     display.align(self, display.CENTER)
 
     if "boolean" ~= type(self.flipX_) then
