@@ -74,5 +74,26 @@ function UIPushButton:onTouch_(event)
     end
 end
 
+function UIPushButton:addIconWithOffset(icon,direction,offsetX)
+    if icon == nil then
+        return 
+    end
+    offsetX = offsetX or 0
+    local sprite = display.newSprite(icon)
+    self:addChild(sprite)
+    local iconSize = sprite:getContentSize()
+    local iconx,icony = 0,0
+    if self.sprite_[1] then
+
+        local ap = self:getAnchorPoint()
+        local spriteSize = self.sprite_[1]:getContentSize()
+        if direction == display.LEFT_CENTER then
+            iconx = -(spriteSize.width/2) + offsetX
+        end
+
+        sprite:setPositionX(iconx)
+    end
+
+end
 
 return UIPushButton

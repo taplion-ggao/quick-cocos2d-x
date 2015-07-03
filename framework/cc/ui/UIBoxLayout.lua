@@ -27,6 +27,7 @@ function UIBoxLayout:apply(container)
         printInfo("%sAPPLY LAYOUT %s", prefix, self:getName())
     end
 
+    
     -- step 1
     -- 1. calculate total weight for all widgets
     -- 2. calculate total fixed size
@@ -104,6 +105,7 @@ function UIBoxLayout:apply(container)
         x = left
         y = bottom
         negativeX, negativeY = 0, 1
+        print(y..",checkbtnlist的位置")
     else
         printError("UIBoxLayout:apply() - invalid direction %s", tostring(self.direction_))
         return
@@ -122,7 +124,9 @@ function UIBoxLayout:apply(container)
     local remainingHeight = containerHeight
     local count = #widgets
     local lastWidth, lastHeight = 0, 0
+    print('remainingHeight 原先是'..remainingHeight ..', totalWeightV is '..totalWeightV)
     local actualSize = {}
+
     for index, item in ipairs(widgets) do
         local width, height
 
@@ -140,19 +144,25 @@ function UIBoxLayout:apply(container)
             if index == count then lastWidth = width end
             height = item.height or maxHeight
         else
+            print("垂直1")
             if item.height then
                 height = item.height
             else
+                print("垂直2")
                 if index ~= count then
+                    print("垂直3")
                     height = item.weight / totalWeightV * containerHeight
                 else
+                    print("垂直4")
                     height = remainingHeight
                 end
                 remainingHeight = remainingHeight - height
             end
             if index == count then lastHeight = height end
             width = item.width or maxWidth
+            print(containerHeight ..',经过一堆计算之后得到,width is '..width..",height is "..height..',remainingHeight is '..remainingHeight)
         end
+        
 
         local actualWidth, actualHeight
         local widget = item.widget
@@ -184,7 +194,7 @@ function UIBoxLayout:apply(container)
             wx = wx + maxWidth * widgetAnchorPoint.x
             wy = wy + actualHeight * widgetAnchorPoint.y
         end
-
+        print(index .."的宽高位置 is "..actualWidth ..','..actualHeight..','..wx..','.. wy)
         widget:setPosition(wx, wy)
         depth_ = depth_ + 1
         widget:setLayoutSize(actualWidth, actualHeight)
