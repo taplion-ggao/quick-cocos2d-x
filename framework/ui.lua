@@ -313,7 +313,7 @@ function ui.newBMFontLabel(params)
     local x, y      = params.x, params.y
     assert(font ~= nil, "ui.newBMFontLabel() - not set font")
 
-    local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
+    local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth)
     if not label then return end
 
     if type(x) == "number" and type(y) == "number" then
