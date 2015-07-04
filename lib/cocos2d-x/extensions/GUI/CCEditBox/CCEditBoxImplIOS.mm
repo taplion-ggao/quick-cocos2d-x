@@ -232,8 +232,12 @@ static const int CC_EDIT_BOX_PADDING = 5;
     NSUInteger rangeLength = range.length;
     
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
-    
-    return newLength <= getEditBoxImplIOS()->getMaxLength();
+    if (newLength >=oldLength ){
+      return newLength <= getEditBoxImplIOS()->getMaxLength();
+    }else{
+        return true;
+    }
+
 }
 
 /**

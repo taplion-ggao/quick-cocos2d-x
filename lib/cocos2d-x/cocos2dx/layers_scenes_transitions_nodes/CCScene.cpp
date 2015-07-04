@@ -38,6 +38,7 @@ CCScene::CCScene()
 , m_touchingTargets(NULL)
 , m_touchDispatchingEnabled(false)
 , m_touchRegistered(false)
+, m_touchEnabled(true)
 {
     m_touchableNodes = CCArray::createWithCapacity(100);
     m_touchableNodes->retain();
@@ -114,7 +115,14 @@ void CCScene::removeTouchableNode(CCNode *node)
 void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
     if (!m_touchDispatchingEnabled) return;
-
+    if (!this->m_touchEnabled) return;
+    if (m_touchEnabled){
+        CCLOG("ccTouchesBegan m_touchEnabled is true");
+    }else{
+        CCLOG("ccTouchesBegan m_touchEnabled is false");
+    }
+    
+    
     // save touches id
     for (CCSetIterator it = pTouches->begin(); it != pTouches->end(); ++it)
     {
@@ -233,9 +241,11 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
         if (ret)
         {
+            this->m_touchEnabled = false;
+            this->scheduleOnce(schedule_selector(CCScene::setCanTouchQuick), 0.2);
 //            pTouches->removeObject(pt)
             m_touchingTargets->addObject(touchTarget);
-//            CCLOG("ADD TOUCH TARGET [%p]", touchTarget);
+            CCLOG("ADD TOUCH TARGET 已经点击过，过一秒之后才能再次点击！！！！！！" );
             if (node->isTouchSwallowEnabled())
             {
                 // target swallow touch event, stop dispatching
@@ -245,6 +255,11 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
         
         // continue dispatching, try to next
     }
+}
+
+void CCScene::setCanTouchQuick(){
+    CCLOG("场景设置能够点击了");
+    this->m_touchEnabled = true;
 }
 
 void CCScene::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
