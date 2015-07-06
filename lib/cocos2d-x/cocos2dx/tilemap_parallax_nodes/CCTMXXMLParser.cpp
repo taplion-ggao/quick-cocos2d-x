@@ -189,6 +189,12 @@ bool CCTMXMapInfo::initWithXML(const char* tmxString, const char* resourcePath)
 bool CCTMXMapInfo::initWithTMXFile(const char *tmxFile)
 {
     internalInit(tmxFile, NULL);
+    std::string fileName = tmxFile;
+    if (fileName.find_last_of("/") != string::npos)
+    {
+        m_sResources = fileName.substr(0, fileName.find_last_of("/"));
+    }
+
     return parseXMLFile(m_sTMXFileName.c_str());
 }
 
@@ -470,15 +476,16 @@ void CCTMXMapInfo::startElement(void *ctx, const char *name, const char **atts)
         // build full path
         std::string imagename = valueForKey("source", attributeDict);
 
-        if (m_sTMXFileName.find_last_of("/") != string::npos)
-        {
-            string dir = m_sTMXFileName.substr(0, m_sTMXFileName.find_last_of("/") + 1);
-            tileset->m_sSourceImage = dir + imagename;
-        }
-        else 
-        {
-            tileset->m_sSourceImage = m_sResources + (m_sResources.size() ? "/" : "") + imagename;
-        }
+//        if (m_sTMXFileName.find_last_of("/") != string::npos)
+//        {
+//            string dir = m_sTMXFileName.substr(0, m_sTMXFileName.find_last_of("/") + 1);
+//            tileset->m_sSourceImage = dir + imagename;
+//        }
+//        else 
+//        {
+//            tileset->m_sSourceImage = m_sResources + (m_sResources.size() ? "/" : "") + imagename;
+//        }
+        tileset->m_sSourceImage = m_sResources + (m_sResources.size() ? "/" : "") + imagename;
     } 
     else if (elementName == "data")
     {

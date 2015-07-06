@@ -439,10 +439,12 @@ bool Updater::removeDirectory(const char* path)
 {
     int succ = -1;
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    string command = "rm -r ";
+    string command = "rm -rf ";
     // Path may include space.
     command += "\"" + string(path) + "\"";
+
     succ = system(command.c_str());
+    CCLOG("command is %s ,succ is %d,", command.c_str(),succ);
 #else
     string command = "rd /s /q ";
     // Path may include space.
@@ -533,6 +535,7 @@ bool Updater::download(const char* fileUrl, const char* filePath)
     curl_easy_setopt(_curl, CURLOPT_PROGRESSFUNCTION, downloadProgressFunc);
     curl_easy_setopt(_curl, CURLOPT_PROGRESSDATA, this);
     curl_easy_setopt(_curl, CURLOPT_FRESH_CONNECT, 1);
+    curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
     res = curl_easy_perform(_curl);
     curl_easy_cleanup(_curl);
     if (res != 0)
@@ -669,7 +672,7 @@ void Updater::Helper::update(float dt)
     
     // Returns quickly if no message
     pthread_mutex_lock(&_messageQueueMutex);
-    //CCLOG("_messageQueue:%d", _messageQueue->size());
+    CCLOG("_messageQueue:%d", _messageQueue->size());
     if (0 == _messageQueue->size())
     {
         pthread_mutex_unlock(&_messageQueueMutex);

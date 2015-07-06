@@ -43,7 +43,7 @@ void CCLabelTTFLoader::onHandlePropTypeFontTTF(CCNode * pNode, CCNode * pParent,
         
         TargetPlatform target = CCApplication::sharedApplication()->getTargetPlatform();
         if ( target != kTargetAndroid ){
-            ((CCLabelTTF *)pNode)->enableStroke(ccc3(0,0,0),0.3,false);
+            ((CCLabelTTF *)pNode)->enableStroke(ccc3(50,30,12),4.0,false);
             ((CCLabelTTF *)pNode)->setFontName(pFontTTF);
         }else{
             ((CCLabelTTF *)pNode)->enableStroke(ccc3(0,0,0),0.3,false);
