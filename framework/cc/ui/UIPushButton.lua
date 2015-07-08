@@ -18,8 +18,22 @@ function UIPushButton:ctor(images, options)
     self:setButtonImage(UIPushButton.PRESSED, images["pressed"], true)
     self:setButtonImage(UIPushButton.DISABLED, images["disabled"], true)
 end
+function UIPushButton:revertOriginalButtonImage( ... )
+    if self.mOriginalImages == nil then
+        return 
+    end
+    
+    self:resetButtonImages(self.mOriginalImages)
+end
+function UIPushButton:resetButtonImages(images)
+    self.mOriginalImages = self.images_
 
+    self:setButtonImage(UIPushButton.NORMAL, images["normal"], true)
+    self:setButtonImage(UIPushButton.PRESSED, images["pressed"], true)
+    self:setButtonImage(UIPushButton.DISABLED, images["disabled"], true)
+end
 function UIPushButton:setButtonImage(state, image, ignoreEmpty)
+    print("setButtonImage,,,,,,,,"..tostring(image))
     assert(state == UIPushButton.NORMAL
         or state == UIPushButton.PRESSED
         or state == UIPushButton.DISABLED,
