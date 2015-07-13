@@ -217,13 +217,18 @@ function UIButton:onTouch_(event)
     printError("UIButton:onTouch_() - must override in inherited class")
 end
 
-function UIButton:updateButtonImage_()
-    local state = self.fsm_:getState()
-    if string.find(state, "press") then
+function UIButton:onTouchButtonWithState( state )
+    -- body
+    if state and string.find(state, "press") then
         self:setScale(0.97)
     else
         self:setScale(1)
     end
+end
+
+function UIButton:updateButtonImage_()
+    local state = self.fsm_:getState()
+    self:onTouchButtonWithState(state)
     local image = self.images_[state]
 
     if not image then
