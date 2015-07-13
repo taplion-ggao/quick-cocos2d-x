@@ -30,6 +30,9 @@
 		3277349E1AAD9C08008B644A /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3277349C1AAD9C08008B644A /* Updater.cpp */; };
 		49832215187FE2C000733BFB /* CZHelperFunc_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */; };
 		49832219187FE2DF00733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832217187FE2DF00733BFB /* HelperFunc.cpp */; };
+		8D43512F1B4FB2AB00A28DBF /* ZYWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8D43512A1B4FB2AB00A28DBF /* ZYWebView.mm */; };
+		8D4351301B4FB2AB00A28DBF /* ZYWebView_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8D43512C1B4FB2AB00A28DBF /* ZYWebView_iOS.mm */; };
+		8D4351311B4FB2AB00A28DBF /* ZYWebView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D43512D1B4FB2AB00A28DBF /* ZYWebView.cpp */; };
 		8D9FBDE91AD6AD4A001B2665 /* sqlite3secure.c in Sources */ = {isa = PBXBuildFile; fileRef = 8D9FBDDF1AD6AD4A001B2665 /* sqlite3secure.c */; };
 		8DB4A0C11AB0439400C28A7E /* CCCursorMultiTextFieldTTF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4A0BF1AB0439400C28A7E /* CCCursorMultiTextFieldTTF.cpp */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
@@ -561,6 +564,11 @@
 		49832214187FE2C000733BFB /* CZHelperFunc_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHelperFunc_luabinding.h; sourceTree = "<group>"; };
 		49832217187FE2DF00733BFB /* HelperFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelperFunc.cpp; sourceTree = "<group>"; };
 		49832218187FE2DF00733BFB /* HelperFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperFunc.h; sourceTree = "<group>"; };
+		8D43512A1B4FB2AB00A28DBF /* ZYWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYWebView.mm; sourceTree = "<group>"; };
+		8D43512B1B4FB2AB00A28DBF /* ZYWebView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWebView_iOS.h; sourceTree = "<group>"; };
+		8D43512C1B4FB2AB00A28DBF /* ZYWebView_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYWebView_iOS.mm; sourceTree = "<group>"; };
+		8D43512D1B4FB2AB00A28DBF /* ZYWebView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZYWebView.cpp; sourceTree = "<group>"; };
+		8D43512E1B4FB2AB00A28DBF /* ZYWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWebView.h; sourceTree = "<group>"; };
 		8D9FBDDF1AD6AD4A001B2665 /* sqlite3secure.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3secure.c; sourceTree = "<group>"; };
 		8DB4A0BF1AB0439400C28A7E /* CCCursorMultiTextFieldTTF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursorMultiTextFieldTTF.cpp; sourceTree = "<group>"; };
 		8DB4A0C01AB0439400C28A7E /* CCCursorMultiTextFieldTTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursorMultiTextFieldTTF.h; sourceTree = "<group>"; };
@@ -1682,6 +1690,26 @@
 			path = apptools;
 			sourceTree = "<group>";
 		};
+		8D4351281B4FB2AB00A28DBF /* webview */ = {
+			isa = PBXGroup;
+			children = (
+				8D4351291B4FB2AB00A28DBF /* ios */,
+				8D43512D1B4FB2AB00A28DBF /* ZYWebView.cpp */,
+				8D43512E1B4FB2AB00A28DBF /* ZYWebView.h */,
+			);
+			path = webview;
+			sourceTree = "<group>";
+		};
+		8D4351291B4FB2AB00A28DBF /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				8D43512A1B4FB2AB00A28DBF /* ZYWebView.mm */,
+				8D43512B1B4FB2AB00A28DBF /* ZYWebView_iOS.h */,
+				8D43512C1B4FB2AB00A28DBF /* ZYWebView_iOS.mm */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		8D9FBDD11AD6AD4A001B2665 /* wxsqlite */ = {
 			isa = PBXGroup;
 			children = (
@@ -2581,6 +2609,7 @@
 		F45A2E11166B16DC00760194 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8D4351281B4FB2AB00A28DBF /* webview */,
 				3277349B1AAD9C08008B644A /* updater */,
 				E5C462EC1987A24F001192EA /* DragonBones */,
 				F42825BB17575DD7001479DC /* AssetsManager */,
@@ -4041,6 +4070,7 @@
 				F4ABAE98191A8DC300FEA3CD /* LuaCocoStudio.cpp in Sources */,
 				F4E882B4177015C400577406 /* CCGLBufferedNode.cpp in Sources */,
 				F4E882B5177015C400577406 /* CCNode.cpp in Sources */,
+				8D43512F1B4FB2AB00A28DBF /* ZYWebView.mm in Sources */,
 				F4E882B6177015C400577406 /* CCAffineTransform.cpp in Sources */,
 				F4E882B7177015C400577406 /* CCArray.cpp in Sources */,
 				F4D26EC0196321AE0087295D /* LabelBMFontReader.cpp in Sources */,
@@ -4152,6 +4182,7 @@
 				F4E882E6177015C400577406 /* CCParticleExamples.cpp in Sources */,
 				F4E882E7177015C400577406 /* CCParticleSystem.cpp in Sources */,
 				F4E882E8177015C400577406 /* CCParticleSystemQuad.cpp in Sources */,
+				8D4351311B4FB2AB00A28DBF /* ZYWebView.cpp in Sources */,
 				F4E882E9177015C400577406 /* CCScriptSupport.cpp in Sources */,
 				F4E882EA177015C400577406 /* CCGLProgram.cpp in Sources */,
 				F412729219F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.cpp in Sources */,
@@ -4341,6 +4372,7 @@
 				F4E883941770162500577406 /* CCNodeLoader.cpp in Sources */,
 				F4D26EA7196321AE0087295D /* UILayoutParameter.cpp in Sources */,
 				F4D26EC3196321AE0087295D /* ListViewReader.cpp in Sources */,
+				8D4351301B4FB2AB00A28DBF /* ZYWebView_iOS.mm in Sources */,
 				2EBAD9331918BBDC00FF9BD6 /* CCGrayFilter.cpp in Sources */,
 				F4E883951770162500577406 /* CCNodeLoaderLibrary.cpp in Sources */,
 				F4E883961770162500577406 /* CCParticleSystemQuadLoader.cpp in Sources */,
@@ -4505,6 +4537,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua/lua-5.1.5/src\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/socket\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/zlib\"",
 				);
@@ -4578,6 +4611,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua/lua-5.1.5/src\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/socket\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/zlib\"",
 				);

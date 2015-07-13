@@ -79,6 +79,8 @@
 #include "CocoStudio/Action/CCActionNode.h"
 #include "updater/Updater.h"
 
+#include "ZYWebView.h"
+
 #endif // CC_CCSTUDIO_ENABLED
 
 #endif /* __COCOS2D_EXT_H__ */
