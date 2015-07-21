@@ -814,8 +814,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPoint)), "CCPoint");
  tolua_usertype(tolua_S,"CCTextFieldTTF");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTextFieldTTF)), "CCTextFieldTTF");
- tolua_usertype(tolua_S,"CCCursorMultiTextFieldTTF");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCursorMultiTextFieldTTF)), "CCCursorMultiTextFieldTTF");
+// tolua_usertype(tolua_S,"CCCursorMultiTextFieldTTF");
+// toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCCursorMultiTextFieldTTF)), "CCCursorMultiTextFieldTTF");
  tolua_usertype(tolua_S,"CCShatteredTiles3D");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCShatteredTiles3D)), "CCShatteredTiles3D");
  tolua_usertype(tolua_S,"CCEaseElasticInOut");
@@ -60723,39 +60723,39 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setSecureTextEntry",tolua_Cocos2d_CCTextFieldTTF_setSecureTextEntry00);
    tolua_function(tolua_S,"isSecureTextEntry",tolua_Cocos2d_CCTextFieldTTF_isSecureTextEntry00);
   tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"CCCursorMultiTextFieldTTF","CCCursorMultiTextFieldTTF","CCTextFieldTTF",tolua_collect_CCCursorMultiTextFieldTTF);
-  #else
-  tolua_cclass(tolua_S,"CCCursorMultiTextFieldTTF","CCCursorMultiTextFieldTTF","CCTextFieldTTF",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"CCCursorMultiTextFieldTTF");
-   tolua_function(tolua_S,"new",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00);
-   tolua_function(tolua_S,"new_local",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local);
-   tolua_function(tolua_S,".call",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local);
-   tolua_function(tolua_S,"delete",tolua_Cocos2d_CCCursorMultiTextFieldTTF_delete00);
-   tolua_function(tolua_S,"textFieldWithPlaceHolder",tolua_Cocos2d_CCCursorMultiTextFieldTTF_textFieldWithPlaceHolder00);
-   tolua_function(tolua_S,"onEnter",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onEnter00);
-   tolua_function(tolua_S,"onExit",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onExit00);
-   tolua_function(tolua_S,"initCursorSprite",tolua_Cocos2d_CCCursorMultiTextFieldTTF_initCursorSprite00);
-   tolua_function(tolua_S,"setColor",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setColor00);
-   tolua_function(tolua_S,"onTextFieldAttachWithIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldAttachWithIME00);
-   tolua_function(tolua_S,"onTextFieldDetachWithIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDetachWithIME00);
-   tolua_function(tolua_S,"onTextFieldInsertText",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldInsertText00);
-   tolua_function(tolua_S,"onTextFieldDeleteBackward",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDeleteBackward00);
-   tolua_function(tolua_S,"keyboardWillHide",tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardWillHide00);
-   tolua_function(tolua_S,"keyboardDidHide",tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardDidHide00);
-   tolua_function(tolua_S,"isInTextField",tolua_Cocos2d_CCCursorMultiTextFieldTTF_isInTextField00);
-   tolua_function(tolua_S,"getRect",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getRect00);
-   tolua_function(tolua_S,"openIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_openIME00);
-   tolua_function(tolua_S,"closeIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_closeIME00);
-   tolua_function(tolua_S,"getIsPsw",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getIsPsw00);
-   tolua_function(tolua_S,"setIsPsw",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setIsPsw00);
-   tolua_function(tolua_S,"setLimitNum",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setLimitNum00);
-   tolua_function(tolua_S,"getLimitNum",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getLimitNum00);
-   tolua_function(tolua_S,"setString",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setString00);
-   tolua_function(tolua_S,"setDesignedSize",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setDesignedSize00);
-   tolua_function(tolua_S,"getDesignedSize",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getDesignedSize00);
-  tolua_endmodule(tolua_S);
+//  #ifdef __cplusplus
+//  tolua_cclass(tolua_S,"CCCursorMultiTextFieldTTF","CCCursorMultiTextFieldTTF","CCTextFieldTTF",tolua_collect_CCCursorMultiTextFieldTTF);
+//  #else
+//  tolua_cclass(tolua_S,"CCCursorMultiTextFieldTTF","CCCursorMultiTextFieldTTF","CCTextFieldTTF",NULL);
+//  #endif
+//  tolua_beginmodule(tolua_S,"CCCursorMultiTextFieldTTF");
+//   tolua_function(tolua_S,"new",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00);
+//   tolua_function(tolua_S,"new_local",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local);
+//   tolua_function(tolua_S,".call",tolua_Cocos2d_CCCursorMultiTextFieldTTF_new00_local);
+//   tolua_function(tolua_S,"delete",tolua_Cocos2d_CCCursorMultiTextFieldTTF_delete00);
+//   tolua_function(tolua_S,"textFieldWithPlaceHolder",tolua_Cocos2d_CCCursorMultiTextFieldTTF_textFieldWithPlaceHolder00);
+//   tolua_function(tolua_S,"onEnter",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onEnter00);
+//   tolua_function(tolua_S,"onExit",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onExit00);
+//   tolua_function(tolua_S,"initCursorSprite",tolua_Cocos2d_CCCursorMultiTextFieldTTF_initCursorSprite00);
+//   tolua_function(tolua_S,"setColor",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setColor00);
+//   tolua_function(tolua_S,"onTextFieldAttachWithIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldAttachWithIME00);
+//   tolua_function(tolua_S,"onTextFieldDetachWithIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDetachWithIME00);
+//   tolua_function(tolua_S,"onTextFieldInsertText",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldInsertText00);
+//   tolua_function(tolua_S,"onTextFieldDeleteBackward",tolua_Cocos2d_CCCursorMultiTextFieldTTF_onTextFieldDeleteBackward00);
+//   tolua_function(tolua_S,"keyboardWillHide",tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardWillHide00);
+//   tolua_function(tolua_S,"keyboardDidHide",tolua_Cocos2d_CCCursorMultiTextFieldTTF_keyboardDidHide00);
+//   tolua_function(tolua_S,"isInTextField",tolua_Cocos2d_CCCursorMultiTextFieldTTF_isInTextField00);
+//   tolua_function(tolua_S,"getRect",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getRect00);
+//   tolua_function(tolua_S,"openIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_openIME00);
+//   tolua_function(tolua_S,"closeIME",tolua_Cocos2d_CCCursorMultiTextFieldTTF_closeIME00);
+//   tolua_function(tolua_S,"getIsPsw",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getIsPsw00);
+//   tolua_function(tolua_S,"setIsPsw",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setIsPsw00);
+//   tolua_function(tolua_S,"setLimitNum",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setLimitNum00);
+//   tolua_function(tolua_S,"getLimitNum",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getLimitNum00);
+//   tolua_function(tolua_S,"setString",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setString00);
+//   tolua_function(tolua_S,"setDesignedSize",tolua_Cocos2d_CCCursorMultiTextFieldTTF_setDesignedSize00);
+//   tolua_function(tolua_S,"getDesignedSize",tolua_Cocos2d_CCCursorMultiTextFieldTTF_getDesignedSize00);
+//  tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCMenu","CCMenu","CCLayer",NULL);
   tolua_beginmodule(tolua_S,"CCMenu");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCMenu_create00);
@@ -61331,9 +61331,9 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
 
 
 #ifdef __cplusplus
-  tolua_cclass(tolua_S,"ZYWebView","ZYWebView","",tolua_collect_ZYWebView);
+  tolua_cclass(tolua_S,"ZYWebView","ZYWebView","CCObject",tolua_collect_ZYWebView);
   #else
-  tolua_cclass(tolua_S,"ZYWebView","ZYWebView","",NULL);
+  tolua_cclass(tolua_S,"ZYWebView","ZYWebView","CCObject",NULL);
   #endif
   tolua_beginmodule(tolua_S,"ZYWebView");
    tolua_function(tolua_S,"new",tolua_Cocos2d_ZYWebView_new00);

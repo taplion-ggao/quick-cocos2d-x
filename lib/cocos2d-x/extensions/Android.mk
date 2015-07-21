@@ -195,6 +195,8 @@ LOCAL_SRC_FILES += \
     CocoStudio/Trigger/TriggerBase.cpp \
     CocoStudio/Trigger/TriggerMng.cpp \
     CocoStudio/Trigger/TriggerObj.cpp \
+    webview/ZYWebView.cpp \
+    webview/android/ZYWebView_Android.cpp \
     updater/Updater.cpp 
 endif
 
@@ -230,6 +232,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
                            $(LOCAL_PATH)/CCArmature/utils \
                            $(LOCAL_PATH)/filters \
+                           $(LOCAL_PATH)/webview \
                            $(LOCAL_PATH)/DragonBones
 
 

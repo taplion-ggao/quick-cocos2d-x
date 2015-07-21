@@ -46,7 +46,7 @@ void CCLabelTTFLoader::onHandlePropTypeFontTTF(CCNode * pNode, CCNode * pParent,
             ((CCLabelTTF *)pNode)->enableStroke(ccc3(50,30,12),4.0,false);
             ((CCLabelTTF *)pNode)->setFontName(pFontTTF);
         }else{
-            ((CCLabelTTF *)pNode)->enableStroke(ccc3(0,0,0),0.3,false);
+            ((CCLabelTTF *)pNode)->enableStroke(ccc3(50,30,12),2,false);
             ((CCLabelTTF *)pNode)->setFontName("assets/font/FZZhengHeiS-M-GB2.ttf");
         }
     } else {

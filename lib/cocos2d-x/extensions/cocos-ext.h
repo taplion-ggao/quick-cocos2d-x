@@ -79,7 +79,7 @@
 #include "CocoStudio/Action/CCActionNode.h"
 #include "updater/Updater.h"
 
-#include "ZYWebView.h"
+#include "webview/ZYWebView.h"
 
 #endif // CC_CCSTUDIO_ENABLED
 
