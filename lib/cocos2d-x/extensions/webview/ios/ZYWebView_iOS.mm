@@ -85,6 +85,15 @@
 #pragma mark - WebView
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSString *requestString = [[request URL] absoluteString];
+    NSArray *components = [requestString componentsSeparatedByString:@":"];
+    if ([components count] > 1 && [(NSString *)[components objectAtIndex:0] isEqualToString:@"tarsyliaapp"]) {
+        if([(NSString *)[components objectAtIndex:1] isEqualToString:@"close"])
+        {
+            [self removeWebView];
+            return false;
+        }
+    }
     return true;
 }
 
