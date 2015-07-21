@@ -1,0 +1,48 @@
+
+#include "cocos2d.h"
+
+
+class ZYWebView : public CCObject
+{
+public:
+    ZYWebView();
+    ~ZYWebView();
+    
+	bool init();
+    
+    /**
+     *	@brief	show WebView
+     *  @NOTICE You should call this method only once!!!
+     *
+     *	@param 	url 	link address
+     *	@param 	x
+     *	@param 	y       NOTICE: top left is (0, 0)
+     *	@param 	width
+     *	@param 	height
+     *
+     *
+     注意：在cocos2dx DesignResolutionSize机制下，cocos2dx坐标系与对应平台的GUI坐标系可能不一样。在此情况下，需要进行坐标转换。
+     目标是：把design坐标转换为screen坐标。
+     
+     详细内容参考官方文档 http://www.cocos2d-x.org/wiki/Multi_resolution_support
+     
+     ---
+     Notice: We need convert coordinate value from design size coordinate to screen size coordinate.
+     
+     Learn more detail via: http://www.cocos2d-x.org/wiki/Multi_resolution_support
+     */
+    void showWebView(const char* url, float x, float y, float width, float height);
+
+    /**
+     *	@brief	Update url of webview
+     *
+     */
+    void updateURL(const char* url);
+    
+    /**
+     *	@brief	Remove webview from window
+     destructor will call this method, and you can call this method freely.
+     */
+    void removeWebView();
+    
+};
