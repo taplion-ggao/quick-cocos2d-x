@@ -92,8 +92,13 @@ else
     CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
 end
 
-
-if CONFIG_SCREEN_AUTOSCALE ~="SCREEN_SIZE_HEIGHT" then
+if CONFIG_SCREEN_AUTOSCALE == "EXACT_FIT" then
+    scale = 1
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionExactFit)
+elseif CONFIG_SCREEN_AUTOSCALE == "SCREEN_SIZE_HEIGHT" then
+    scale = 1
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionShowAll)
+else 
     if type(CONFIG_SCREEN_AUTOSCALE_CALLBACK) == "function" then
         scaleX, scaleY = CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, device.model)
     end
@@ -113,11 +118,6 @@ if CONFIG_SCREEN_AUTOSCALE ~="SCREEN_SIZE_HEIGHT" then
         printError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
     glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
-else
-    scale = 1
-    -- scale = h / CONFIG_SCREEN_HEIGHT
-    -- CONFIG_SCREEN_WIDTH = w / scale
-    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionShowAll)
 
 end
 
