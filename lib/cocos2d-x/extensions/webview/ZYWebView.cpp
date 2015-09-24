@@ -29,15 +29,12 @@ void ZYWebView::showWebView(const char* url, float x, float y, float width, floa
     
     // 这里可能需要根据ResolutionPolicy进行修改。
     // Modify this ratio equation depend on your ResolutionPolicy.
-    float ratioY = designsize.height / framesize.height;
-    float ratioX = designsize.width / framesize.width;
+    float ratio = designsize.height / framesize.height;
     
     CCPoint orig((designframe.width - designsize.width) / 2, (designframe.height - designsize.height) / 2);
     
-    x = x / ratioX + orig.x / ratioX;
-    y = y / ratioY + orig.y / ratioY;
-    width /= ratioX;
-    height /= ratioY;
+    x = x / ratio + orig.x / ratio; y = y / ratio + orig.y / ratio;
+    width /= ratio; height /= ratio;
     
     _privateShowWebView(url, x, y, width, height);
 }
