@@ -139,7 +139,7 @@ public:
     /**
      *	@brief	Add ArmatureFileInfo, it is managed by CCArmatureDataManager.
      */
-    void addArmatureFileInfo(const char *imagePath, const char *plistPath, const char *configFilePath, const char* prefix= "");
+    void addArmatureFileInfo(const char *imagePath, const char *plistPath, const char *configFilePath);
 
     /**
      *	@brief	Add ArmatureFileInfo, it is managed by CCArmatureDataManager.
@@ -154,7 +154,7 @@ public:
     /**
      *	@brief	Add sprite frame to CCSpriteFrameCache, it will save display name and it's relative image name
      */
-    void addSpriteFrameFromFile(const char *plistPath, const char *imagePath, const char *configFilePath = "",const char *prefix = "");
+    void addSpriteFrameFromFile(const char *plistPath, const char *imagePath, const char *configFilePath = "");
 
 
     /**

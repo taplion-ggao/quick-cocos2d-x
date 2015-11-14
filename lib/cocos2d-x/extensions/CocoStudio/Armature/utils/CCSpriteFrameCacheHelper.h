@@ -45,7 +45,7 @@ public:
     /**
      *	@brief	Add sprite frame to CCSpriteFrameCache, it will save display name and it's relative image name
      */
-    void addSpriteFrameFromFile(const char *plistPath, const char *imagePath,const char *prefix="");
+    void addSpriteFrameFromFile(const char *plistPath, const char *imagePath);
 
 
 private:
