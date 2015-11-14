@@ -62,7 +62,7 @@ public:
 public:
     ~CCDataReaderHelper();
 
-    void addDataFromFile(const char *filePath);
+    void addDataFromFile(const char *filePath,const char *prefix = "");
     void addDataFromFileAsync(const char *imagePath, const char *plistPath, const char *filePath, CCObject *target, SEL_SCHEDULE selector);
 
     void addDataAsyncCallBack(float dt);

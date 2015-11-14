@@ -184,6 +184,7 @@ typedef struct _DataInfo
     float contentScale;
     std::string    filename;
     std::string    baseFilePath;
+    std::string    prefix;
     float flashToolVersion;
     float cocoStudioVersion;
 } DataInfo;
@@ -341,19 +342,24 @@ CCDataReaderHelper::~CCDataReaderHelper()
     pthread_cond_signal(&s_SleepCondition);
 }
 
-void CCDataReaderHelper::addDataFromFile(const char *filePath)
+void CCDataReaderHelper::addDataFromFile(const char *filePath,const char *prefix)
 {
     /*
     * Check if file is already added to CCArmatureDataManager, if then return.
     */
+    std::string realFilePath = filePath;
+    std::string strPrefix = prefix;
+    if ( strPrefix!= ""){
+        realFilePath = strPrefix + "_" + filePath;
+    }
     for(unsigned int i = 0; i < s_arrConfigFileList.size(); i++)
     {
-        if (s_arrConfigFileList[i].compare(filePath) == 0)
+        if (s_arrConfigFileList[i].compare(realFilePath) == 0)
         {
             return;
         }
     }
-    s_arrConfigFileList.push_back(filePath);
+    s_arrConfigFileList.push_back(realFilePath);
 
 
     //! find the base file path
@@ -391,7 +397,7 @@ void CCDataReaderHelper::addDataFromFile(const char *filePath)
     dataInfo.filename = filePathStr;
     dataInfo.asyncStruct = NULL;
     dataInfo.baseFilePath = basefilePath;
-
+    dataInfo.prefix = prefix;
 	std::string load_str = std::string((const char*)pBytes, size);
     if (str.compare(".xml") == 0)
     {
@@ -622,6 +628,10 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
     */
     tinyxml2::XMLElement *armaturesXML = root->FirstChildElement(ARMATURES);
     tinyxml2::XMLElement *armatureXML = armaturesXML->FirstChildElement(ARMATURE);
+    std::string  realName = dataInfo->filename;
+    if (dataInfo->prefix != ""){
+        realName = dataInfo->prefix +"_"+ dataInfo->filename;
+    }
     while(armatureXML)
     {
         CCArmatureData *armatureData = CCDataReaderHelper::decodeArmature(armatureXML, dataInfo);
@@ -630,7 +640,13 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
         {
             pthread_mutex_lock(&s_addDataMutex);
         }
-        CCArmatureDataManager::sharedArmatureDataManager()->addArmatureData(armatureData->name.c_str(), armatureData, dataInfo->filename.c_str());
+        std::string name = armatureData->name;
+        if (dataInfo->prefix != ""){
+            name = dataInfo->prefix +"_"+ name;
+        }
+        
+        armatureData->name = name;
+        CCArmatureDataManager::sharedArmatureDataManager()->addArmatureData(name.c_str(), armatureData, realName.c_str());
         armatureData->release();
         if (dataInfo->asyncStruct)
         {
@@ -676,7 +692,13 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
         {
             pthread_mutex_lock(&s_addDataMutex);
         }
-        CCArmatureDataManager::sharedArmatureDataManager()->addTextureData(textureData->name.c_str(), textureData, dataInfo->filename.c_str());
+        std::string realName = textureData->name;
+        
+        if ( dataInfo->prefix != "" ){
+            realName = dataInfo->prefix + "_" + realName;
+        }
+        
+        CCArmatureDataManager::sharedArmatureDataManager()->addTextureData(realName.c_str(), textureData, dataInfo->filename.c_str());
         textureData->release();
         if (dataInfo->asyncStruct)
         {
@@ -785,13 +807,17 @@ CCDisplayData *CCDataReaderHelper::decodeBoneDisplay(tinyxml2::XMLElement *displ
 
     if(displayXML->Attribute(A_NAME) != NULL )
     {
+        std::string name = displayXML->Attribute(A_NAME);
+        if (dataInfo->prefix !=""){
+            name = dataInfo->prefix + "_"+ name;
+        }
         if(!_isArmature)
         {
-            ((CCSpriteDisplayData *)displayData)->displayName = displayXML->Attribute(A_NAME);
+            ((CCSpriteDisplayData *)displayData)->displayName = name;
         }
         else
         {
-            ((CCArmatureDisplayData *)displayData)->displayName = displayXML->Attribute(A_NAME);
+            ((CCArmatureDisplayData *)displayData)->displayName =  name;
         }
 
     }
@@ -803,8 +829,11 @@ CCAnimationData *CCDataReaderHelper::decodeAnimation(tinyxml2::XMLElement *anima
 {
     CCAnimationData *aniData =  new CCAnimationData();
 
-    const char	*name = animationXML->Attribute(A_NAME);
-
+    std::string strName = animationXML->Attribute(A_NAME);
+    if (dataInfo ->prefix != ""){
+        strName = dataInfo->prefix +"_"+strName;
+    }
+    const char *name = strName.c_str();
     CCArmatureData *armatureData = CCArmatureDataManager::sharedArmatureDataManager()->getArmatureData(name);
 
     aniData->name = name;
