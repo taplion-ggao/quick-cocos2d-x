@@ -74,7 +74,7 @@ public:
 private:
     /*Adds multiple Sprite Frames with a dictionary. The texture will be associated with the created sprite frames.
      */
-    void addSpriteFramesWithDictionary(CCDictionary* pobDictionary, CCTexture2D *pobTexture);
+    void addSpriteFramesWithDictionary(CCDictionary* pobDictionary, CCTexture2D *pobTexture, const char *strPrefix);
 public:
     /** Adds multiple Sprite Frames from a plist file.
      * A texture will be loaded automatically. The texture name will composed by replacing the .plist suffix with .png
@@ -87,12 +87,12 @@ public:
      @since v0.99.5
      @js addSpriteFrames
      */
-    void addSpriteFramesWithFile(const char* plist, const char* textureFileName);
+    void addSpriteFramesWithFile(const char* plist, const char* textureFileName, const char* strPrefix="");
 
     /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames.
      * @js addSpriteFrames
      */
-    void addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture);
+    void addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture,const char* strPrefix = "");
 
     /** Adds an sprite frame with a given name.
      If the name already exists, then the contents of the old name will be replaced with the new one.

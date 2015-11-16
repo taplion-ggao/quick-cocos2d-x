@@ -76,7 +76,7 @@ CCSpriteFrameCache::~CCSpriteFrameCache(void)
     CC_SAFE_DELETE(m_pLoadedFileNames);
 }
 
-void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary, CCTexture2D *pobTexture)
+void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary, CCTexture2D *pobTexture, const char *strPrefix)
 {
     /*
      Supported Zwoptex Formats:
@@ -195,35 +195,44 @@ void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary,
                                          spriteSourceSize);
         }
 
+        std::string strPrefix2 = strPrefix;
+        if ( strPrefix2 != ""){
+            spriteFrameName =  strPrefix2 + "_" + spriteFrameName;
+        }
         // add sprite frame
         m_pSpriteFrames->setObject(spriteFrame, spriteFrameName);
         spriteFrame->release();
     }
 }
 
-void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture)
+void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture,const char *prefix)
 {
-    if (m_pLoadedFileNames->find(pszPlist) != m_pLoadedFileNames->end())
+    std::string strPrefix = prefix;
+    std::string strPzPlist = pszPlist;
+    if (strPrefix != ""){
+        strPzPlist = strPrefix +"_"+strPzPlist;
+    }
+    if (m_pLoadedFileNames->find(strPzPlist) != m_pLoadedFileNames->end())
     {
         return;//We already added it
     }
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(pszPlist);
     CCDictionary *dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
 
-    addSpriteFramesWithDictionary(dict, pobTexture);
-    m_pLoadedFileNames->insert(pszPlist);
+    addSpriteFramesWithDictionary(dict, pobTexture,prefix);
+    m_pLoadedFileNames->insert(strPzPlist);
 
     dict->release();
 }
 
-void CCSpriteFrameCache::addSpriteFramesWithFile(const char* plist, const char* textureFileName)
+void CCSpriteFrameCache::addSpriteFramesWithFile(const char* plist, const char* textureFileName,const char *strPrefix)
 {
     CCAssert(textureFileName, "texture name should not be null");
     CCTexture2D *texture = CCTextureCache::sharedTextureCache()->addImage(textureFileName);
 
     if (texture)
     {
-        addSpriteFramesWithFile(plist, texture);
+        addSpriteFramesWithFile(plist, texture,strPrefix);
     }
     else
     {
@@ -273,7 +282,7 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist)
 
         if (pTexture)
         {
-            addSpriteFramesWithDictionary(dict, pTexture);
+            addSpriteFramesWithDictionary(dict, pTexture,"");
             m_pLoadedFileNames->insert(pszPlist);
         }
         else
