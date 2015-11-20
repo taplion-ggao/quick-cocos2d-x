@@ -263,8 +263,11 @@ void CCArmatureDataManager::addArmatureFileInfo(const char *imagePath, const cha
 
     m_bAutoLoadSpriteFile = false;
     CCDataReaderHelper::sharedDataReaderHelper()->addDataFromFile(configFilePath,prefix);
-    CCLOG("imagePath is %s, prefix is %s",imagePath,prefix);
-    addSpriteFrameFromFile(plistPath, imagePath, configFilePath,prefix);
+    CCLOG("[addArmatureFileInfo]:imagePath is %s, prefix is %s",imagePath,prefix);
+    addSpriteFrameFromFile(plistPath, imagePath, realConfigFilePath.c_str(),prefix);
+    CCRelativeData *relativeData = this->getRelativeData(realConfigFilePath.c_str());
+    CCLOG("[addArmatureFileInfo]:relativeData is %p",relativeData);
+    
 }
 
 void CCArmatureDataManager::addArmatureFileInfoAsync(const char *imagePath, const char *plistPath, const char *configFilePath, CCObject *target, SEL_SCHEDULE selector)
@@ -279,7 +282,12 @@ void CCArmatureDataManager::addSpriteFrameFromFile(const char *plistPath, const 
 {
     if (CCRelativeData *data = getRelativeData(configFilePath))
     {
-        data->plistFiles.push_back(plistPath);
+        std::string strPlistPath = plistPath;
+        std::string strPrefix = prefix;
+        if (strPrefix != ""){
+            strPlistPath = strPrefix + "_"+ plistPath;
+        }
+        data->plistFiles.push_back(strPlistPath);
     }
 
     CCSpriteFrameCacheHelper::sharedSpriteFrameCacheHelper()->addSpriteFrameFromFile(plistPath, imagePath,prefix);

@@ -628,9 +628,9 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
     */
     tinyxml2::XMLElement *armaturesXML = root->FirstChildElement(ARMATURES);
     tinyxml2::XMLElement *armatureXML = armaturesXML->FirstChildElement(ARMATURE);
-    std::string  realName = dataInfo->filename;
+    std::string  realFileName = dataInfo->filename;
     if (dataInfo->prefix != ""){
-        realName = dataInfo->prefix +"_"+ dataInfo->filename;
+        realFileName = dataInfo->prefix +"_"+ dataInfo->filename;
     }
     while(armatureXML)
     {
@@ -646,7 +646,7 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
         }
         
         armatureData->name = name;
-        CCArmatureDataManager::sharedArmatureDataManager()->addArmatureData(name.c_str(), armatureData, realName.c_str());
+        CCArmatureDataManager::sharedArmatureDataManager()->addArmatureData(name.c_str(), armatureData, realFileName.c_str());
         armatureData->release();
         if (dataInfo->asyncStruct)
         {
@@ -669,7 +669,7 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
         {
             pthread_mutex_lock(&s_addDataMutex);
         }
-        CCArmatureDataManager::sharedArmatureDataManager()->addAnimationData(animationData->name.c_str(), animationData, dataInfo->filename.c_str());
+        CCArmatureDataManager::sharedArmatureDataManager()->addAnimationData(animationData->name.c_str(), animationData, realFileName.c_str());
         animationData->release();
         if (dataInfo->asyncStruct)
         {
@@ -697,8 +697,8 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
         if ( dataInfo->prefix != "" ){
             realName = dataInfo->prefix + "_" + realName;
         }
-        
-        CCArmatureDataManager::sharedArmatureDataManager()->addTextureData(realName.c_str(), textureData, dataInfo->filename.c_str());
+        textureData->name = realName;
+        CCArmatureDataManager::sharedArmatureDataManager()->addTextureData(textureData->name.c_str(), textureData, realFileName.c_str());
         textureData->release();
         if (dataInfo->asyncStruct)
         {
@@ -756,6 +756,7 @@ CCBoneData *CCDataReaderHelper::decodeBone(tinyxml2::XMLElement *boneXML, tinyxm
     boneData->init();
 
     std::string name = boneXML->Attribute(A_NAME);
+   
     boneData->name = name;
 
     if( boneXML->Attribute(A_PARENT) != NULL )
@@ -901,7 +902,7 @@ CCMovementData *CCDataReaderHelper::decodeMovement(tinyxml2::XMLElement *movemen
     while(movBoneXml)
     {
         const char *boneName = movBoneXml->Attribute(A_NAME);
-
+        
         if (movementData->getMovementBoneData(boneName))
         {
             movBoneXml = movBoneXml->NextSiblingElement();
@@ -993,7 +994,7 @@ CCMovementBoneData *CCDataReaderHelper::decodeMovementBone(tinyxml2::XMLElement 
     int totalDuration = 0;
 
     std::string name = movBoneXml->Attribute(A_NAME);
-
+   
     movBoneData->name = name;
 
     tinyxml2::XMLElement *frameXML = movBoneXml->FirstChildElement(FRAME);

@@ -105,6 +105,10 @@ void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary,
     {
         CCDictionary* frameDict = (CCDictionary*)pElement->getObject();
         std::string spriteFrameName = pElement->getStrKey();
+        std::string strPrefix2 = strPrefix;
+        if ( strPrefix2 != ""){
+            spriteFrameName =  strPrefix2 + "_" + spriteFrameName;
+        }
         CCSpriteFrame* spriteFrame = (CCSpriteFrame*)m_pSpriteFrames->objectForKey(spriteFrameName);
         if (spriteFrame)
         {
@@ -195,10 +199,11 @@ void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary,
                                          spriteSourceSize);
         }
 
-        std::string strPrefix2 = strPrefix;
-        if ( strPrefix2 != ""){
-            spriteFrameName =  strPrefix2 + "_" + spriteFrameName;
-        }
+//        std::string strPrefix2 = strPrefix;
+//        if ( strPrefix2 != ""){
+//            spriteFrameName =  strPrefix2 + "_" + spriteFrameName;
+//        }
+        CCLOG("序列帧的名称是spriteFrameName is %s",spriteFrameName.c_str());
         // add sprite frame
         m_pSpriteFrames->setObject(spriteFrame, spriteFrameName);
         spriteFrame->release();
@@ -214,8 +219,10 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist, CCTexture
     }
     if (m_pLoadedFileNames->find(strPzPlist) != m_pLoadedFileNames->end())
     {
+        CCLOG("strPzPlist is added!,%s",strPzPlist.c_str());
         return;//We already added it
     }
+    CCLOG("add sprite frame with file name is %s, prefix is %s",strPzPlist.c_str(),prefix);
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(pszPlist);
     CCDictionary *dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
 
@@ -228,6 +235,7 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist, CCTexture
 void CCSpriteFrameCache::addSpriteFramesWithFile(const char* plist, const char* textureFileName,const char *strPrefix)
 {
     CCAssert(textureFileName, "texture name should not be null");
+    CCLOG("addSpriteFramesWithFile  file is %s",textureFileName);
     CCTexture2D *texture = CCTextureCache::sharedTextureCache()->addImage(textureFileName);
 
     if (texture)
@@ -358,6 +366,10 @@ void CCSpriteFrameCache::removeSpriteFrameByName(const char *pszName)
 void CCSpriteFrameCache::removeSpriteFramesFromFile(const char* plist)
 {
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist);
+    bool isExited = CCFileUtils::sharedFileUtils()->isFileExist(fullPath);
+    if(isExited == false){
+        return;
+    }
     CCDictionary* dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
 
     removeSpriteFramesFromDictionary((CCDictionary*)dict);
