@@ -203,7 +203,7 @@ void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary,
 //        if ( strPrefix2 != ""){
 //            spriteFrameName =  strPrefix2 + "_" + spriteFrameName;
 //        }
-        CCLOG("序列帧的名称是spriteFrameName is %s",spriteFrameName.c_str());
+//        CCLOG("序列帧的名称是spriteFrameName is %s",spriteFrameName.c_str());
         // add sprite frame
         m_pSpriteFrames->setObject(spriteFrame, spriteFrameName);
         spriteFrame->release();
@@ -222,7 +222,7 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist, CCTexture
         CCLOG("strPzPlist is added!,%s",strPzPlist.c_str());
         return;//We already added it
     }
-    CCLOG("add sprite frame with file name is %s, prefix is %s",strPzPlist.c_str(),prefix);
+//    CCLOG("add sprite frame with file name is %s, prefix is %s",strPzPlist.c_str(),prefix);
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(pszPlist);
     CCDictionary *dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
 

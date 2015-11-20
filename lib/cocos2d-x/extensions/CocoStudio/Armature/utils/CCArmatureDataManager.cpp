@@ -148,14 +148,14 @@ void CCArmatureDataManager::addArmatureData(const char *id, CCArmatureData *arma
         {
             data->armatures.push_back(id);
         }
-        CCLOG("add armature data is %s,name is %s",id,armatureData->name.c_str());
+//        CCLOG("add armature data is %s,name is %s",id,armatureData->name.c_str());
         m_pArmarureDatas->setObject(armatureData, id);
     }
 }
 
 CCArmatureData *CCArmatureDataManager::getArmatureData(const char *id)
 {
-    CCLOG("get armature data is %s ",id);
+//    CCLOG("get armature data is %s ",id);
     CCArmatureData *armatureData = NULL;
     if (m_pArmarureDatas)
     {
