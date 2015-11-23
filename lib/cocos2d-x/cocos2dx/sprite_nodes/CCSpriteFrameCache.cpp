@@ -327,6 +327,8 @@ void CCSpriteFrameCache::removeUnusedSpriteFrames(void)
             CCLOG("cocos2d: CCSpriteFrameCache: removing unused frame: %s", pElement->getStrKey());
             m_pSpriteFrames->removeObjectForElememt(pElement);
             bRemoved = true;
+        }else{
+            CCLOG("CCSpriteFrameCache:cannt removed:%s", pElement->getStrKey());
         }
     }
 
@@ -365,7 +367,15 @@ void CCSpriteFrameCache::removeSpriteFrameByName(const char *pszName)
 
 void CCSpriteFrameCache::removeSpriteFramesFromFile(const char* plist)
 {
+    CCLOG("removeSpriteFramesFromFile is %s",plist);
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist);
+    // remove it from the cache
+    set<string>::iterator ret = m_pLoadedFileNames->find(plist);
+    if (ret != m_pLoadedFileNames->end())
+    {
+        m_pLoadedFileNames->erase(ret);
+    }
+    
     bool isExited = CCFileUtils::sharedFileUtils()->isFileExist(fullPath);
     if(isExited == false){
         return;
@@ -374,12 +384,7 @@ void CCSpriteFrameCache::removeSpriteFramesFromFile(const char* plist)
 
     removeSpriteFramesFromDictionary((CCDictionary*)dict);
 
-    // remove it from the cache
-    set<string>::iterator ret = m_pLoadedFileNames->find(plist);
-    if (ret != m_pLoadedFileNames->end())
-    {
-        m_pLoadedFileNames->erase(ret);
-    }
+
 
     dict->release();
 }
@@ -394,6 +399,7 @@ void CCSpriteFrameCache::removeSpriteFramesFromDictionary(CCDictionary* dictiona
     {
         if (m_pSpriteFrames->objectForKey(pElement->getStrKey()))
         {
+            CCLOG("removeSpriteFrameFromDictionary is %s",pElement->getStrKey());
             keysToRemove->addObject(CCString::create(pElement->getStrKey()));
         }
     }
@@ -412,6 +418,7 @@ void CCSpriteFrameCache::removeSpriteFramesFromTexture(CCTexture2D* texture)
         CCSpriteFrame* frame = (CCSpriteFrame*)m_pSpriteFrames->objectForKey(key.c_str());
         if (frame && (frame->getTexture() == texture))
         {
+            CCLOG("remove sprite frames form texture is %s",key.c_str());
             keysToRemove->addObject(CCString::create(pElement->getStrKey()));
         }
     }

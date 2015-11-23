@@ -132,6 +132,7 @@ void CCArmatureDataManager::removeArmatureFileInfo(const char *configFilePath)
 
         for (std::vector<std::string>::iterator i = data->plistFiles.begin(); i != data->plistFiles.end(); i++)
         {
+            CCLOG("remove sprite frame from armature is %s",i->c_str());
             CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(i->c_str());
         }
 

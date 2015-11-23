@@ -271,7 +271,7 @@ int CCHTTPRequest::getState(void)
 
 int CCHTTPRequest::getResponseStatusCode(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+//    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
     return static_cast<int>(m_responseCode);
 }
 
@@ -293,7 +293,7 @@ const string CCHTTPRequest::getResponseHeadersString()
 
 const string CCHTTPRequest::getResponseString(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseString() - request not completed");
+//    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseString() - request not completed");
     return string(m_responseBuffer ? static_cast<char*>(m_responseBuffer) : "");
 }
 
