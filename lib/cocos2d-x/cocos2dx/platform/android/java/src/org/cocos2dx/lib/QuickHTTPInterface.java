@@ -28,10 +28,12 @@ public class QuickHTTPInterface {
     static String NEWLINE = "\r\n";
 
     static HttpURLConnection createURLConnect(String strURL) {
-        URL url;
+        Log.e("QuickHTTPInterface", "createURLConnect"+strURL);
+    	URL url;
         HttpURLConnection urlConnection;
         try {
-            url = new URL(strURL);
+        	Log.e("QuickHTTPInterface", "createURLConnect 2"+strURL);
+        	url = new URL(strURL);
             urlConnection = (HttpURLConnection)url.openConnection();
             urlConnection.setRequestProperty("Accept-Encoding", "identity");
             urlConnection.setDoInput(true);
@@ -44,6 +46,7 @@ public class QuickHTTPInterface {
     }
 
     static void setRequestMethod(HttpURLConnection http, String strMedthod) {
+    	Log.e("QuickHTTPInterface", "setRequestMethod 2"+strMedthod);
         try {
             if ("POST".equalsIgnoreCase(strMedthod)) {
                 http.setDoOutput(true);
