@@ -26,6 +26,7 @@ LOCAL_SRC_FILES := \
     GUI/CCScrollView/CCTableView.cpp \
     GUI/CCScrollView/CCTableViewCell.cpp \
     CCBReader/CCData.cpp \
+    updater/Updater.cpp  \
     network/WebSocket.cpp
 
 ifeq ($(CC_DRAGONBONES_ENABLED),1)
@@ -196,8 +197,7 @@ LOCAL_SRC_FILES += \
     CocoStudio/Trigger/TriggerMng.cpp \
     CocoStudio/Trigger/TriggerObj.cpp \
     webview/ZYWebView.cpp \
-    webview/android/ZYWebView_Android.cpp \
-    updater/Updater.cpp 
+    webview/android/ZYWebView_Android.cpp 
 endif
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
@@ -233,6 +233,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCArmature/utils \
                            $(LOCAL_PATH)/filters \
                            $(LOCAL_PATH)/webview \
+                           $(LOCAL_PATH)/updater \
                            $(LOCAL_PATH)/DragonBones
 
 
