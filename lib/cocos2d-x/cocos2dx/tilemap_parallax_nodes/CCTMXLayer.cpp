@@ -59,7 +59,11 @@ bool CCTMXLayer::initWithTilesetInfo(CCTMXTilesetInfo *tilesetInfo, CCTMXLayerIn
     CCTexture2D *texture = NULL;
     if( tilesetInfo )
     {
-        texture = CCTextureCache::sharedTextureCache()->addImage(tilesetInfo->m_sSourceImage.c_str());
+        std::string fileName = tilesetInfo->m_sSourceImage.c_str();
+        int index = int(fileName.find_first_of("."));
+        std::string baseName = fileName.substr(0,index);
+        std::string realName = baseName + ".webp";
+        texture = CCTextureCache::sharedTextureCache()->addImage(realName.c_str());
     }
 
     if (CCSpriteBatchNode::initWithTexture(texture, (unsigned int)capacity))
