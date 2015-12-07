@@ -369,6 +369,14 @@ void CCAnimationData::addMovement(CCMovementData *movData)
     movementNames.push_back(movData->name);
 }
 
+
+void CCAnimationData::replaceMovement(CCMovementData *movData)
+{
+    movementDataDic.removeObjectForKey(movData->name);
+    movementDataDic.setObject(movData, movData->name);
+//    movementNames.push_back(movData->name);
+}
+
 CCMovementData *CCAnimationData::getMovement(const char *movementName)
 {
     return (CCMovementData *)movementDataDic.objectForKey(movementName);
@@ -424,6 +432,7 @@ void CCTextureData::addContourData(CCContourData *contourData)
 {
     contourDataList.addObject(contourData);
 }
+
 
 CCContourData *CCTextureData::getContourData(int index)
 {

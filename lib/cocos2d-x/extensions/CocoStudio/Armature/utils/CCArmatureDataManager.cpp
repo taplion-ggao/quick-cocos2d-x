@@ -254,11 +254,27 @@ void CCArmatureDataManager::addArmatureFileInfoAsync(const char *configFilePath,
 void CCArmatureDataManager::addArmatureFileInfo(const char *imagePath, const char *plistPath, const char *configFilePath)
 {
     addRelativeData(configFilePath);
-
+    CCLog("addArmatureFileInfo plistPath is %s",plistPath);
+    CCLog("addArmatureFileInfo imagePath is %s",imagePath);
+    CCLog("addArmatureFileInfo configFilePath is %s",configFilePath);
     m_bAutoLoadSpriteFile = false;
     CCDataReaderHelper::sharedDataReaderHelper()->addDataFromFile(configFilePath);
 
     addSpriteFrameFromFile(plistPath, imagePath, configFilePath);
+}
+
+void CCArmatureDataManager::addArmatureFileInfoWithDelta(const char *imagePath, const char *plistPath, const char *configFilePath,const char *baseConfigFilePath)
+{
+
+    addRelativeData(baseConfigFilePath);
+    
+    m_bAutoLoadSpriteFile = false;
+    CCDataReaderHelper::sharedDataReaderHelper()->addDataFromFile(configFilePath,baseConfigFilePath);
+    CCLog("addArmatureFileInfoWithDelta plistPath is %s",plistPath);
+    CCLog("addArmatureFileInfoWithDelta imagePath is %s",imagePath);
+    CCLog("addArmatureFileInfoWithDelta configFilePath is %s",configFilePath);
+    CCLog("addArmatureFileInfoWithDelta baseConfigFilePath is %s",baseConfigFilePath);
+    addSpriteFrameFromFile(plistPath, imagePath, baseConfigFilePath);
 }
 
 void CCArmatureDataManager::addArmatureFileInfoAsync(const char *imagePath, const char *plistPath, const char *configFilePath, CCObject *target, SEL_SCHEDULE selector)

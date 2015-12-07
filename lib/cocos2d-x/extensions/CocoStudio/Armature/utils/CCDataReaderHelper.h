@@ -62,7 +62,7 @@ public:
 public:
     ~CCDataReaderHelper();
 
-    void addDataFromFile(const char *filePath);
+    void addDataFromFile(const char *filePath,const char *deltaFilePath = "");
     void addDataFromFileAsync(const char *imagePath, const char *plistPath, const char *filePath, CCObject *target, SEL_SCHEDULE selector);
 
     void addDataAsyncCallBack(float dt);
@@ -77,7 +77,8 @@ public:
      * @param xmlPath The cache of the xml
      */
     static void addDataFromCache(const char *pFileContent, DataInfo *dataInfo = NULL);
-
+    
+    static void addDataFromCacheWithDelta(const char *pFileContent, DataInfo *dataInfo = NULL,const char *deltaFileContent = "");
 
 
     /**

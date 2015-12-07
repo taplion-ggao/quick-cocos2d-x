@@ -392,7 +392,8 @@ public:
 public:
     CCAnimationData(void);
     ~CCAnimationData(void);
-
+    
+    void replaceMovement(CCMovementData *movData);
     void addMovement(CCMovementData *movData);
     CCMovementData *getMovement(const char *movementName);
     int getMovementCount();

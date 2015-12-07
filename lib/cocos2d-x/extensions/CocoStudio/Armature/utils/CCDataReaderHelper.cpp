@@ -184,6 +184,7 @@ typedef struct _DataInfo
     float contentScale;
     std::string    filename;
     std::string    baseFilePath;
+    std::string    armatureName;
     float flashToolVersion;
     float cocoStudioVersion;
 } DataInfo;
@@ -341,19 +342,24 @@ CCDataReaderHelper::~CCDataReaderHelper()
     pthread_cond_signal(&s_SleepCondition);
 }
 
-void CCDataReaderHelper::addDataFromFile(const char *filePath)
+void CCDataReaderHelper::addDataFromFile(const char *filePath,const char *deltaFilePath)
 {
     /*
     * Check if file is already added to CCArmatureDataManager, if then return.
     */
+    const char* realfileName = filePath;
+    std::string deltaFilePathStr = deltaFilePath;
+    if (deltaFilePathStr != ""){
+        realfileName = deltaFilePath;
+    }
     for(unsigned int i = 0; i < s_arrConfigFileList.size(); i++)
     {
-        if (s_arrConfigFileList[i].compare(filePath) == 0)
+        if (s_arrConfigFileList[i].compare(realfileName) == 0)
         {
             return;
         }
     }
-    s_arrConfigFileList.push_back(filePath);
+    s_arrConfigFileList.push_back(realfileName);
 
 
     //! find the base file path
@@ -388,14 +394,30 @@ void CCDataReaderHelper::addDataFromFile(const char *filePath)
 
 
     DataInfo dataInfo;
-    dataInfo.filename = filePathStr;
+
+    if(deltaFilePathStr != ""){
+        dataInfo.filename = deltaFilePathStr;
+    }else{
+        dataInfo.filename = filePathStr;
+    }
+    
     dataInfo.asyncStruct = NULL;
     dataInfo.baseFilePath = basefilePath;
 
 	std::string load_str = std::string((const char*)pBytes, size);
     if (str.compare(".xml") == 0)
     {
-        CCDataReaderHelper::addDataFromCache(load_str.c_str(), &dataInfo);
+
+        if (deltaFilePathStr != ""){
+            unsigned long deltaSize;
+            std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(deltaFilePath);
+            pBytes = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str() , "r", &deltaSize);
+            std::string deltaContent_str = std::string((const char*)pBytes, deltaSize);
+            CCDataReaderHelper::addDataFromCacheWithDelta(load_str.c_str(), &dataInfo,deltaContent_str.c_str());
+        }else{
+            CCDataReaderHelper::addDataFromCache(load_str.c_str(), &dataInfo);
+        }
+
     }
     else if(str.compare(".json") == 0 || str.compare(".ExportJson") == 0)
     {
@@ -605,9 +627,174 @@ void CCDataReaderHelper::removeConfigFile(const char *configFile)
 
 
 
+void CCDataReaderHelper::addDataFromCacheWithDelta(const char *pFileContent, DataInfo *dataInfo,const char *deltaFileContent)
+{
+    tinyxml2::XMLDocument document;
+    document.Parse(pFileContent);
+    
+    tinyxml2::XMLElement *root = document.RootElement();
+    CCAssert(root, "XML error  or  XML is empty.");
+    
+    const char* armatureName = NULL;
+    armatureName = root->Attribute(A_NAME);
+    
+    root->QueryFloatAttribute(VERSION, &dataInfo->flashToolVersion);
+    
+   
+    tinyxml2::XMLElement  *deltaRoot = NULL;
+    tinyxml2::XMLDocument documentDelta;
+    
+    std::string strDeltaContent = deltaFileContent;
+    if (strDeltaContent != ""){
+
+        documentDelta.Parse(deltaFileContent);
+        deltaRoot = documentDelta.RootElement();
+        armatureName = deltaRoot->Attribute(A_NAME);
+        
+    }
+    tinyxml2::XMLElement  *deltaArmatureXML = NULL;
+    if (deltaRoot){
+        tinyxml2::XMLElement  *deltaArmaturesXML = deltaRoot->FirstChildElement(ARMATURES);
+        if (deltaArmaturesXML){
+            deltaArmatureXML = deltaArmaturesXML->FirstChildElement(ARMATURE);
+        }
+    }
+    dataInfo->armatureName = armatureName;
+    
+    /*
+     * Begin decode armature data from xml
+     */
+    
+   
+
+   
+    tinyxml2::XMLElement *armaturesXML = root->FirstChildElement(ARMATURES);
+    tinyxml2::XMLElement *armatureXML = armaturesXML->FirstChildElement(ARMATURE);
+    while(armatureXML)
+    {
+        CCArmatureData *armatureData = CCDataReaderHelper::decodeArmature(armatureXML, dataInfo);
+        CCArmatureData *deltaArmatureData = NULL;
+        if (deltaArmatureXML){
+            deltaArmatureData = CCDataReaderHelper::decodeArmature(deltaArmatureXML, dataInfo);
+        }
+        
+        if (dataInfo->asyncStruct)
+        {
+            pthread_mutex_lock(&s_addDataMutex);
+        }
+        
+        if (deltaArmatureData){
+            CCArmatureDataManager::sharedArmatureDataManager()->addArmatureData(deltaArmatureData->name.c_str(), armatureData, dataInfo->filename.c_str());
+        }else{
+            CCArmatureDataManager::sharedArmatureDataManager()->addArmatureData(dataInfo->armatureName.c_str(), armatureData, dataInfo->filename.c_str());
+        }
+        armatureData->release();
+        if (dataInfo->asyncStruct)
+        {
+            pthread_mutex_unlock(&s_addDataMutex);
+        }
+        
+        armatureXML = armatureXML->NextSiblingElement(ARMATURE);
+        if(deltaArmatureXML) {
+            deltaArmatureXML = deltaArmatureXML->NextSiblingElement(ARMATURE);
+        }
+    }
+    
+    
+    /*
+     * Begin decode animation data from xml
+     */
+    tinyxml2::XMLElement *animationsXML = root->FirstChildElement(ANIMATIONS);
+    tinyxml2::XMLElement *animationXML = animationsXML->FirstChildElement(ANIMATION);
+
+    tinyxml2::XMLElement *deltaAnimationXML = NULL;
+    if(deltaRoot){
+        tinyxml2::XMLElement *deltaAnimationsXML = deltaRoot->FirstChildElement(ANIMATIONS);
+        if (deltaAnimationsXML){
+            deltaAnimationXML = deltaAnimationsXML->FirstChildElement(ANIMATION);
+
+        }
+    }
+    
+    
+    while(animationXML)
+    {
+        CCAnimationData *animationData = CCDataReaderHelper::decodeAnimation(animationXML, dataInfo);
+        
+        CCAnimationData *deltaAnimationData = NULL;
+        if (deltaAnimationXML){
+            const char *name = deltaAnimationXML->Attribute(A_NAME);
+            CCLog("name is %s",name);
+            deltaAnimationData = CCDataReaderHelper::decodeAnimation(deltaAnimationXML, dataInfo);
+            
+            for (int i = 0; i < (deltaAnimationData->movementNames.size()); i++)
+            {
+                std::string name = deltaAnimationData->movementNames[i];
+                const char* pName = name.c_str();
+                CCMovementData *moveData = deltaAnimationData->getMovement(pName);
+                animationData->replaceMovement(moveData);
+            }
+        }
+        if (dataInfo->asyncStruct)
+        {
+            pthread_mutex_lock(&s_addDataMutex);
+        }
+        CCArmatureDataManager::sharedArmatureDataManager()->addAnimationData(dataInfo->armatureName.c_str(), animationData, dataInfo->filename.c_str());
+        animationData->release();
+        if (dataInfo->asyncStruct)
+        {
+            pthread_mutex_unlock(&s_addDataMutex);
+        }
+        animationXML = animationXML->NextSiblingElement(ANIMATION);
+//        if (deltaAnimationXML){
+//            deltaAnimationXML = deltaAnimationXML->NextSiblingElement(ANIMATION);
+//        }
+    }
+    
+    
+    /*
+     * Begin decode texture data from xml
+     */
+    tinyxml2::XMLElement *texturesXML = root->FirstChildElement(TEXTURE_ATLAS);
+    tinyxml2::XMLElement *textureXML = texturesXML->FirstChildElement(SUB_TEXTURE);
+    tinyxml2::XMLElement *deltaTextureXML = NULL;
+    if (deltaRoot){
+        tinyxml2::XMLElement *deltaTexturesXML = deltaRoot->FirstChildElement(TEXTURE_ATLAS);
+        if (deltaTexturesXML){
+            deltaTextureXML= deltaTexturesXML->FirstChildElement(SUB_TEXTURE);
+        }        
+    }
+    while(textureXML)
+    {
+        CCTextureData *textureData = CCDataReaderHelper::decodeTexture(textureXML, dataInfo);
+        CCTextureData *deltaTextureData = NULL;
+        if (deltaTextureXML){
+            deltaTextureData = CCDataReaderHelper::decodeTexture(deltaTextureXML, dataInfo);
+            if (textureData->name == deltaTextureData->name){
+                textureData = deltaTextureData;
+            }
+        }
+        if (dataInfo->asyncStruct)
+        {
+            pthread_mutex_lock(&s_addDataMutex);
+        }
+        CCArmatureDataManager::sharedArmatureDataManager()->addTextureData(dataInfo->armatureName.c_str(), textureData, dataInfo->filename.c_str());
+        textureData->release();
+        if (dataInfo->asyncStruct)
+        {
+            pthread_mutex_unlock(&s_addDataMutex);
+        }
+        textureXML = textureXML->NextSiblingElement(SUB_TEXTURE);
+        if(deltaTextureXML){
+            deltaTextureXML = deltaTextureXML->NextSiblingElement(SUB_TEXTURE);
+        }
+        
+    }
+}
 
 void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *dataInfo)
 {
+    CCLog("CCDataReaderHelper::addDataFromCache no delta!!!!");
     tinyxml2::XMLDocument document;
     document.Parse(pFileContent);
 
@@ -616,7 +803,9 @@ void CCDataReaderHelper::addDataFromCache(const char *pFileContent, DataInfo *da
 
     root->QueryFloatAttribute(VERSION, &dataInfo->flashToolVersion);
 
-
+    const char* armatureName = NULL;
+    armatureName = root->Attribute(A_NAME);
+    dataInfo->armatureName = armatureName;
     /*
     * Begin decode armature data from xml
     */
@@ -805,7 +994,7 @@ CCAnimationData *CCDataReaderHelper::decodeAnimation(tinyxml2::XMLElement *anima
 
     const char	*name = animationXML->Attribute(A_NAME);
 
-    CCArmatureData *armatureData = CCArmatureDataManager::sharedArmatureDataManager()->getArmatureData(name);
+    CCArmatureData *armatureData = CCArmatureDataManager::sharedArmatureDataManager()->getArmatureData(dataInfo->armatureName.c_str());
 
     aniData->name = name;
 
@@ -881,7 +1070,10 @@ CCMovementData *CCDataReaderHelper::decodeMovement(tinyxml2::XMLElement *movemen
 
 
         CCBoneData *boneData = (CCBoneData *)armatureData->getBoneData(boneName);
-
+        if(boneData == NULL){
+            movBoneXml = movBoneXml->NextSiblingElement();
+            continue;
+        }
         std::string parentName = boneData->parentName;
 
 

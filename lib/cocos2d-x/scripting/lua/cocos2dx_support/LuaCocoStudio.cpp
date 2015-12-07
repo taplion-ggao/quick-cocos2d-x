@@ -4696,7 +4696,8 @@ static int tolua_CocoStudio_CCArmatureDataManager_addArmatureFileInfo01(lua_Stat
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isstring(tolua_S,3,0,&tolua_err) ||
      !tolua_isstring(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -4705,11 +4706,17 @@ static int tolua_CocoStudio_CCArmatureDataManager_addArmatureFileInfo01(lua_Stat
   const char* imagePath = ((const char*)  tolua_tostring(tolua_S,2,0));
   const char* plistPath = ((const char*)  tolua_tostring(tolua_S,3,0));
   const char* configFilePath = ((const char*)  tolua_tostring(tolua_S,4,0));
+  const char* baseConfigFilePath = ((const char*)  tolua_tostring(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addArmatureFileInfo'", NULL);
 #endif
   {
-   self->addArmatureFileInfo(imagePath,plistPath,configFilePath);
+      if (baseConfigFilePath == NULL){
+         self->addArmatureFileInfo(imagePath,plistPath,configFilePath);
+      }else{
+         self->addArmatureFileInfoWithDelta(imagePath,plistPath,configFilePath,baseConfigFilePath);
+      }
+   
   }
  }
  return 0;
