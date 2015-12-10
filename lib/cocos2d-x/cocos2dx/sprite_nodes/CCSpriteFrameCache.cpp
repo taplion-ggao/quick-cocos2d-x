@@ -349,9 +349,13 @@ void CCSpriteFrameCache::removeSpriteFrameByName(const char *pszName)
 void CCSpriteFrameCache::removeSpriteFramesFromFile(const char* plist)
 {
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist);
-    CCDictionary* dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
-
-    removeSpriteFramesFromDictionary((CCDictionary*)dict);
+    
+    if (CCFileUtils::sharedFileUtils()->isFileExist(fullPath) ){
+        CCDictionary* dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
+        removeSpriteFramesFromDictionary((CCDictionary*)dict);
+        dict->release();
+    }
+    
 
     // remove it from the cache
     set<string>::iterator ret = m_pLoadedFileNames->find(plist);
@@ -360,7 +364,7 @@ void CCSpriteFrameCache::removeSpriteFramesFromFile(const char* plist)
         m_pLoadedFileNames->erase(ret);
     }
 
-    dict->release();
+    
 }
 
 void CCSpriteFrameCache::removeSpriteFramesFromDictionary(CCDictionary* dictionary)
