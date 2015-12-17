@@ -195,7 +195,7 @@ void CCLayer::onEnter()
     // add this layer to concern the keypad msg
     if (m_bKeypadEnabled)
     {
-        pDirector->getKeypadDispatcher()->addDelegate(this);
+//        pDirector->getKeypadDispatcher()->addDelegate(this);
     }
 }
 
