@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "support/CCPointExtension.h"
 #include "support/data_support/ccCArray.h"
 #include "CCDirector.h"
+#include "CCApplication.h"
 
 NS_CC_BEGIN
 
@@ -59,11 +60,18 @@ bool CCTMXLayer::initWithTilesetInfo(CCTMXTilesetInfo *tilesetInfo, CCTMXLayerIn
     CCTexture2D *texture = NULL;
     if( tilesetInfo )
     {
-        std::string fileName = tilesetInfo->m_sSourceImage.c_str();
-        int index = int(fileName.find_first_of("."));
-        std::string baseName = fileName.substr(0,index);
-        std::string realName = baseName + ".webp";
-        texture = CCTextureCache::sharedTextureCache()->addImage(realName.c_str());
+        TargetPlatform platform = CCApplication::sharedApplication()->getTargetPlatform();
+        if (platform == kTargetAndroid ){
+            std::string fileName = tilesetInfo->m_sSourceImage.c_str();
+            int index = int(fileName.find_first_of("."));
+            std::string baseName = fileName.substr(0,index);
+            std::string realName = baseName + ".webp";
+            texture = CCTextureCache::sharedTextureCache()->addImage(realName.c_str());
+        }else{
+            std::string fileName = tilesetInfo->m_sSourceImage.c_str();
+            texture = CCTextureCache::sharedTextureCache()->addImage(fileName.c_str());
+        }
+        
     }
 
     if (CCSpriteBatchNode::initWithTexture(texture, (unsigned int)capacity))
