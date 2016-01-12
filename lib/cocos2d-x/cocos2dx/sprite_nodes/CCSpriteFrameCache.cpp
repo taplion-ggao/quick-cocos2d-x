@@ -367,33 +367,24 @@ void CCSpriteFrameCache::removeSpriteFrameByName(const char *pszName)
 
 void CCSpriteFrameCache::removeSpriteFramesFromFile(const char* plist)
 {
-    CCLOG("removeSpriteFramesFromFile is %s",plist);
+//    CCLOG("removeSpriteFramesFromFile is %s",plist);
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist);
+    
+    
+    
+    // remove it from the cache
+    set<string>::iterator ret = m_pLoadedFileNames->find(plist);
+    if (ret != m_pLoadedFileNames->end())
+    {
+        CCLOG("removeSpriteFramesFromFile is %s success",plist);
+        m_pLoadedFileNames->erase(ret);
+    }
     
     if (CCFileUtils::sharedFileUtils()->isFileExist(fullPath) ){
         CCDictionary* dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
         removeSpriteFramesFromDictionary((CCDictionary*)dict);
         dict->release();
     }
-    
-    // remove it from the cache
-    set<string>::iterator ret = m_pLoadedFileNames->find(plist);
-    if (ret != m_pLoadedFileNames->end())
-    {
-        m_pLoadedFileNames->erase(ret);
-    }
-    
-    bool isExited = CCFileUtils::sharedFileUtils()->isFileExist(fullPath);
-    if(isExited == false){
-        return;
-    }
-    CCDictionary* dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
-
-    removeSpriteFramesFromDictionary((CCDictionary*)dict);
-
-
-
-    
 }
 
 void CCSpriteFrameCache::removeSpriteFramesFromDictionary(CCDictionary* dictionary)

@@ -500,7 +500,6 @@ int downloadProgressFunc(void *ptr, double totalToDownload, double nowDownloaded
     
     manager->_schedule->sendMessage(msg);
     
-    //CCLOG("downloading... %d%%", progressData->percent);
     return 0;
 }
 
@@ -512,7 +511,6 @@ bool Updater::download(const char* fileUrl, const char* filePath)
     if (! fp)
     {
         sendErrorMessage(kCreateFile);
-        CCLOG("can not create file %s", outFileName.c_str());
         return false;
     }
     
@@ -520,7 +518,7 @@ bool Updater::download(const char* fileUrl, const char* filePath)
     if (! _curl)
     {
         sendErrorMessage(kNetwork);
-        CCLOG("Updater::download(%s, %s) Can not init curl!", fileUrl, filePath);
+
         return false;
     }
     
@@ -528,6 +526,7 @@ bool Updater::download(const char* fileUrl, const char* filePath)
     
     // Download pacakge
     CURLcode res;
+
     curl_easy_setopt(_curl, CURLOPT_URL, fileUrl);
     curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, downloadWriteFunc);
     curl_easy_setopt(_curl, CURLOPT_WRITEDATA, fp);
@@ -535,18 +534,23 @@ bool Updater::download(const char* fileUrl, const char* filePath)
     curl_easy_setopt(_curl, CURLOPT_PROGRESSFUNCTION, downloadProgressFunc);
     curl_easy_setopt(_curl, CURLOPT_PROGRESSDATA, this);
     curl_easy_setopt(_curl, CURLOPT_FRESH_CONNECT, 1);
-    curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
+    if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
+
+
+    curl_easy_setopt(_curl, CURLOPT_FOLLOWLOCATION, true);
+    
     res = curl_easy_perform(_curl);
     curl_easy_cleanup(_curl);
+
     if (res != 0)
     {
         sendErrorMessage(kNetwork);
-        CCLOG("Error when download package");
+        
         fclose(fp);
         return false;
     }
     
-    CCLOG("Succeed downloading file %s", fileUrl);
+
     
     fclose(fp);
     this->sendStateMessage(kDownDone);
