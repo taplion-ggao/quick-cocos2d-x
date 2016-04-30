@@ -475,7 +475,8 @@ void CCTMXMapInfo::startElement(void *ctx, const char *name, const char **atts)
 
         // build full path
         std::string imagename = valueForKey("source", attributeDict);
-
+        
+        imagename.replace((imagename.length())-3, 3, "webp");
 //        if (m_sTMXFileName.find_last_of("/") != string::npos)
 //        {
 //            string dir = m_sTMXFileName.substr(0, m_sTMXFileName.find_last_of("/") + 1);
