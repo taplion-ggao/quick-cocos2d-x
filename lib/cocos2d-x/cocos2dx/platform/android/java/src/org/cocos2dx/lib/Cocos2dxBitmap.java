@@ -125,7 +125,7 @@ public class Cocos2dxBitmap {
 	          return;
 	      }
 	  }
-	  System.out.println("AAAASDFASDFASDF2=shadowDX = "+ shadowDX + ",shadowDY = "+shadowDY +",shadowBlur = "+ shadowBlur );
+	  // System.out.println("AAAASDFASDFASDF2=shadowDX = "+ shadowDX + ",shadowDY = "+shadowDY +",shadowBlur = "+ shadowBlur );
 	  // set the paint color
 	  paint.setARGB(255, (int)(255.0 * fontTintR), (int)(255.0 * fontTintG), (int)(255.0 * fontTintB));
 
@@ -137,7 +137,7 @@ public class Cocos2dxBitmap {
 	  float bitmapPaddingY   = 0.0f;
 	  float renderTextDeltaX = 0.0f;
 	  float renderTextDeltaY = 0.0f;
-	  System.out.println("AAAASDFASDFASDF3,shadow is "+ shadow);
+	  // System.out.println("AAAASDFASDFASDF3,shadow is "+ shadow);
 	  if ( shadow ) {
 		 System.out.print("print the shadow!!!!!!!!!!!!");
 		int shadowColor = 0xff7d7d7d;

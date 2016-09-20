@@ -1087,6 +1087,7 @@ void CCLabelBMFont::setFntFile(const char* fntFile)
 {
     if (fntFile != NULL && strcmp(fntFile, m_sFntFile.c_str()) != 0 )
     {
+        CCLOG("CCLabelBMFont::setFntFile is herheh");
         CCBMFontConfiguration *newConf = FNTConfigLoadFile(fntFile);
         
         CCAssert( newConf, "CCLabelBMFont: Impossible to create font. Please check file");

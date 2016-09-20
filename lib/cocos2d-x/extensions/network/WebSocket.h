@@ -21,15 +21,17 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-
 "[WebSocket module] is based in part on the work of the libwebsockets  project
 (http://libwebsockets.org)"
-
  ****************************************************************************/
-
 #ifndef __CC_WEBSOCKET_H__
 #define __CC_WEBSOCKET_H__
 
+#include "platform/CCPlatformMacros.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+#include "WebSocketWinRT.h"
+#else
 #include "ExtensionMacros.h"
 #include "cocos2d.h"
 #include "libwebsockets.h"
@@ -40,7 +42,7 @@ NS_CC_EXT_BEGIN
 class WsThreadHelper;
 class WsMessage;
 
-class WebSocket
+class CC_EX_DLL WebSocket
 {
 public:
     /**
@@ -58,10 +60,9 @@ public:
      */
     struct Data
     {
-        Data():bytes(NULL), len(0), issued(0), isBinary(false){}
+        Data():bytes(NULL), len(0), isBinary(false){}
         char* bytes;
-        size_t len;
-        int issued;
+        int len;
         bool isBinary;
     };
     
@@ -141,31 +142,26 @@ private:
     
 
     friend class WebSocketCallbackWrapper;
-    int onSocketCallback(struct libwebsocket_context *ctx,
-                         struct libwebsocket *wsi,
-                         enum libwebsocket_callback_reasons reason,
+    int onSocketCallback(struct lws *wsi,
+                         enum lws_callback_reasons reason,
                          void *user, void *in, size_t len);
     
 private:
-	State        _readyState;
+    State        _readyState;
     std::string  _host;
-    int          _port;
+    unsigned int _port;
     std::string  _path;
-
-    size_t _pendingFrameDataLen;
-    size_t _currentDataLen;
-    char *_currentData;
     
     friend class WsThreadHelper;
     WsThreadHelper* _wsHelper;
     
-    struct libwebsocket*         _wsInstance;
-    struct libwebsocket_context* _wsContext;
+    struct lws*         _wsInstance;
+    struct lws_context* _wsContext;
     Delegate* _delegate;
     int _SSLConnection;
-    struct libwebsocket_protocols* _wsProtocols;
+    struct lws_protocols* _wsProtocols;
 };
 
 NS_CC_EXT_END
-
 #endif /* defined(__CC_JSB_WEBSOCKET_H__) */
+#endif

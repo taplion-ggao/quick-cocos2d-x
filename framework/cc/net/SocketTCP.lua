@@ -68,12 +68,17 @@ function SocketTCP:setConnFailTime(__time)
 	return self
 end
 
-function SocketTCP:connect(__host, __port, __retryConnectWhenFailure)
+function SocketTCP:connect(__host, __port, __retryConnectWhenFailure,__ipv6)
 	if __host then self.host = __host end
 	if __port then self.port = __port end
 	if __retryConnectWhenFailure ~= nil then self.isRetryConnect = __retryConnectWhenFailure end
 	assert(self.host or self.port, "Host and port are necessary!")
 	--printInfo("%s.connect(%s, %d)", self.name, self.host, self.port)
+	if __ipv6 then
+		self.tcp = socket.tcp6()
+	else
+		self.tcp = socket.tcp()
+	end
 	self.tcp = socket.tcp()
 	self.tcp:settimeout(0)
 

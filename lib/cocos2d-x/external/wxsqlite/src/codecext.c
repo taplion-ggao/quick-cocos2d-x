@@ -2,6 +2,7 @@
 #ifdef SQLITE_HAS_CODEC
 
 #include "codec.h"
+#include "sqlite3.h"
 
 void sqlite3_activate_see(const char *info)
 {

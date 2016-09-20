@@ -237,7 +237,7 @@ void CCTableView::removeCellAtIndex(unsigned int idx)
    
     int lastIndex = -1;
     
-    CCLOG("removeCellAtIndex newIdx is %d",newIdx);
+//    CCLOG("removeCellAtIndex newIdx is %d",newIdx);
     if (newIdx == 0 ){
 //        return;
     }
@@ -247,7 +247,7 @@ void CCTableView::removeCellAtIndex(unsigned int idx)
         int index = cell->getIdx() ;
         m_pIndices->insert(index);
         CCPoint pos = this->_offsetFromIndex(index);
-        CCLOG("索引的index 是 %d,y的位置是%f",i,pos.y);
+//        CCLOG("索引的index 是 %d,y的位置是%f",i,pos.y);
         cell->setPosition(this->_offsetFromIndex(index));
     }
 
@@ -267,7 +267,7 @@ void CCTableView::removeCellAtIndex(unsigned int idx)
         int offset = usedCount - nowUsedCount;
         int endIndex = (lastIndex + 1 ) + offset ;
         for (int i = (lastIndex + 1) ;i < endIndex;i++){
-            CCLOG("自动更新第index个，%d",i);
+//            CCLOG("自动更新第index个，%d",i);
             if (i < uCountOfItems -1){
                 this->updateCellAtIndex(i);
             }

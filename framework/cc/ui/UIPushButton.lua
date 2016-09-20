@@ -34,7 +34,7 @@ function UIPushButton:resetButtonImages(images)
     self:setButtonImage(UIPushButton.DISABLED, images["disabled"], true)
 end
 function UIPushButton:setButtonImage(state, image, ignoreEmpty)
-    print("setButtonImage,,,,,,,,"..tostring(image))
+    -- print("setButtonImage,,,,,,,,"..tostring(image))
     assert(state == UIPushButton.NORMAL
         or state == UIPushButton.PRESSED
         or state == UIPushButton.DISABLED,

@@ -245,7 +245,7 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
             this->scheduleOnce(schedule_selector(CCScene::setCanTouchQuick), 0.2);
 //            pTouches->removeObject(pt)
             m_touchingTargets->addObject(touchTarget);
-            CCLOG("ADD TOUCH TARGET 已经点击过，过一秒之后才能再次点击！！！！！！" );
+//            CCLOG("ADD TOUCH TARGET 已经点击过，过一秒之后才能再次点击！！！！！！" );
             if (node->isTouchSwallowEnabled())
             {
                 // target swallow touch event, stop dispatching
@@ -258,7 +258,7 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 }
 
 void CCScene::setCanTouchQuick(){
-    CCLOG("场景设置能够点击了");
+//    CCLOG("场景设置能够点击了");
     this->m_touchEnabled = true;
 }
 
