@@ -623,7 +623,7 @@ std::string CCFileUtils::fullPathForFilename(const char* pszFileName)
         for (std::vector<std::string>::iterator resOrderIter = m_searchResolutionsOrderArray.begin();
              resOrderIter != m_searchResolutionsOrderArray.end(); ++resOrderIter) {
             
-            //CCLOG("\n\nSEARCHING: %s, %s, %s", newFilename.c_str(), resOrderIter->c_str(), searchPathsIter->c_str());
+            CCLOG("\n\nSEARCHING: %s, %s, %s", newFilename.c_str(), resOrderIter->c_str(), searchPathsIter->c_str());
             
             fullpath = this->getPathForFilename(newFilename, *resOrderIter, *searchPathsIter);
             
@@ -752,6 +752,10 @@ std::string CCFileUtils::getFullPathForDirectoryAndFilename(const std::string& s
         ret = "";
     }
     return ret;
+}
+
+std::string CCFileUtils::getObbFilePath(){
+    return m_strObbPath.length() > 0 ? m_strObbPath : "";
 }
 
 std::string CCFileUtils::getCachePath()
