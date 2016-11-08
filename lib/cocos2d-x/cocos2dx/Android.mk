@@ -170,8 +170,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/external/extra
 
 LOCAL_EXPORT_LDLIBS := -lGLESv2 \
-                       -llog \
-                       -lz
+                       -llog
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
@@ -187,6 +186,8 @@ endif
 ifeq ($(CC_TIFF_ENABLED),1)
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
 endif
+
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_zlib_static
 
 # define the macro to compile through support/zip_support/ioapi.c
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API $(ANDROID_COCOS2D_BUILD_FLAGS)
@@ -211,3 +212,5 @@ endif
 ifeq ($(CC_CURL_ENABLED),1)
 $(call import-module,libcurl)
 endif
+
+$(call import-module,zlib)
