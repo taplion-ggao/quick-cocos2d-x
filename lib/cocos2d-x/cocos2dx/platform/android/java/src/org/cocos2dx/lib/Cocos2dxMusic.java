@@ -24,10 +24,6 @@ THE SOFTWARE.
 package org.cocos2dx.lib;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-
-import com.android.vending.expansion.zipfile.APKExpansionSupport;
-import com.android.vending.expansion.zipfile.ZipResourceFile;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -50,9 +46,8 @@ public class Cocos2dxMusic {
 	private float mLeftVolume;
 	private float mRightVolume;
 	private boolean mPaused;
+    private boolean mIsLoop = false;
 	private String mCurrentPath;
-	
-	private static ZipResourceFile zip_resource_file = null;
 
 	// ===========================================================
 	// Constructors
@@ -60,13 +55,7 @@ public class Cocos2dxMusic {
 
 	public Cocos2dxMusic(final Context pContext) {
 		this.mContext = pContext;
-//		try {
-//			//Change the second argument to match with your version code
-//			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, 8, 0);
-//			Log.e("Cocos2dxMusic",zip_resource_file.toString());
-//	    } catch ( IOException e ) {
-//	    	Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );
-//	    }
+
 		this.initData();
 	}
 
@@ -90,6 +79,7 @@ public class Cocos2dxMusic {
 			if (this.mBackgroundMediaPlayer != null) {
 				this.mBackgroundMediaPlayer.release();
 			}
+
 			this.mBackgroundMediaPlayer = this.createMediaplayer(pPath);
 
 			// record the path
@@ -97,40 +87,42 @@ public class Cocos2dxMusic {
 		}
 	}
 
-	public void playBackgroundMusic(final String pPath, final boolean isLoop) {
-		if (this.mCurrentPath == null) {
+	public void playBackgroundMusic(final String path, final boolean isLoop) {
+		if (mCurrentPath == null) {
 			// it is the first time to play background music or end() was called
-			this.mBackgroundMediaPlayer = this.createMediaplayer(pPath);
-			this.mCurrentPath = pPath;
+			mBackgroundMediaPlayer = createMediaplayer(path);
+			mCurrentPath = path;
 		} else {
-			if (!this.mCurrentPath.equals(pPath)) {
+			if (!mCurrentPath.equals(path)) {
 				// play new background music
 
 				// release old resource and create a new one
-				if (this.mBackgroundMediaPlayer != null) {
-					this.mBackgroundMediaPlayer.release();
+				if (mBackgroundMediaPlayer != null) {
+					mBackgroundMediaPlayer.release();
 				}
-				this.mBackgroundMediaPlayer = this.createMediaplayer(pPath);
+				mBackgroundMediaPlayer = createMediaplayer(path);
 
 				// record the path
-				this.mCurrentPath = pPath;
+				mCurrentPath = path;
 			}
 		}
 
-		if (this.mBackgroundMediaPlayer == null) {
+		if (mBackgroundMediaPlayer == null) {
 			Log.e(Cocos2dxMusic.TAG, "playBackgroundMusic: background media player is null");
 		} else {
-			// if the music is playing or paused, stop it
-			this.mBackgroundMediaPlayer.stop();
-
-			this.mBackgroundMediaPlayer.setLooping(isLoop);
-
 			try {
-				this.mBackgroundMediaPlayer.prepare();
-				this.mBackgroundMediaPlayer.seekTo(0);
-				this.mBackgroundMediaPlayer.start();
-
-				this.mPaused = false;
+				// if the music is playing or paused, stop it
+				if (mPaused) {
+					mBackgroundMediaPlayer.seekTo(0);
+					mBackgroundMediaPlayer.start();
+				} else if (mBackgroundMediaPlayer.isPlaying()) {
+					mBackgroundMediaPlayer.seekTo(0);
+				} else {
+					mBackgroundMediaPlayer.start();
+				}
+				mBackgroundMediaPlayer.setLooping(isLoop);
+				mPaused = false;
+				mIsLoop = isLoop;
 			} catch (final Exception e) {
 				Log.e(Cocos2dxMusic.TAG, "playBackgroundMusic: error state");
 			}
@@ -139,7 +131,8 @@ public class Cocos2dxMusic {
 
 	public void stopBackgroundMusic() {
 		if (this.mBackgroundMediaPlayer != null) {
-			this.mBackgroundMediaPlayer.stop();
+			mBackgroundMediaPlayer.release();
+        	mBackgroundMediaPlayer = createMediaplayer(mCurrentPath);
 
 			// should set the state, if not, the following sequence will be error
 			// play -> pause -> stop -> resume
@@ -163,17 +156,7 @@ public class Cocos2dxMusic {
 
 	public void rewindBackgroundMusic() {
 		if (this.mBackgroundMediaPlayer != null) {
-			this.mBackgroundMediaPlayer.stop();
-
-			try {
-				this.mBackgroundMediaPlayer.prepare();
-				this.mBackgroundMediaPlayer.seekTo(0);
-				this.mBackgroundMediaPlayer.start();
-
-				this.mPaused = false;
-			} catch (final Exception e) {
-				Log.e(Cocos2dxMusic.TAG, "rewindBackgroundMusic: error state");
-			}
+			playBackgroundMusic(mCurrentPath, mIsLoop);
 		}
 	}
 
@@ -240,24 +223,18 @@ public class Cocos2dxMusic {
 
 		try {
 			if (pPath.startsWith("/")) {
-				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
-				final FileInputStream fis = assetFileDescriptor.createInputStream();
+				final FileInputStream fis = new FileInputStream(pPath);
 				mediaPlayer.setDataSource(fis.getFD());
 				fis.close();
 			} else {
-				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
-				
-				mediaPlayer = new MediaPlayer();
-				mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+				final AssetFileDescriptor assetFileDescritor = this.mContext.getAssets().openFd(pPath);
+				mediaPlayer.setDataSource(assetFileDescritor.getFileDescriptor(), assetFileDescritor.getStartOffset(), assetFileDescritor.getLength());
 			}
 
 			mediaPlayer.prepare();
 
 			mediaPlayer.setVolume(this.mLeftVolume, this.mRightVolume);
-		} catch (final IOException e){
-			Log.e(Cocos2dxMusic.TAG, "ioerror: " + e.getMessage());
-		}
-		catch (final Exception e) {
+		} catch (final Exception e) {
 			mediaPlayer = null;
 			Log.e(Cocos2dxMusic.TAG, "error: " + e.getMessage(), e);
 		}

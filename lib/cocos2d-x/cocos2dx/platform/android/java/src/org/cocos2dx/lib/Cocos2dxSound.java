@@ -23,7 +23,6 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,11 +30,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Semaphore;
 
-import com.android.vending.expansion.zipfile.APKExpansionSupport;
-import com.android.vending.expansion.zipfile.ZipResourceFile;
-
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
@@ -44,6 +39,8 @@ public class Cocos2dxSound {
 	// ===========================================================
 	// Constants
 	// ===========================================================
+	public static final int MAX_SIMULTANEOUS_STREAMS_DEFAULT = 5;
+	public static final int MAX_SIMULTANEOUS_STREAMS_I9100 = 3;
 
 	private static final String TAG = "Cocos2dxSound";
 
@@ -67,8 +64,8 @@ public class Cocos2dxSound {
 	
 	private int mStreamIdSyn;
 	private Semaphore mSemaphore;
+	private int simultaneousStreams;
 
-	private static final int MAX_SIMULTANEOUS_STREAMS_DEFAULT = 5;
 	private static final float SOUND_RATE = 1.0f;
 	private static final int SOUND_PRIORITY = 1;
 	private static final int SOUND_QUALITY = 5;
@@ -76,28 +73,21 @@ public class Cocos2dxSound {
 	private final static int INVALID_SOUND_ID = -1;
 	private final static int INVALID_STREAM_ID = -1;
 
-	private static ZipResourceFile zip_resource_file = null;
-	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 
-	public Cocos2dxSound(final Context pContext) {
+	public Cocos2dxSound(final Context pContext, final int simultaneousStreams) {
 		this.mContext = pContext;
-		try {
-			//Change the second argument to match with your version code
-			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, 8, 0);
-	    } catch ( IOException e ) {
-	    	Log.e( "Cocos2dxMusic" ,  "Initializing ZipResourceFile: ", e );
-	    }
-		this.initData();
+		this.initData(simultaneousStreams);
 	}
 
-	private void initData() {
-		this.mSoundPool = new SoundPool(Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_DEFAULT, AudioManager.STREAM_MUSIC, Cocos2dxSound.SOUND_QUALITY);
+	private void initData(final int simultaneousStreams) {
+		this.mSoundPool = new SoundPool(simultaneousStreams, AudioManager.STREAM_MUSIC, Cocos2dxSound.SOUND_QUALITY);
         this.mSoundPool.setOnLoadCompleteListener(new OnLoadCompletedListener());
 		
 		this.mLeftVolume = 0.5f;
+		this.simultaneousStreams = simultaneousStreams;
 		this.mRightVolume = 0.5f;
 		
 		this.mSemaphore = new Semaphore(0, true);
@@ -200,10 +190,6 @@ public class Cocos2dxSound {
 	public void resumeEffect(final int pStreamID) {
 		this.mSoundPool.resume(pStreamID);
 	}
-	
-	public boolean isSoundPlaying(final int pStreamID){
-		return false;
-	}
 
 	public void pauseAllEffects() {
 		this.mSoundPool.autoPause();
@@ -252,7 +238,7 @@ public class Cocos2dxSound {
 		if (pVolume > 1) {
 			pVolume = 1;
 		}
-		
+
 		this.mLeftVolume = this.mRightVolume = pVolume;
 
 		// change the volume of playing sounds
@@ -276,7 +262,7 @@ public class Cocos2dxSound {
 		this.mLeftVolume = 0.5f;
 		this.mRightVolume = 0.5f;
 		
-		this.initData();
+		this.initData(this.simultaneousStreams);
 	}
 
 	public int createSoundIDFromAsset(final String pPath) {
@@ -286,8 +272,7 @@ public class Cocos2dxSound {
 			if (pPath.startsWith("/")) {
 				soundID = this.mSoundPool.load(pPath, 0);
 			} else {
-				AssetFileDescriptor assetFileDescritor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
-                soundID = mSoundPool.load( assetFileDescritor, 0 );
+				soundID = this.mSoundPool.load(this.mContext.getAssets().openFd(pPath), 0);
 			}
 		} catch (final Exception e) {
 			soundID = Cocos2dxSound.INVALID_SOUND_ID;

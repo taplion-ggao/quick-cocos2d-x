@@ -32,7 +32,6 @@ NS_CC_BEGIN
 
 // record the zip on the resource path
 static ZipFile *s_pZipFile = NULL;
-static ZipFile *obb_pZipFile = NULL;
 
 CCFileUtils* CCFileUtils::sharedFileUtils()
 {
@@ -42,13 +41,6 @@ CCFileUtils* CCFileUtils::sharedFileUtils()
         s_sharedFileUtils->init();
         std::string resourcePath = getApkPath();
         s_pZipFile = new ZipFile(resourcePath, "assets/");
-
-        std::string obbPath = getObbPathJNI();
-
-        CCLOG("obbPath is %s", obbPath.c_str());    
-        obb_pZipFile = new ZipFile(obbPath, "assets/");
-        s_sharedFileUtils->addSearchPath(obbPath.c_str());
-        
     }
     return s_sharedFileUtils;
 }
@@ -60,9 +52,6 @@ CCFileUtilsAndroid::CCFileUtilsAndroid()
 CCFileUtilsAndroid::~CCFileUtilsAndroid()
 {
     CC_SAFE_DELETE(s_pZipFile);
-    if (obb_pZipFile != NULL){
-        CC_SAFE_DELETE(obb_pZipFile);
-    }
 }
 
 bool CCFileUtilsAndroid::init()
@@ -79,24 +68,9 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
     }
 
     bool bFound = false;
-    CCLOG("isFileExist strFilePath is %s", strFilePath.c_str());    
+    
     // Check whether file exists in apk.
-    if (strFilePath.find( "Android/obb/" ) != std::string::npos)
-    {
-        std::string strPath = strFilePath;
-        std::string obbPath = getObbPathJNI();
-        std::string::size_type pos = 0u;
-        strPath.replace(pos, obbPath.length(), "");
-        strPath = "assets" + strPath;
-        CCLOG("isFileExist finding obb is %s", strPath.c_str());    
-
-        if (obb_pZipFile && obb_pZipFile->fileExists(strPath))
-        {
-            CCLOG("isFileExist obb found it  %s", strFilePath.c_str());    
-            bFound = true;
-        } 
-    }
-    else if (strFilePath[0] != '/')
+    if (strFilePath[0] != '/')
     {
         std::string strPath = strFilePath;
         if (strPath.find(m_strDefaultResRootPath) != 0)
@@ -106,7 +80,6 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
 
         if (s_pZipFile->fileExists(strPath))
         {
-            CCLOG("isFileExist apk found it   %s", strFilePath.c_str());    
             bFound = true;
         } 
     }
@@ -115,7 +88,6 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         FILE *fp = fopen(strFilePath.c_str(), "r");
         if(fp)
         {
-            CCLOG("isFileExist files found it   %s", strFilePath.c_str());    
             bFound = true;
             fclose(fp);
         }
@@ -162,28 +134,9 @@ unsigned char* CCFileUtilsAndroid::doGetFileData(const char* pszFileName, const 
     }
     
     string fullPath = fullPathForFilename(pszFileName);
-    CCLOG("fullPathForFilename fullPath is %s,%d", fullPath.c_str(),fullPath.find("Android/obb"));    
-    // 如果是获取obb文件
-    if (obb_pZipFile && fullPath.find("Android/obb") != std::string::npos){
-        
-        // std::string strPath = strFilePath;
-        std::string obbPath = getObbPathJNI();
-        std::string::size_type pos = 0u;
-        fullPath.replace(pos, obbPath.length(), "");
-        fullPath = "assets" + fullPath;
-        CCLOG("doGetFileData from obb %s ",fullPath.c_str() );
-        if (forAsync)
-        {
-            pData = obb_pZipFile->getFileData(fullPath.c_str(), pSize, obb_pZipFile->_dataThread);
-        }
-        else
-        {
-            pData = obb_pZipFile->getFileData(fullPath.c_str(), pSize);
-        }
-    }
-    else if (fullPath[0] != '/')
+    
+    if (fullPath[0] != '/')
     {
-        CCLOG("doGetFileData from apk");
         if (forAsync)
         {
             pData = s_pZipFile->getFileData(fullPath.c_str(), pSize, s_pZipFile->_dataThread);
@@ -197,7 +150,6 @@ unsigned char* CCFileUtilsAndroid::doGetFileData(const char* pszFileName, const 
     {
         do
         {
-            CCLOG("doGetFileData from files");
             // read rrom other path than user set it
 	        //CCLOG("GETTING FILE ABSOLUTE DATA: %s", pszFileName);
             FILE *fp = fopen(fullPath.c_str(), pszMode);
@@ -226,24 +178,6 @@ unsigned char* CCFileUtilsAndroid::doGetFileData(const char* pszFileName, const 
     }
     
     return pData;
-}
-
-std::string CCFileUtilsAndroid::getObbFilePath(){
-     // Fix for Nexus 10 (Android 4.2 multi-user environment)
-    // the path is retrieved through Java Context.getCacheDir() method
-    string dir("");
-    string tmp = getObbPathJNI();
-
-    if (tmp.length() > 0)
-    {
-        dir.append(tmp).append("/");
-
-        return dir;
-    }
-    else
-    {
-        return "";
-    }
 }
 
 string CCFileUtilsAndroid::getWritablePath()

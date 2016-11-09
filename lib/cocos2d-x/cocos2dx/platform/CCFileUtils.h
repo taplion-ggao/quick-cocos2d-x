@@ -222,7 +222,6 @@ public:
      */
     virtual void setSearchResolutionsOrder(const std::vector<std::string>& searchResolutionsOrder);
 
-    virtual std::string getObbFilePath();
     /**
       * Append search order of the resources.
       *
@@ -456,10 +455,6 @@ protected:
      */
     std::string m_strCachePath;
     
-    /**
-     * obb path (for debug)
-     */
-    std::string m_strObbPath;
     /**
      *  The singleton pointer of CCFileUtils.
      */

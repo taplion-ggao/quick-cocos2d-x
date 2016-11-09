@@ -23,6 +23,7 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
@@ -32,14 +33,9 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
-import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-
-import com.android.vending.expansion.zipfile.APKExpansionSupport;
-import com.google.android.vending.expansion.downloader.Helpers;
 
 public class Cocos2dxHelper {
 	// ===========================================================
@@ -74,19 +70,14 @@ public class Cocos2dxHelper {
 		Cocos2dxHelper.sPackageName = applicationInfo.packageName;
 		Cocos2dxHelper.sFileDirectory = pContext.getFilesDir().getAbsolutePath();
 		Cocos2dxHelper.nativeSetApkPath(applicationInfo.sourceDir);
-		
-	//THIS LINE IS ESSENTIAL IN ORDER TO READ FROM THE OBB FILE
-
-		
 
 		Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(pContext);
 		Cocos2dxHelper.sCocos2dMusic = new Cocos2dxMusic(pContext);
-//		int simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_DEFAULT;
-//		if (Cocos2dxHelper.getDeviceModel().indexOf("GT-I9100") != -1) {
-//				simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_I9100;
-//			}
-//		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(pContext, simultaneousStreams);
-		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(pContext);
+		int simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_DEFAULT;
+		if (Cocos2dxHelper.getDeviceModel().indexOf("GT-I9100") != -1) {
+			simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_I9100;
+		}
+		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(pContext, simultaneousStreams);
 		Cocos2dxHelper.sAssetManager = pContext.getAssets();
 		Cocos2dxBitmap.setContext(pContext);
 		Cocos2dxETCLoader.setContext(pContext);
@@ -104,7 +95,6 @@ public class Cocos2dxHelper {
 	// Methods
 	// ===========================================================
 
-
 	private static native void nativeSetApkPath(final String pApkPath);
 
 	private static native void nativeSetEditTextDialogResult(final byte[] pBytes);
@@ -118,7 +108,18 @@ public class Cocos2dxHelper {
 	}
 
 	public static String getCurrentLanguage() {
-		return Locale.getDefault().getLanguage();
+        String lan = Locale.getDefault().getLanguage();
+		if (lan.equals("zh"))
+		{
+			// added by guorui.chen
+			// check current language is simple or traditional
+			String country = Locale.getDefault().getCountry();
+			if (country.toUpperCase().equals("TW"))
+				lan += "-Hant";
+			else
+				lan += "-Hans";
+		}
+		return lan;
 	}
 	
 	public static String getDeviceModel(){
@@ -129,11 +130,6 @@ public class Cocos2dxHelper {
 		return Cocos2dxHelper.sAssetManager;
 	}
 
-	public static String getCocos2dxObbPath(){
-
-		String apkName = Helpers.getExpansionAPKFileName(sContext,true,8);
-		return Helpers.generateSaveFileName(sContext,apkName);
-	}
 	public static void enableAccelerometer() {
 		Cocos2dxHelper.sAccelerometerEnabled = true;
 		Cocos2dxHelper.sCocos2dxAccelerometer.enable();
@@ -292,6 +288,11 @@ public class Cocos2dxHelper {
 		return -1;
     }
     
+	public static boolean inDirectoryExists(final String path) {
+		File f = new File(path);
+		return f.isDirectory();
+	}
+
     // ===========================================================
  	// Functions for CCUserDefault
  	// ===========================================================
