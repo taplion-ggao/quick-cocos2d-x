@@ -50,6 +50,7 @@ public:
     bool init();
     virtual unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
     virtual std::string getWritablePath();
+    virtual std::string getObbFilePath();
     virtual bool isFileExist(const std::string& strFilePath);
     virtual bool isDirectoryExist(const std::string& strDirPath);
     virtual bool isAbsolutePath(const std::string& strPath);
