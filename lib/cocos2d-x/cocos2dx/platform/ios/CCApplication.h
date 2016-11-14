@@ -75,6 +75,7 @@ public:
     virtual TargetPlatform getTargetPlatform();
     
     virtual void onStartGameAfterAnimation();
+    virtual void getFbAccount();
 
 protected:
     static CCApplication * sm_pSharedApplication;

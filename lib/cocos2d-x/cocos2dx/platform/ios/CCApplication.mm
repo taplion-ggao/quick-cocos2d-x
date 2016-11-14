@@ -150,7 +150,10 @@ TargetPlatform CCApplication::getTargetPlatform()
     }
 }
 void CCApplication::onStartGameAfterAnimation(){
-    CCLOG("aaaaasdfasdfasdfasdfasdfasdasdfasdfasdfasdf");
+    
+}
+void CCApplication::getFbAccount(){
+    
 }
 
 NS_CC_END
