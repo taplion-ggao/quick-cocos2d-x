@@ -25,6 +25,7 @@ package org.cocos2dx.lib;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.android.vending.expansion.zipfile.APKExpansionSupport;
 import com.android.vending.expansion.zipfile.ZipResourceFile;
@@ -60,13 +61,14 @@ public class Cocos2dxMusic {
 
 	public Cocos2dxMusic(final Context pContext) {
 		this.mContext = pContext;
-//		try {
-//			//Change the second argument to match with your version code
-//			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, 8, 0);
-//			Log.e("Cocos2dxMusic",zip_resource_file.toString());
-//	    } catch ( IOException e ) {
-//	    	Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );
-//	    }
+		try {
+			//Change the second argument to match with your version code
+			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, 8, 0);
+
+			Log.e("Cocos2dxMusic",zip_resource_file.toString());
+		} catch ( IOException e ) {
+			Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );
+		}
 		this.initData();
 	}
 
@@ -132,6 +134,7 @@ public class Cocos2dxMusic {
 
 				this.mPaused = false;
 			} catch (final Exception e) {
+				e.printStackTrace();
 				Log.e(Cocos2dxMusic.TAG, "playBackgroundMusic: error state");
 			}
 		}
@@ -236,22 +239,35 @@ public class Cocos2dxMusic {
 	 * @return
 	 */
 	private MediaPlayer createMediaplayer(final String pPath) {
+		Log.i(Cocos2dxMusic.TAG, "pPath is "+pPath);
 		MediaPlayer mediaPlayer = new MediaPlayer();
 
 		try {
-			if (pPath.startsWith("/")) {
-				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
-				final FileInputStream fis = assetFileDescriptor.createInputStream();
-				mediaPlayer.setDataSource(fis.getFD());
-				fis.close();
+			if (zip_resource_file != null) {
+
+				String fileName = "obb_assets/"+ pPath;
+				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( fileName );
+				Log.i(Cocos2dxMusic.TAG, "found file from obb," + assetFileDescriptor.toString());
+				if(assetFileDescriptor!=null) {
+					Log.d(Cocos2dxMusic.TAG, pPath + ",length: "+assetFileDescriptor.getLength()); //checking it exists
+				}
+//				final InputStream is = zip_resource_file.getInputStream(fileName);
+				mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(),assetFileDescriptor.getStartOffset(),assetFileDescriptor.getDeclaredLength());
+				mediaPlayer.prepare();
+//				mediaPlayer.prepareAsync();
+//				mediaPlayer.start();
+//				is.close();
 			} else {
-				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
+				final AssetFileDescriptor assetFileDescritor = this.mContext.getAssets().openFd(pPath);
+				mediaPlayer.setDataSource(assetFileDescritor.getFileDescriptor(), assetFileDescritor.getStartOffset(), assetFileDescritor.getLength());
+				mediaPlayer.prepare();
+				// final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
 				
-				mediaPlayer = new MediaPlayer();
-				mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+				// mediaPlayer = new MediaPlayer();
+				// mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
 			}
 
-			mediaPlayer.prepare();
+
 
 			mediaPlayer.setVolume(this.mLeftVolume, this.mRightVolume);
 		} catch (final IOException e){

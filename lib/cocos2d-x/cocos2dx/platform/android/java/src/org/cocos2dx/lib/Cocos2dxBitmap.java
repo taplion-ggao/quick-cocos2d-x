@@ -112,7 +112,7 @@ public class Cocos2dxBitmap {
 
 	  pString = Cocos2dxBitmap.refactorString(pString);
 	  final Paint paint = Cocos2dxBitmap.newPaint(pFontName, pFontSize, horizontalAlignment);
-	  System.out.println("AAAASDFASDFASDF1");
+	  // System.out.println("AAAASDFASDFASDF1");
 	  /**
 	  * if the first word width less than designed width,It means no words to show
 	  */
@@ -139,7 +139,7 @@ public class Cocos2dxBitmap {
 	  float renderTextDeltaY = 0.0f;
 	  // System.out.println("AAAASDFASDFASDF3,shadow is "+ shadow);
 	  if ( shadow ) {
-		 System.out.print("print the shadow!!!!!!!!!!!!");
+		 // System.out.print("print the shadow!!!!!!!!!!!!");
 		int shadowColor = 0xff7d7d7d;
 		
 		paint.setShadowLayer(0.6f, shadowDX, shadowDY, shadowColor);

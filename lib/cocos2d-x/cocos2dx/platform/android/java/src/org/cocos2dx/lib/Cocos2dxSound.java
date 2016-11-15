@@ -286,8 +286,11 @@ public class Cocos2dxSound {
 			if (pPath.startsWith("/")) {
 				soundID = this.mSoundPool.load(pPath, 0);
 			} else {
-				AssetFileDescriptor assetFileDescritor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
-                soundID = mSoundPool.load( assetFileDescritor, 0 );
+				if (zip_resource_file != null){
+					AssetFileDescriptor assetFileDescritor = zip_resource_file.getAssetFileDescriptor( "obb_assets/" + pPath );
+					soundID = mSoundPool.load( assetFileDescritor, 0 );
+				}
+
 			}
 		} catch (final Exception e) {
 			soundID = Cocos2dxSound.INVALID_SOUND_ID;

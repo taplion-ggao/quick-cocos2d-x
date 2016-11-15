@@ -45,10 +45,11 @@ CCFileUtils* CCFileUtils::sharedFileUtils()
 
         std::string obbPath = getObbPathJNI();
 
-        CCLOG("obbPath is %s", obbPath.c_str());    
-        obb_pZipFile = new ZipFile(obbPath, "assets/");
+        
+        obb_pZipFile = new ZipFile(obbPath, "obb_assets/");
         s_sharedFileUtils->addSearchPath(obbPath.c_str());
         
+
     }
     return s_sharedFileUtils;
 }
@@ -84,10 +85,11 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
     if (strFilePath.find( "Android/obb/" ) != std::string::npos)
     {
         std::string strPath = strFilePath;
-        std::string obbPath = getObbPathJNI();
+        std::string obbPath = getObbFilePath();
         std::string::size_type pos = 0u;
         strPath.replace(pos, obbPath.length(), "");
-        strPath = "assets" + strPath;
+        strPath = "obb_assets/" + strPath;
+        CCLOG("obbPath is %s",obbPath.c_str());
         CCLOG("isFileExist finding obb is %s", strPath.c_str());    
 
         if (obb_pZipFile && obb_pZipFile->fileExists(strPath))
@@ -167,10 +169,10 @@ unsigned char* CCFileUtilsAndroid::doGetFileData(const char* pszFileName, const 
     if (obb_pZipFile && fullPath.find("Android/obb") != std::string::npos){
         
         // std::string strPath = strFilePath;
-        std::string obbPath = getObbPathJNI();
+        std::string obbPath = getObbFilePath();
         std::string::size_type pos = 0u;
         fullPath.replace(pos, obbPath.length(), "");
-        fullPath = "assets" + fullPath;
+        fullPath = "obb_assets/" + fullPath;
         CCLOG("doGetFileData from obb %s ",fullPath.c_str() );
         if (forAsync)
         {
