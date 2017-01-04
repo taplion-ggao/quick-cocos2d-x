@@ -150,17 +150,17 @@ function UIButton:setButtonSize(width, height)
 end
 
 function UIButton:setButtonEnabled(enabled)
-    print("UIButton:setButtonEnabled "..tostring(enabled))
+    -- print("UIButton:setButtonEnabled "..tostring(enabled))
     self:setTouchEnabled(enabled)
     if enabled and self.fsm_:canDoEvent("enable") then
-        print("UIButton:setButtonEnabled 1,"..tostring(enabled))
+        -- print("UIButton:setButtonEnabled 1,"..tostring(enabled))
         self.fsm_:doEventForce("enable")
-        print("UIButton:setButtonEnabled 2,"..tostring(enabled))
+        -- print("UIButton:setButtonEnabled 2,"..tostring(enabled))
         self:dispatchEvent({name = UIButton.STATE_CHANGED_EVENT, state = self.fsm_:getState()})
     elseif not enabled and self.fsm_:canDoEvent("disable") then
-        print("UIButton:setButtonEnabled 3,"..tostring(enabled))
+        -- print("UIButton:setButtonEnabled 3,"..tostring(enabled))
         self.fsm_:doEventForce("disable")
-        print("UIButton:setButtonEnabled 4,"..tostring(enabled))
+        -- print("UIButton:setButtonEnabled 4,"..tostring(enabled))
         self:dispatchEvent({name = UIButton.STATE_CHANGED_EVENT, state = self.fsm_:getState()})
     end
     return self
