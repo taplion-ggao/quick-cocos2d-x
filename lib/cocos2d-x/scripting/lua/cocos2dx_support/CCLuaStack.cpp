@@ -71,6 +71,7 @@ extern "C" {
 #include "CCShake_luabing.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    #include "LuaCocos2dAssetsManager.h"   
     #include "cocos2dx_httprequest_luabinding.h"
 #else
     #if CC_CURL_ENABLED > 0
@@ -208,6 +209,9 @@ bool CCLuaStack::init(void)
 
     // load assets manager
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    #if CC_CURL_ENABLED > 0
+        luaopen_ExtensionsAssetsManager(m_state);
+    #endif
     luaopen_cocos2dx_httprequest_luabinding(m_state);
 #else
     #if CC_CURL_ENABLED > 0

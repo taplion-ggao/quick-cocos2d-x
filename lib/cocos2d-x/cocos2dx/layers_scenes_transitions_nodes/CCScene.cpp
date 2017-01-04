@@ -116,11 +116,11 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
     if (!m_touchDispatchingEnabled) return;
     if (!this->m_touchEnabled) return;
-    if (m_touchEnabled){
-        CCLOG("ccTouchesBegan m_touchEnabled is true");
-    }else{
-        CCLOG("ccTouchesBegan m_touchEnabled is false");
-    }
+//    if (m_touchEnabled){
+//        CCLOG("ccTouchesBegan m_touchEnabled is true");
+//    }else{
+//        CCLOG("ccTouchesBegan m_touchEnabled is false");
+//    }
     
     
     // save touches id
