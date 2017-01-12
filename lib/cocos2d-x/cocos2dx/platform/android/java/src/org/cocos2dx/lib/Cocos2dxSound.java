@@ -86,7 +86,7 @@ public class Cocos2dxSound {
 		this.mContext = pContext;
 		try {
 			//Change the second argument to match with your version code
-			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, 8, 0);
+			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, R.string.obbVersion, 0);
 	    } catch ( IOException e ) {
 	    	Log.e( "Cocos2dxMusic" ,  "Initializing ZipResourceFile: ", e );
 	    }

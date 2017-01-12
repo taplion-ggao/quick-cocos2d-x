@@ -63,7 +63,7 @@ public class Cocos2dxMusic {
 		this.mContext = pContext;
 		try {
 			//Change the second argument to match with your version code
-			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, 8, 0);
+			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, R.string.obbVersion, 0);
 //			Log.e("Cocos2dxMusic",zip_resource_file.toString());
 		} catch ( IOException e ) {
 			Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );
