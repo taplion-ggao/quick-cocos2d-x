@@ -77,7 +77,7 @@ public class Cocos2dxSound {
 	private final static int INVALID_STREAM_ID = -1;
 
 	private static ZipResourceFile zip_resource_file = null;
-	
+	private String mObbPath = null;
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -86,9 +86,20 @@ public class Cocos2dxSound {
 		this.mContext = pContext;
 		try {
 			//Change the second argument to match with your version code
-			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, R.string.obbVersion, 0);
+			int obbVersion = pContext.getResources().getInteger(R.integer.obbVersion);
+			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
+
+			if (extentions !=null && extentions.length > 0){
+				mObbPath = extentions[0];
+
+			}
+			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
+			if (zip_resource_file != null){
+				Log.d(TAG,"zip resource file is not null");
+			}
+
 	    } catch ( IOException e ) {
-	    	Log.e( "Cocos2dxMusic" ,  "Initializing ZipResourceFile: ", e );
+	    	Log.e( TAG ,  "Initializing ZipResourceFile: ", e );
 	    }
 		this.initData();
 	}
@@ -281,16 +292,20 @@ public class Cocos2dxSound {
 
 	public int createSoundIDFromAsset(final String pPath) {
 		int soundID = Cocos2dxSound.INVALID_SOUND_ID;
-
+		Log.d(TAG,"createSoundIDFromAsset is " + pPath);
+		Log.d(TAG,"mObbPath is " +mObbPath);
 		try {
-			if (pPath.startsWith("/")) {
-				soundID = this.mSoundPool.load(pPath, 0);
-			} else {
-				if (zip_resource_file != null){
-					AssetFileDescriptor assetFileDescritor = zip_resource_file.getAssetFileDescriptor( "obb_assets/" + pPath );
-					soundID = mSoundPool.load( assetFileDescritor, 0 );
+			if (mObbPath != null && zip_resource_file != null) {
+				String fileName = pPath;
+				fileName = fileName.replace(mObbPath,"obb_assets");
+				Log.d(TAG,"createSoundIDFromAsset fileName is "+ fileName);
+				AssetFileDescriptor assetFileDescritor = zip_resource_file.getAssetFileDescriptor( fileName );
+				soundID = mSoundPool.load( assetFileDescritor, 0 );
+			}
+			if (soundID == 0 || soundID ==  Cocos2dxSound.INVALID_SOUND_ID){
+				if (pPath.startsWith("/")) {
+					soundID = this.mSoundPool.load(pPath, 0);
 				}
-
 			}
 		} catch (final Exception e) {
 			soundID = Cocos2dxSound.INVALID_SOUND_ID;

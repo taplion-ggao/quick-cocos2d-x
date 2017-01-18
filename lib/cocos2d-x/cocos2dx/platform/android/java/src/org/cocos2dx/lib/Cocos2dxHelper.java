@@ -131,8 +131,8 @@ public class Cocos2dxHelper {
 
 	public static String getCocos2dxObbPath(){
 
-
-		String apkName = Helpers.getExpansionAPKFileName(sContext,true,R.string.obbVersion);
+		int obbVersion = sContext.getResources().getInteger(R.integer.obbVersion);
+		String apkName = Helpers.getExpansionAPKFileName(sContext,true,obbVersion);
 		return Helpers.generateSaveFileName(sContext,apkName);
 	}
 	public static void enableAccelerometer() {

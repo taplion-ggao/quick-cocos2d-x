@@ -54,7 +54,7 @@ public class Cocos2dxMusic {
 	private String mCurrentPath;
 	
 	private static ZipResourceFile zip_resource_file = null;
-
+	private  String mObbPath;
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -63,8 +63,22 @@ public class Cocos2dxMusic {
 		this.mContext = pContext;
 		try {
 			//Change the second argument to match with your version code
-			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, R.string.obbVersion, 0);
-//			Log.e("Cocos2dxMusic",zip_resource_file.toString());
+			int obbVersion = pContext.getResources().getInteger(R.integer.obbVersion);
+			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
+
+			if (extentions !=null && extentions.length > 0){
+				mObbPath = extentions[0];
+
+			}
+
+			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
+
+			if(zip_resource_file == null){
+				Log.e(TAG,"zip_resource_file  is null");
+			}else{
+				Log.e(TAG,"zip_resource_file is not null");
+			}
+
 		} catch ( IOException e ) {
 			Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );
 		}
@@ -228,6 +242,7 @@ public class Cocos2dxMusic {
 		this.mBackgroundMediaPlayer = null;
 		this.mPaused = false;
 		this.mCurrentPath = null;
+		
 	}
 
 	/**
@@ -238,19 +253,14 @@ public class Cocos2dxMusic {
 	 * @return
 	 */
 	private MediaPlayer createMediaplayer(final String pPath) {
-		Log.i(Cocos2dxMusic.TAG, "pPath is "+pPath);
 		MediaPlayer mediaPlayer = new MediaPlayer();
-
 		try {
-			if (zip_resource_file != null) {
+			if (mObbPath != null && zip_resource_file != null) {
 
-				String fileName = "obb_assets/"+ pPath;
+				String fileName = pPath;
+				fileName = fileName.replace(mObbPath,"obb_assets");
+
 				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( fileName );
-				Log.i(Cocos2dxMusic.TAG, "found file from obb," + assetFileDescriptor.toString());
-				if(assetFileDescriptor!=null) {
-					Log.d(Cocos2dxMusic.TAG, pPath + ",length: "+assetFileDescriptor.getLength()); //checking it exists
-				}
-//				final InputStream is = zip_resource_file.getInputStream(fileName);
 				mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(),assetFileDescriptor.getStartOffset(),assetFileDescriptor.getDeclaredLength());
 				mediaPlayer.prepare();
 //				mediaPlayer.prepareAsync();
