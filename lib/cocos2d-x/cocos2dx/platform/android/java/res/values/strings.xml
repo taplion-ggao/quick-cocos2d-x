@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="obbVersion">12</string>
+    <integer name="obbVersion">36</integer>
 </resources>

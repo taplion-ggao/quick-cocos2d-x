@@ -45,7 +45,7 @@ CCFileUtils* CCFileUtils::sharedFileUtils()
 
         std::string obbPath = getObbPathJNI();
 
-        
+        s_sharedFileUtils->m_strObbPath = obbPath;
         obb_pZipFile = new ZipFile(obbPath, "obb_assets/");
         s_sharedFileUtils->addSearchPath(obbPath.c_str());
         
@@ -81,14 +81,15 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
 
     bool bFound = false;
     CCLOG("isFileExist strFilePath is %s", strFilePath.c_str());    
+    CCLOG("isFileExist m_strObbPath is %s", m_strObbPath.c_str());    
     // Check whether file exists in apk.
-    if (strFilePath.find( "Android/obb/" ) != std::string::npos)
+    if (m_strObbPath.size() != 0 && strFilePath.find( "Android/obb/" ) != std::string::npos)
     {
         std::string strPath = strFilePath;
-        std::string obbPath = getObbFilePath();
+        std::string obbPath = m_strObbPath;
         std::string::size_type pos = 0u;
         strPath.replace(pos, obbPath.length(), "");
-        strPath = "obb_assets/" + strPath;
+        strPath = "obb_assets" + strPath;
         CCLOG("obbPath is %s",obbPath.c_str());
         CCLOG("isFileExist finding obb is %s", strPath.c_str());    
 
@@ -234,7 +235,7 @@ std::string CCFileUtilsAndroid::getObbFilePath(){
      // Fix for Nexus 10 (Android 4.2 multi-user environment)
     // the path is retrieved through Java Context.getCacheDir() method
     string dir("");
-    string tmp = getObbPathJNI();
+    string tmp = m_strObbPath;
 
     if (tmp.length() > 0)
     {
