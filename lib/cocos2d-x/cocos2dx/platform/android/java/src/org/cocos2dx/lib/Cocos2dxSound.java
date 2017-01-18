@@ -35,6 +35,8 @@ import com.android.vending.expansion.zipfile.APKExpansionSupport;
 import com.android.vending.expansion.zipfile.ZipResourceFile;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -84,21 +86,22 @@ public class Cocos2dxSound {
 
 	public Cocos2dxSound(final Context pContext) {
 		this.mContext = pContext;
+		PackageManager manager = pContext.getPackageManager();
+		PackageInfo info = null;
 		try {
 			//Change the second argument to match with your version code
-			int obbVersion = pContext.getResources().getInteger(R.integer.obbVersion);
+			info = manager.getPackageInfo(pContext.getPackageName(), 0);
+			int obbVersion = info.versionCode;
 			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
-
 			if (extentions !=null && extentions.length > 0){
 				mObbPath = extentions[0];
-
 			}
 			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
-			if (zip_resource_file != null){
-				Log.d(TAG,"zip resource file is not null");
-			}
 
-	    } catch ( IOException e ) {
+
+
+
+	    } catch ( Exception e ) {
 	    	Log.e( TAG ,  "Initializing ZipResourceFile: ", e );
 	    }
 		this.initData();

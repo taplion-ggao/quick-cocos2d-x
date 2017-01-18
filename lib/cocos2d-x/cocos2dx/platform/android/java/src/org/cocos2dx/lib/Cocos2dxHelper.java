@@ -30,6 +30,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Environment;
@@ -131,9 +133,18 @@ public class Cocos2dxHelper {
 
 	public static String getCocos2dxObbPath(){
 
-		int obbVersion = sContext.getResources().getInteger(R.integer.obbVersion);
-		String apkName = Helpers.getExpansionAPKFileName(sContext,true,obbVersion);
-		return Helpers.generateSaveFileName(sContext,apkName);
+		try {
+			PackageManager manager = sContext.getPackageManager();
+			PackageInfo info = null;
+			info = manager.getPackageInfo(sContext.getPackageName(), 0);
+			int obbVersion = info.versionCode;
+
+			String apkName = Helpers.getExpansionAPKFileName(sContext, true, obbVersion);
+			return Helpers.generateSaveFileName(sContext, apkName);
+		}catch (Exception e){
+			Log.e( "Cocos2dxHeler" ,  "Initializing ZipResourceFile: ", e );
+		}
+		return "";
 	}
 	public static void enableAccelerometer() {
 		Cocos2dxHelper.sAccelerometerEnabled = true;

@@ -31,6 +31,8 @@ import com.android.vending.expansion.zipfile.APKExpansionSupport;
 import com.android.vending.expansion.zipfile.ZipResourceFile;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.util.Log;
@@ -63,23 +65,18 @@ public class Cocos2dxMusic {
 		this.mContext = pContext;
 		try {
 			//Change the second argument to match with your version code
-			int obbVersion = pContext.getResources().getInteger(R.integer.obbVersion);
-			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
 
+			PackageManager manager = pContext.getPackageManager();
+			PackageInfo info = null;
+			info = manager.getPackageInfo(pContext.getPackageName(), 0);
+			int obbVersion = info.versionCode;
+			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
 			if (extentions !=null && extentions.length > 0){
 				mObbPath = extentions[0];
-
 			}
-
 			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
 
-			if(zip_resource_file == null){
-				Log.e(TAG,"zip_resource_file  is null");
-			}else{
-				Log.e(TAG,"zip_resource_file is not null");
-			}
-
-		} catch ( IOException e ) {
+		} catch ( Exception e ) {
 			Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );
 		}
 		this.initData();
