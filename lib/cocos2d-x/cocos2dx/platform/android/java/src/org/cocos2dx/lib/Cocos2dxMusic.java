@@ -72,7 +72,7 @@ public class Cocos2dxMusic {
 			int obbVersion = info.versionCode;
 			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
 			if (extentions !=null && extentions.length > 0){
-				mObbPath = extentions[0];
+				mObbPath = extentions[0] + "/";
 			}
 			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
 
@@ -255,7 +255,7 @@ public class Cocos2dxMusic {
 			if (mObbPath != null && zip_resource_file != null) {
 
 				String fileName = pPath;
-				fileName = fileName.replace(mObbPath,"obb_assets");
+				fileName = fileName.replace(mObbPath,"");
 
 				final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( fileName );
 				mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(),assetFileDescriptor.getStartOffset(),assetFileDescriptor.getDeclaredLength());

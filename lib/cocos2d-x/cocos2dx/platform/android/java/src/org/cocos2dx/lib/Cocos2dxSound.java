@@ -94,7 +94,7 @@ public class Cocos2dxSound {
 			int obbVersion = info.versionCode;
 			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
 			if (extentions !=null && extentions.length > 0){
-				mObbPath = extentions[0];
+				mObbPath = extentions[0] + "/";
 			}
 			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
 
@@ -300,7 +300,7 @@ public class Cocos2dxSound {
 		try {
 			if (mObbPath != null && zip_resource_file != null) {
 				String fileName = pPath;
-				fileName = fileName.replace(mObbPath,"obb_assets");
+				fileName = fileName.replace(mObbPath,"");
 				Log.d(TAG,"createSoundIDFromAsset fileName is "+ fileName);
 				AssetFileDescriptor assetFileDescritor = zip_resource_file.getAssetFileDescriptor( fileName );
 				soundID = mSoundPool.load( assetFileDescritor, 0 );
