@@ -116,6 +116,7 @@ public class Cocos2dxBitmap {
 	  /**
 	  * if the first word width less than designed width,It means no words to show
 	  */
+//		Log.d("Cocos2dxBitmap","pFontName is "+pFontName + ",width is "+ pWidth + ",pString is "+ pString);
 	  if(0 != pWidth)
 	  {
 	      final int firstWordWidth = (int) Math.ceil(paint.measureText(pString, 0,1));
@@ -157,6 +158,7 @@ public class Cocos2dxBitmap {
 			renderTextDeltaY = 	bitmapPaddingY;
 		}
 	  }
+//		Log.d("Cocos2dxBitmap","textProperty.mMaxWidth is "+textProperty.mMaxWidth + ", bitmapTotalHeight is " + bitmapTotalHeight);
 	  if (0 == textProperty.mMaxWidth || 0 == bitmapTotalHeight)
 	  {
 	      Log.w("createTextBitmapShadowStroke warning:","textProperty MaxWidth is 0 or bitMapTotalHeight is 0\n");
@@ -275,7 +277,9 @@ public class Cocos2dxBitmap {
 				}
 			}
 		}
-
+		if (maxContentWidth == 0){
+			maxContentWidth = 64;
+		}
 		return new TextProperty(maxContentWidth, h, lines);
 	}
 
