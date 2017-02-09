@@ -29,6 +29,7 @@ import java.io.InputStream;
 
 import com.android.vending.expansion.zipfile.APKExpansionSupport;
 import com.android.vending.expansion.zipfile.ZipResourceFile;
+import com.google.android.vending.expansion.downloader.Helpers;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -66,15 +67,18 @@ public class Cocos2dxMusic {
 		try {
 			//Change the second argument to match with your version code
 
-			PackageManager manager = pContext.getPackageManager();
-			PackageInfo info = null;
-			info = manager.getPackageInfo(pContext.getPackageName(), 0);
-			int obbVersion = info.versionCode;
-			String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
-			if (extentions !=null && extentions.length > 0){
-				mObbPath = extentions[0] + "/";
+//			PackageManager manager = pContext.getPackageManager();
+//			PackageInfo info = null;
+//			info = manager.getPackageInfo(pContext.getPackageName(), 0);
+			int obbVersion = Helpers.obbVersion;
+			if (obbVersion !=0 && obbVersion > 0){
+				String[] extentions = APKExpansionSupport.getAPKExpansionFiles(pContext, obbVersion, 0);
+				if (extentions !=null && extentions.length > 0){
+					mObbPath = extentions[0] + "/";
+				}
+				zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
 			}
-			zip_resource_file = APKExpansionSupport.getAPKExpansionZipFile(pContext, obbVersion, 0);
+
 
 		} catch ( Exception e ) {
 			Log.e( "Cocos2dxMusic" ,  "Error initialising ZipResourceFile: ", e );

@@ -134,13 +134,16 @@ public class Cocos2dxHelper {
 	public static String getCocos2dxObbPath(){
 
 		try {
-			PackageManager manager = sContext.getPackageManager();
-			PackageInfo info = null;
-			info = manager.getPackageInfo(sContext.getPackageName(), 0);
-			int obbVersion = info.versionCode;
+//			PackageManager manager = sContext.getPackageManager();
+//			PackageInfo info = null;
+//			info = manager.getPackageInfo(sContext.getPackageName(), 0);
+//			int obbVersion = info.versionCode;
+			int obbVersion = Helpers.obbVersion;
+			if (obbVersion !=0 && obbVersion > 0){
+				String apkName = Helpers.getExpansionAPKFileName(sContext, true, obbVersion);
+				return Helpers.generateSaveFileName(sContext, apkName);
+			}
 
-			String apkName = Helpers.getExpansionAPKFileName(sContext, true, obbVersion);
-			return Helpers.generateSaveFileName(sContext, apkName);
 		}catch (Exception e){
 			Log.e( "Cocos2dxHeler" ,  "Initializing ZipResourceFile: ", e );
 		}
