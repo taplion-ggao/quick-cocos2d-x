@@ -136,7 +136,7 @@ public class Cocos2dxSound {
 
 	public int preloadEffect(final String pPath) {
 		Integer soundID = this.mPathSoundIDMap.get(pPath);
-		Log.d(TAG,"preloadEffect is " + pPath);
+//		Log.d(TAG,"preloadEffect is " + pPath);
 		if (soundID == null) {
 			soundID = this.createSoundIDFromAsset(pPath);
 			// save value just in case if file is really loaded
@@ -300,7 +300,7 @@ public class Cocos2dxSound {
 
 	public int createSoundIDFromAsset(final String pPath) {
 		int soundID = Cocos2dxSound.INVALID_SOUND_ID;
-		Log.d(TAG,"createSoundIDFromAsset is " + pPath);
+//		Log.d(TAG,"createSoundIDFromAsset is " + pPath);
 //		Log.d(TAG,"mObbPath is " +mObbPath);
 		try {
 			if (mObbPath != null && zip_resource_file != null) {
