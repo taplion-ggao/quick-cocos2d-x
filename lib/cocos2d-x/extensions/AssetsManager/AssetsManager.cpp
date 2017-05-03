@@ -166,16 +166,16 @@ void* assetsManagerDownloadAndUncompress(void *data)
     
     do
     {
-        if (self->_downloadedVersion != self->_version)
-        {
-            if (! self->downLoad()) break;
-            
-            // Record downloaded version.
-            AssetsManager::Message *msg1 = new AssetsManager::Message();
-            msg1->what = ASSETSMANAGER_MESSAGE_RECORD_DOWNLOADED_VERSION;
-            msg1->obj = self;
-            self->_schedule->sendMessage(msg1);
-        }
+//        if (self->_downloadedVersion != self->_version)
+//        {
+//            if (! self->downLoad()) break;
+//            
+//            // Record downloaded version.
+//            AssetsManager::Message *msg1 = new AssetsManager::Message();
+//            msg1->what = ASSETSMANAGER_MESSAGE_RECORD_DOWNLOADED_VERSION;
+//            msg1->obj = self;
+//            self->_schedule->sendMessage(msg1);
+//        }
         
         // Uncompress zip file.
         if (! self->uncompress())
@@ -215,10 +215,10 @@ void AssetsManager::update()
     }
     
     // Check if there is a new version.
-    if (! checkUpdate()) return;
+    //if (! checkUpdate()) return;
     
     // Is package already downloaded?
-    _downloadedVersion = CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_DOWNLOADED_VERSION);
+    //_downloadedVersion = CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_DOWNLOADED_VERSION);
     
     _tid = new pthread_t();
     pthread_create(&(*_tid), NULL, assetsManagerDownloadAndUncompress, this);
