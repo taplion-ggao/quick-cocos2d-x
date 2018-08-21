@@ -38,6 +38,10 @@
 #include <errno.h>
 #endif
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#include <ftw.h>
+#endif
+
 #include "support/zip_support/unzip.h"
 #include "script_support/CCScriptSupport.h"
 
@@ -435,6 +439,21 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
     return true;
 }
 
+namespace
+{
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+    int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+    {
+        int rv = remove(fpath);
+        
+        if (rv)
+            perror(fpath);
+        
+        return rv;
+    }
+#endif
+}
+
 bool Updater::removeDirectory(const char* path)
 {
     int succ = -1;
@@ -442,8 +461,14 @@ bool Updater::removeDirectory(const char* path)
     string command = "rm -rf ";
     // Path may include space.
     command += "\"" + string(path) + "\"";
-
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+    if (nftw(path, unlink_cb, 64, FTW_DEPTH | FTW_PHYS) == -1)
+        succ = -1;
+    else
+        succ = 0;
+#else
     succ = system(command.c_str());
+#endif
     CCLOG("command is %s ,succ is %d,", command.c_str(),succ);
 #else
     string command = "rd /s /q ";
