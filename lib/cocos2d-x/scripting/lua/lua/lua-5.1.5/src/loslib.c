@@ -19,8 +19,6 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-#include <ftw.h>
-
 static int os_pushresult (lua_State *L, int i, const char *filename) {
   int en = errno;  /* calls to Lua API may change this value */
   if (i) {
@@ -36,21 +34,8 @@ static int os_pushresult (lua_State *L, int i, const char *filename) {
 }
 
 
-int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
-{
-    int rv = remove(fpath);
-    if (rv)
-        perror(fpath);
-
-    return rv;
-}
-
 static int os_execute (lua_State *L) {
-//#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
-    lua_pushinteger(L, nftw(luaL_optstring(L, 1, NULL), unlink_cb, 64, FTW_DEPTH | FTW_PHYS));
-//#else
-//    lua_pushinteger(L, system(luaL_optstring(L, 1, NULL)));
-//#endif
+    lua_pushinteger(L, system(luaL_optstring(L, 1, NULL)));
     return 1;
 }
 
