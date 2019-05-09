@@ -383,4 +383,8 @@ public class Cocos2dxHelper {
 
 		public void runOnGLThread(final Runnable pRunnable);
 	}
+
+	public static void runOnGLThread(Runnable rannable) {
+		Cocos2dxHelper.sCocos2dxHelperListener.runOnGLThread(rannable);
+	}
 }

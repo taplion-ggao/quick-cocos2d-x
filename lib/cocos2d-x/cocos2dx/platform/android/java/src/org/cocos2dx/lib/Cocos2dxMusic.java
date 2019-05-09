@@ -23,6 +23,7 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -268,8 +269,16 @@ public class Cocos2dxMusic {
 //				mediaPlayer.start();
 //				is.close();
 			} else {
-				final AssetFileDescriptor assetFileDescritor = this.mContext.getAssets().openFd(pPath);
-				mediaPlayer.setDataSource(assetFileDescritor.getFileDescriptor(), assetFileDescritor.getStartOffset(), assetFileDescritor.getLength());
+
+				if (pPath.startsWith("/")){
+					final FileInputStream fis = new FileInputStream(pPath);
+					mediaPlayer.setDataSource(fis.getFD());
+					fis.close();
+				} else {
+					final AssetFileDescriptor assetFileDescritor = this.mContext.getAssets().openFd(pPath);
+					mediaPlayer.setDataSource(assetFileDescritor.getFileDescriptor(), assetFileDescritor.getStartOffset(), assetFileDescritor.getLength());
+				}
+
 				mediaPlayer.prepare();
 				// final AssetFileDescriptor assetFileDescriptor = zip_resource_file.getAssetFileDescriptor( "assets/" + pPath );
 				
